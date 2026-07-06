@@ -1,0 +1,576 @@
+<meta charset="utf-8">
+<title>CalSAWS Reimagined — Deployment, Architecture & Demo Guide</title>
+<style>
+:root{
+  --ground:#f4f7fa;--surface:#fff;--sunken:#eaf0f5;--ink:#16222e;--ink2:#46586a;--ink3:#6b7d8e;
+  --line:#d7e0e8;--line2:#b6c4d0;--primary:#0b5cad;--navy:#0f2e52;--tint:#e3eefa;
+  --gold:#c9920e;--gold-tint:#faf3df;--ok:#2e7d4f;--ok-tint:#e4f2ea;--warn:#a66a08;--warn-tint:#fdf3e0;
+  --crit:#c0392b;--crit-tint:#fbe9e7;--code-bg:#0f2137;--code-ink:#d5e3f2;
+  --s-cf:#2a78d6;--s-cw:#1baf7a;--s-mc:#eda100;--s-ga:#008300;--s-capi:#4a3aa7;--s-rca:#e34948;
+}
+@media (prefers-color-scheme: dark){:root{
+  --ground:#0e151d;--surface:#16212e;--sunken:#0b1118;--ink:#e6edf4;--ink2:#a8b8c7;--ink3:#7e91a3;
+  --line:#29384a;--line2:#3c4f66;--primary:#5aa2e8;--navy:#0c1f38;--tint:#17293e;
+  --gold:#e0b34a;--gold-tint:#2a2412;--ok:#58b183;--ok-tint:#12271c;--warn:#d9a04c;--warn-tint:#2a2110;
+  --crit:#e07466;--crit-tint:#301613;--code-bg:#0b1524;--code-ink:#c9d9ea;
+  --s-cf:#3987e5;--s-cw:#199e70;--s-mc:#c98500;--s-ga:#3d9b3d;--s-capi:#9085e9;--s-rca:#e66767;
+}}
+:root[data-theme="dark"]{
+  --ground:#0e151d;--surface:#16212e;--sunken:#0b1118;--ink:#e6edf4;--ink2:#a8b8c7;--ink3:#7e91a3;
+  --line:#29384a;--line2:#3c4f66;--primary:#5aa2e8;--navy:#0c1f38;--tint:#17293e;
+  --gold:#e0b34a;--gold-tint:#2a2412;--ok:#58b183;--ok-tint:#12271c;--warn:#d9a04c;--warn-tint:#2a2110;
+  --crit:#e07466;--crit-tint:#301613;--code-bg:#0b1524;--code-ink:#c9d9ea;
+  --s-cf:#3987e5;--s-cw:#199e70;--s-mc:#c98500;--s-ga:#3d9b3d;--s-capi:#9085e9;--s-rca:#e66767;
+}
+:root[data-theme="light"]{
+  --ground:#f4f7fa;--surface:#fff;--sunken:#eaf0f5;--ink:#16222e;--ink2:#46586a;--ink3:#6b7d8e;
+  --line:#d7e0e8;--line2:#b6c4d0;--primary:#0b5cad;--navy:#0f2e52;--tint:#e3eefa;
+  --gold:#c9920e;--gold-tint:#faf3df;--ok:#2e7d4f;--ok-tint:#e4f2ea;--warn:#a66a08;--warn-tint:#fdf3e0;
+  --crit:#c0392b;--crit-tint:#fbe9e7;--code-bg:#0f2137;--code-ink:#d5e3f2;
+  --s-cf:#2a78d6;--s-cw:#1baf7a;--s-mc:#eda100;--s-ga:#008300;--s-capi:#4a3aa7;--s-rca:#e34948;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 16px/1.6 "Avenir Next","Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{line-height:1.25;text-wrap:balance;margin:0}
+a{color:var(--primary)}
+.num{font-variant-numeric:tabular-nums}
+code,pre{font-family:ui-monospace,"SF Mono",Menlo,monospace}
+code{background:var(--sunken);padding:1px 6px;border-radius:5px;font-size:.88em}
+.hero{background:linear-gradient(150deg,var(--navy) 0%,#17456e 100%);color:#fff;padding:44px 24px 0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 4px}
+.hero .eyebrow{color:var(--gold)}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+.hero h1{font-size:clamp(26px,4vw,38px);font-weight:760;letter-spacing:-.015em;margin:10px 0 8px}
+.hero p{opacity:.9;max-width:44em;margin:0}
+.meta{display:flex;gap:22px;flex-wrap:wrap;margin:18px 0 26px;font-size:13.5px}
+.meta a{color:#fff}
+.meta .k{opacity:.65;display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em}
+.tabs{display:flex;gap:4px;max-width:1040px;margin:0 auto;padding:0 4px}
+.tabs button{appearance:none;border:0;cursor:pointer;font:650 15px/1 inherit;color:rgba(255,255,255,.75);background:rgba(255,255,255,.08);
+  padding:14px 22px;border-radius:12px 12px 0 0;border-bottom:none}
+.tabs button[aria-selected="true"]{background:var(--ground);color:var(--primary)}
+.tabs button:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+main{max-width:1040px;margin:0 auto;padding:34px 20px 90px}
+section[hidden]{display:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(15,46,82,.05),0 4px 14px rgba(15,46,82,.06);margin:0 0 22px}
+.card .hd{padding:14px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.card .bd{padding:18px 20px}
+.stepnum{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:750;flex:none}
+:root[data-theme="dark"] .stepnum{background:var(--tint);color:var(--primary)}
+@media (prefers-color-scheme: dark){.stepnum{background:var(--tint);color:var(--primary)}}
+.card .hd h3{font-size:17px}
+.card .hd .time{margin-left:auto;font-size:12px;color:var(--ink3);white-space:nowrap}
+pre.block{background:var(--code-bg);color:var(--code-ink);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.55;position:relative;margin:12px 0}
+pre.block .cp{position:absolute;top:8px;right:8px;font:600 11px/1 inherit;color:var(--code-ink);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:5px 9px;cursor:pointer}
+pre.block .cp:hover{background:rgba(255,255,255,.22)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+.tblwrap{overflow-x:auto}
+th{text-align:left;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:8px 12px;border-bottom:1.5px solid var(--line2);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:650;background:var(--sunken);color:var(--ink2);white-space:nowrap}
+.pill.ok{background:var(--ok-tint);color:var(--ok)}.pill.warn{background:var(--warn-tint);color:var(--warn)}
+.pill.crit{background:var(--crit-tint);color:var(--crit)}.pill.info{background:var(--tint);color:var(--primary)}
+.pill.gold{background:var(--gold-tint);color:var(--gold)}
+.callout{border-radius:10px;padding:13px 16px;font-size:14px;margin:12px 0;border-left:5px solid var(--primary);background:var(--tint)}
+.callout.warn{border-color:var(--warn);background:var(--warn-tint)}
+.callout.ok{border-color:var(--ok);background:var(--ok-tint)}
+.check{list-style:none;padding:0;margin:8px 0}
+.check li{padding:7px 0 7px 30px;position:relative;border-bottom:1px dashed var(--line)}
+.check li::before{content:"☐";position:absolute;left:4px;color:var(--primary);font-size:17px}
+.small{font-size:13.5px}.muted{color:var(--ink2)}.xs{font-size:12.5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+kbd{background:var(--sunken);border:1px solid var(--line2);border-bottom-width:2px;border-radius:6px;padding:1px 7px;font:600 12.5px ui-monospace,monospace}
+/* ---- diagrams ---- */
+.diag{margin:16px 0;overflow-x:auto}
+.diag svg{min-width:640px;width:100%;height:auto;display:block}
+.diag text{font:600 12px "Avenir Next","Segoe UI",system-ui,sans-serif;fill:var(--ink2)}
+.diag text.t{font-size:13.5px;font-weight:700;fill:var(--ink)}
+.diag text.s{font-size:10.5px;font-weight:500;fill:var(--ink3)}
+.diag text.w{fill:#fff}
+.diag .box{fill:var(--surface);stroke:var(--line2);stroke-width:1.4;rx:10}
+.diag .zone{fill:var(--sunken);stroke:var(--line);stroke-dasharray:5 4;rx:14}
+.diag .navybox{fill:var(--navy)}
+.diag .arrow{stroke:var(--ink3);stroke-width:1.8;fill:none;marker-end:url(#arr)}
+.diag .arrow.gold{stroke:var(--gold)}
+.diag .arrow.ok{stroke:var(--ok)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin-top:6px}
+.legend .sw{width:18px;height:4px;border-radius:2px;display:inline-block;vertical-align:middle;margin-right:6px}
+footer{max-width:1040px;margin:0 auto;padding:0 20px 50px;color:var(--ink3);font-size:12.5px}
+.demo-beat{counter-increment:beat}
+.golden{border-left:4px solid var(--gold)}
+.statebox{padding:6px 14px;border-radius:8px;font-weight:700;font-size:13px;display:inline-block}
+</style>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">CalSAWS Reimagined v2 · self-hosted platform</div>
+    <h1>Deployment, Architecture &amp; Demo Guide</h1>
+    <p>Next.js 16 on Vercel · Supabase Postgres with Row-Level Security · server-side EDBC rules engine.
+       Everything on this page is verified by 25 unit assertions and an 8-scenario end-to-end suite run against the live database.</p>
+    <div class="meta">
+      <span><span class="k">Repository</span><a href="https://github.com/regardo911/calsaws-reimagined">github.com/regardo911/calsaws-reimagined</a></span>
+      <span><span class="k">Database</span>Supabase · project <strong>calsaws</strong> · us-east-1</span>
+      <span><span class="k">QA status</span>✅ 25/25 unit · ✅ 8/8 end-to-end</span>
+      <span><span class="k">Built</span>2026-07-06 · one-shot AI build</span>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="deploy">🚀 Deployment</button>
+      <button role="tab" aria-selected="false" data-tab="arch">🏛️ Architecture</button>
+      <button role="tab" aria-selected="false" data-tab="demo">🎬 Demo Script</button>
+    </div>
+  </div>
+</div>
+
+<main>
+<!-- ════════════════════════════ DEPLOY TAB ════════════════════════════ -->
+<section id="tab-deploy" role="tabpanel">
+
+  <div class="callout ok"><strong>Where you're starting from.</strong> The hard parts are already done: the Supabase
+  project <code>calsaws</code> exists, both migrations are applied, and the database is seeded (4 demo accounts,
+  50-case synthetic caseload, FFY2026 rule set). Deployment is: import the repo into Vercel, paste three environment
+  variables, verify. <strong>Total time: ~10 minutes.</strong></div>
+
+  <div class="card"><div class="hd"><span class="stepnum">0</span><h3>Prerequisites</h3><span class="time">~1 min</span></div>
+    <div class="bd">
+      <ul class="check">
+        <li>A <strong>Vercel account</strong> (free Hobby tier is fine) with GitHub connected — <a href="https://vercel.com/signup">vercel.com/signup</a></li>
+        <li>Access to the private repo <code>regardo911/calsaws-reimagined</code> (you own it)</li>
+        <li>The local checkout at <code>~/claude/calsaws/platform</code> — this is where the secret values live (<code>.env.local</code>, gitignored)</li>
+      </ul>
+      <p class="small muted">Secrets are deliberately <em>not</em> printed on this page. Every step tells you exactly where to copy them from.</p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">1</span><h3>Collect the three environment values</h3><span class="time">~2 min</span></div>
+    <div class="bd">
+      <p>Open the local env file and keep it visible for step 3:</p>
+      <pre class="block"><button class="cp">Copy</button>cat ~/claude/calsaws/platform/.env.local</pre>
+      <p class="small">You'll see three lines. Alternatively, get the same values from the Supabase dashboard:
+      <a href="https://supabase.com/dashboard/project/wimwyycmhnpkfjfeqyzh/settings/api">project <strong>calsaws</strong> → Settings → API</a>.</p>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Variable</th><th>What it is</th><th>Where in the dashboard</th></tr></thead>
+        <tbody>
+          <tr><td><code>NEXT_PUBLIC_SUPABASE_URL</code></td><td><code>https://wimwyycmhnpkfjfeqyzh.supabase.co</code></td><td>Settings → API → Project URL</td></tr>
+          <tr><td><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code></td><td>Public key. Safe in the browser — every request it makes is filtered by Row-Level Security.</td><td>Settings → API → <em>anon / public</em></td></tr>
+          <tr><td><code>SUPABASE_SERVICE_ROLE_KEY</code></td><td><span class="pill crit">server-only</span> Bypasses RLS. Used by server actions for engine writes and seeding. Never referenced in client code.</td><td>Settings → API → <em>service_role</em></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">2</span><h3>Import the repo into Vercel</h3><span class="time">~2 min</span></div>
+    <div class="bd">
+      <ol style="margin:0;padding-left:20px;display:grid;gap:8px">
+        <li>Go to <a href="https://vercel.com/new">vercel.com/new</a> → <strong>Import Git Repository</strong>.</li>
+        <li>If the repo isn't listed, click <strong>Adjust GitHub App Permissions</strong> and grant access to <code>calsaws-reimagined</code> (it's private, so Vercel needs explicit permission).</li>
+        <li>Click <strong>Import</strong> next to <code>regardo911/calsaws-reimagined</code>.</li>
+        <li>Framework preset: <strong>Next.js</strong> (auto-detected). Root directory: <code>./</code>. Build command &amp; output: <em>leave defaults</em>.</li>
+        <li><strong>Stop before clicking Deploy</strong> — add the environment variables first (step 3).</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">3</span><h3>Add the environment variables</h3><span class="time">~2 min</span></div>
+    <div class="bd">
+      <p>Still on the import screen, expand <strong>Environment Variables</strong> and add each of the three, pasting values from step 1:</p>
+      <pre class="block"><button class="cp">Copy</button>NEXT_PUBLIC_SUPABASE_URL      = https://wimwyycmhnpkfjfeqyzh.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY = &lt;paste anon key&gt;
+SUPABASE_SERVICE_ROLE_KEY     = &lt;paste service_role key&gt;</pre>
+      <p class="small">Leave the environment scope at the default (<em>Production, Preview, Development</em> all checked).</p>
+      <div class="callout warn"><strong>Double-check the service key.</strong> If <code>SUPABASE_SERVICE_ROLE_KEY</code> is missing or wrong,
+      the app builds fine but seeding/engine writes fail at runtime — you'd see it immediately on the health check in step 5.</div>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">4</span><h3>Deploy</h3><span class="time">~3 min build</span></div>
+    <div class="bd">
+      <p>Click <strong>Deploy</strong>. Vercel installs, builds (Next.js 16 / Turbopack), and assigns a URL like
+      <code>https://calsaws-reimagined.vercel.app</code>.</p>
+      <p class="small muted">Every future <code>git push</code> to <code>main</code> auto-deploys. Pull requests get preview URLs automatically.</p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">5</span><h3>Verify — the post-deploy checklist</h3><span class="time">~3 min</span></div>
+    <div class="bd">
+      <p>Work through these in order; each one proves a different layer:</p>
+      <ul class="check">
+        <li><strong>Health:</strong> open <code>https://&lt;your-app&gt;.vercel.app/api/health</code> → expect
+          <code>{"ok":true, "schema_version":"1", "cases":50, "seeded":true}</code> <span class="xs muted">(proves DB connectivity + service key)</span></li>
+        <li><strong>Landing:</strong> the homepage shows live caseload stats (~50 cases, ~$ figures) <span class="xs muted">(proves server-side reads)</span></li>
+        <li><strong>Auth:</strong> Sign in as <code>worker.dana@demo.calsaws.test</code> / <code>CalSAWS-demo-2026!</code> → work queue renders with SLA countdown chips <span class="xs muted">(proves auth + staff RLS)</span></li>
+        <li><strong>Engine:</strong> open case <code>C-100001</code> → EDBC tab → <strong>Run EDBC</strong> → CalFresh <strong>$686</strong> / CalWORKs <strong>$675</strong> with the full trace <span class="xs muted">(proves the rules engine against live rule_params)</span></li>
+        <li><strong>Multi-user:</strong> in a private window, <strong>Sign up</strong> with any new email → submit an application → it appears in Dana's queue <span class="xs muted">(proves signup, RLS isolation, cross-user flow)</span></li>
+      </ul>
+      <p class="small">Optional but satisfying — run the full 8-scenario end-to-end suite against production:</p>
+      <pre class="block"><button class="cp">Copy</button>cd ~/claude/calsaws/platform
+E2E_BASE_URL=https://&lt;your-app&gt;.vercel.app npm run test:e2e</pre>
+      <p class="xs muted">Note: the suite reseeds the database first and creates throwaway <code>e2e.*</code> accounts. Reseed afterwards if you want a pristine demo state (see Operations below).</p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">⚙</span><h3>Operations reference</h3></div>
+    <div class="bd">
+      <div class="tblwrap"><table>
+        <thead><tr><th>Task</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td>Reset demo data (keeps accounts)</td><td>Sign in as <code>admin.chris@…</code> → Rules &amp; Config → <strong>♻️ Reset demo data</strong> — or locally: <code>npm run db:seed</code></td></tr>
+          <tr><td>Run unit tests</td><td><code>npm test</code> — 25 golden-household engine assertions</td></tr>
+          <tr><td>Run e2e locally</td><td><code>npm run test:e2e</code> — boots <code>next dev</code> on :3100, reseeds, runs 8 scenarios</td></tr>
+          <tr><td>Change eligibility rules</td><td>Admin → Rules &amp; Config (writes <code>rule_params</code>; affects every user instantly, no deploy)</td></tr>
+          <tr><td>Apply migrations to a fresh project</td><td>Run <code>supabase/migrations/0001_schema.sql</code> then <code>0002_rls.sql</code> in the SQL editor, then <code>npm run db:seed</code></td></tr>
+          <tr><td>DB password / connection</td><td><code>platform/.dbpass.local</code> (gitignored) · pooler host <code>aws-0-us-east-1.pooler.supabase.com</code> (session :5432, transaction :6543)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn"><strong>Security hygiene:</strong> the <code>sbp_…</code> personal access token used to provision the project
+      should be revoked at <a href="https://supabase.com/dashboard/account/tokens">Account → Access Tokens</a> — the deployed app never uses it.
+      The service-role key lives only in Vercel env vars and <code>.env.local</code>.</div>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">🩺</span><h3>Troubleshooting</h3></div>
+    <div class="bd"><div class="tblwrap"><table>
+      <thead><tr><th>Symptom</th><th>Cause → fix</th></tr></thead>
+      <tbody>
+        <tr><td><code>/api/health</code> returns <code>ok:false</code></td><td>Bad/missing <code>SUPABASE_SERVICE_ROLE_KEY</code> in Vercel → re-paste, redeploy.</td></tr>
+        <tr><td>Login says “Invalid login credentials”</td><td>Demo accounts exist only after seeding → <code>npm run db:seed</code> locally (idempotent, safe).</td></tr>
+        <tr><td>Landing stats all zero</td><td>Database empty (migrations applied but not seeded) → <code>npm run db:seed</code>.</td></tr>
+        <tr><td>CLI can’t connect: <code>tenant/user not found</code></td><td>Wrong pooler cluster — this project is <code>aws-0-us-east-1</code>, not <code>aws-1</code>.</td></tr>
+        <tr><td>Vercel build fails on env</td><td>Env vars must exist for the <em>build</em> too — check all three are set for Production &amp; Preview.</td></tr>
+      </tbody>
+    </table></div></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ ARCHITECTURE TAB ════════════════════════════ -->
+<section id="tab-arch" role="tabpanel" hidden>
+
+  <div class="card"><div class="hd"><h3>System topology</h3><span class="time">who talks to what, with which key</span></div>
+    <div class="bd">
+      <div class="diag"><svg viewBox="0 0 960 430" role="img" aria-label="System topology diagram">
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="context-stroke"/></marker></defs>
+        <!-- zones -->
+        <rect class="zone" x="10" y="20" width="200" height="390" rx="14"/>
+        <text class="t" x="30" y="48">Browsers</text><text class="s" x="30" y="64">any device · real sessions</text>
+        <rect class="zone" x="250" y="20" width="330" height="390" rx="14"/>
+        <text class="t" x="270" y="48">Vercel · Next.js 16</text><text class="s" x="270" y="64">serverless, auto-deploy from main</text>
+        <rect class="zone" x="620" y="20" width="330" height="390" rx="14"/>
+        <text class="t" x="640" y="48">Supabase · us-east-1</text><text class="s" x="640" y="64">project calsaws (dedicated)</text>
+        <!-- browser roles -->
+        <rect class="box" x="28" y="86" width="164" height="46" rx="10"/><text class="t" x="44" y="106">🙋 Applicant</text><text class="s" x="44" y="122">self-signup works</text>
+        <rect class="box" x="28" y="146" width="164" height="46" rx="10"/><text class="t" x="44" y="166">🗂️ Worker</text><text class="s" x="44" y="182">Dana · 19LS01220A</text>
+        <rect class="box" x="28" y="206" width="164" height="46" rx="10"/><text class="t" x="44" y="226">✅ Supervisor</text><text class="s" x="44" y="242">authorizes grants</text>
+        <rect class="box" x="28" y="266" width="164" height="46" rx="10"/><text class="t" x="44" y="286">⚙️ Admin</text><text class="s" x="44" y="302">edits live rules</text>
+        <!-- vercel internals -->
+        <rect class="box" x="268" y="86" width="294" height="52" rx="10"/><text class="t" x="284" y="108">proxy.ts</text><text class="s" x="284" y="124">session refresh · role gates (/worker, /admin…)</text>
+        <rect class="box" x="268" y="152" width="294" height="52" rx="10"/><text class="t" x="284" y="174">Server Components</text><text class="s" x="284" y="190">RLS-scoped reads as the signed-in user</text>
+        <rect class="box navybox" x="268" y="218" width="294" height="64" rx="10"/><text class="t w" x="284" y="242">Server Actions + EDBC Engine</text><text class="s" x="284" y="258" fill="rgba(255,255,255,.75)">runEDBC() · pure TS · full traces</text><text class="s" x="284" y="272" fill="rgba(255,255,255,.75)">client never computes a determination</text>
+        <rect class="box" x="268" y="296" width="294" height="46" rx="10"/><text class="t" x="284" y="316">/api/health · /reports/csv</text><text class="s" x="284" y="332">route handlers</text>
+        <!-- supabase internals -->
+        <rect class="box" x="638" y="86" width="294" height="52" rx="10"/><text class="t" x="654" y="108">Auth</text><text class="s" x="654" y="124">email+password · role in app_metadata (server-set)</text>
+        <rect class="box" x="638" y="152" width="294" height="52" rx="10"/><text class="t" x="654" y="174">PostgREST + RLS</text><text class="s" x="654" y="190">every anon-key query row-filtered by policy</text>
+        <rect class="box navybox" x="638" y="218" width="294" height="64" rx="10"/><text class="t w" x="654" y="242">Postgres 17 · 15 tables</text><text class="s" x="654" y="258" fill="rgba(255,255,255,.75)">SECURITY DEFINER functions: accept_edbc_run,</text><text class="s" x="654" y="272" fill="rgba(255,255,255,.75)">authorize_case, submit_application (atomic)</text>
+        <rect class="box" x="638" y="296" width="294" height="46" rx="10"/><text class="t" x="654" y="316">rule_params</text><text class="s" x="654" y="332">live policy — admin edits hit every user, no deploy</text>
+        <!-- arrows -->
+        <path class="arrow" d="M192 155 H 260"/>
+        <path class="arrow gold" d="M562 112 H 630"/>
+        <path class="arrow" d="M562 178 H 630"/>
+        <path class="arrow ok" d="M562 250 H 630"/>
+        <text class="s" x="572" y="100">anon key + JWT</text>
+        <text class="s" x="572" y="170" dy="-4">RLS reads</text>
+        <text class="s" x="568" y="244" dy="-4">service key / RPC</text>
+        <text class="s" x="196" y="148">HTTPS</text>
+      </svg></div>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--gold)"></span>auth flow (anon key)</span>
+        <span><span class="sw" style="background:var(--ink3)"></span>RLS-scoped reads (user JWT)</span>
+        <span><span class="sw" style="background:var(--ok)"></span>engine writes + atomic RPCs (server-only)</span>
+      </div>
+      <p class="small muted" style="margin-top:10px">Two keys, two trust levels: the browser only ever holds the <strong>anon key</strong>, so every direct query is
+      row-filtered by RLS. The <strong>service-role key</strong> exists only inside server actions. The atomic workflow RPCs are called with the
+      <em>user's</em> JWT, so <code>auth.uid()</code> inside the database identifies the true actor — authorization is enforced in Postgres even if the app layer were bypassed.</p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>The case lifecycle</h3><span class="time">state machine + what each transition emits</span></div>
+    <div class="bd">
+      <div class="diag"><svg viewBox="0 0 960 300" role="img" aria-label="Case lifecycle state machine">
+        <!-- states -->
+        <rect class="box" x="20"  y="110" width="130" height="52" rx="26" style="stroke:var(--s-cf)"/><text class="t" x="46" y="141">pending</text>
+        <rect class="box" x="205" y="20"  width="170" height="52" rx="26" style="stroke:var(--warn)"/><text class="t" x="228" y="45">yellow_banner</text><text class="s" x="228" y="60">EDBC blocked</text>
+        <rect class="box" x="205" y="200" width="170" height="52" rx="10"/><text class="t" x="228" y="225">EDBC run</text><text class="s" x="228" y="240">engine + trace persisted</text>
+        <rect class="box" x="440" y="200" width="150" height="52" rx="10"/><text class="t" x="462" y="225">accepted</text><text class="s" x="462" y="240">by worker</text>
+        <rect class="box" x="640" y="110" width="190" height="52" rx="26" style="stroke:var(--gold)"/><text class="t" x="660" y="135">pending_authorization</text><text class="s" x="660" y="150">CalWORKs grants only</text>
+        <rect class="box" x="660" y="220" width="130" height="48" rx="24" style="stroke:var(--ok)"/><text class="t" x="690" y="248" style="fill:var(--ok)">approved</text>
+        <rect class="box" x="820" y="220" width="120" height="48" rx="24" style="stroke:var(--crit)"/><text class="t" x="848" y="248" style="fill:var(--crit)">denied</text>
+        <!-- arrows -->
+        <path class="arrow" d="M100 110 C 130 60, 160 46, 197 46"/><text class="s" x="96" y="70">IEVS mismatch ≥ $100/mo</text>
+        <path class="arrow" d="M290 80 C 290 130, 290 160, 290 192"/><text class="s" x="298" y="150">worker resolves (journaled)</text>
+        <path class="arrow" d="M150 152 C 180 190, 190 210, 197 220"/><text class="s" x="118" y="185">Run EDBC</text>
+        <path class="arrow" d="M375 226 H 432"/>
+        <path class="arrow gold" d="M590 210 C 620 180, 630 160, 632 150"/><text class="s" x="560" y="176">CW eligible</text>
+        <path class="arrow ok" d="M735 162 V 212"/><text class="s" x="742" y="192">supervisor authorizes</text>
+        <path class="arrow ok" d="M590 236 C 620 240, 635 242, 652 242"/><text class="s" x="596" y="262">no CW → finalize</text>
+        <path class="arrow" d="M590 218 C 700 130, 800 170, 872 212" style="stroke:var(--crit)"/><text class="s" x="810" y="196">all ineligible</text>
+      </svg></div>
+      <div class="callout"><strong>The atomic step.</strong> <code>_finalize_run()</code> is one SQL transaction that writes the
+      <strong>NOAs</strong> (per program, plain-language reasons), the <strong>EBT issuances</strong> (eligible + amount &gt; 0),
+      flips the <strong>case status</strong>, <strong>closes open tasks</strong>, and appends the <strong>journal entry</strong>.
+      A half-issued benefit is impossible — either everything commits or nothing does.</div>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>Data model</h3><span class="time">15 tables · cases as the hub</span></div>
+    <div class="bd">
+      <div class="diag"><svg viewBox="0 0 960 330" role="img" aria-label="Data model diagram">
+        <!-- hub -->
+        <rect class="box navybox" x="390" y="120" width="180" height="86" rx="12"/>
+        <text class="t w" x="412" y="148">cases</text>
+        <text class="s" x="412" y="166" fill="rgba(255,255,255,.75)">case_number · status</text>
+        <text class="s" x="412" y="180" fill="rgba(255,255,255,.75)">programs[] · expedited</text>
+        <text class="s" x="412" y="194" fill="rgba(255,255,255,.75)">applicant_profile_id → RLS</text>
+        <!-- left: snapshot -->
+        <rect class="box" x="30" y="30" width="180" height="40" rx="9"/><text class="t" x="46" y="55">persons</text>
+        <rect class="box" x="30" y="80" width="180" height="40" rx="9"/><text class="t" x="46" y="105">income_records</text>
+        <rect class="box" x="30" y="130" width="180" height="40" rx="9"/><text class="t" x="46" y="155">resource_records</text>
+        <rect class="box" x="30" y="180" width="180" height="40" rx="9"/><text class="t" x="46" y="205">expense_records</text>
+        <rect class="box" x="30" y="230" width="180" height="40" rx="9" style="stroke:var(--warn)"/><text class="t" x="46" y="249">data_matches</text><text class="s" x="46" y="263">IEVS/MEDS/SSA/SAVE (sim)</text>
+        <text class="s" x="52" y="300">— the “case snapshot” the engine reads —</text>
+        <!-- right: outcomes -->
+        <rect class="box" x="740" y="24" width="190" height="46" rx="9" style="stroke:var(--s-cf)"/><text class="t" x="756" y="44">edbc_runs → edbc_results</text><text class="s" x="756" y="60">reasons·trace·members = jsonb</text>
+        <rect class="box" x="740" y="82" width="190" height="40" rx="9"/><text class="t" x="756" y="107">notices (NOAs)</text>
+        <rect class="box" x="740" y="132" width="190" height="40" rx="9" style="stroke:var(--ok)"/><text class="t" x="756" y="157">issuances (EBT)</text>
+        <rect class="box" x="740" y="182" width="190" height="40" rx="9"/><text class="t" x="756" y="207">tasks (queue · SLA)</text>
+        <rect class="box" x="740" y="232" width="190" height="40" rx="9"/><text class="t" x="756" y="257">journal_entries</text>
+        <!-- top/bottom -->
+        <rect class="box" x="400" y="24" width="160" height="44" rx="9"/><text class="t" x="416" y="43">profiles</text><text class="s" x="416" y="59">role · county · worker_id</text>
+        <rect class="box" x="330" y="252" width="140" height="44" rx="9" style="stroke:var(--gold)"/><text class="t" x="346" y="271">rule_params</text><text class="s" x="346" y="287">live policy values</text>
+        <rect class="box" x="490" y="252" width="140" height="44" rx="9"/><text class="t" x="506" y="271">app_meta</text><text class="s" x="506" y="287">schema_version</text>
+        <!-- arrows -->
+        <path class="arrow" d="M210 50 C 300 60, 340 100, 384 130"/>
+        <path class="arrow" d="M210 100 C 300 105, 340 120, 384 140"/>
+        <path class="arrow" d="M210 150 C 300 152, 330 155, 384 158"/>
+        <path class="arrow" d="M210 200 C 300 195, 340 180, 384 168"/>
+        <path class="arrow" d="M210 250 C 300 240, 340 205, 384 182"/>
+        <path class="arrow" d="M570 140 C 640 100, 680 60, 732 48"/>
+        <path class="arrow" d="M570 152 C 640 130, 680 110, 732 102"/>
+        <path class="arrow ok" d="M570 164 C 640 158, 680 152, 732 152"/>
+        <path class="arrow" d="M570 176 C 640 185, 680 195, 732 200"/>
+        <path class="arrow" d="M570 188 C 640 215, 680 240, 732 250"/>
+        <path class="arrow" d="M480 68 V 112"/>
+        <path class="arrow gold" d="M420 252 C 430 230, 440 220, 450 208"/>
+      </svg></div>
+      <p class="small muted">Left side is the <strong>input snapshot</strong> the engine consumes; right side is everything a determination
+      <strong>emits</strong>. Traces are stored as <code>jsonb</code> on <code>edbc_results</code>, so any past determination can be re-explained,
+      audited, or fed to the Copilot verbatim.</p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>Row-Level Security matrix</h3><span class="time">enforced in Postgres, tested in CI</span></div>
+    <div class="bd">
+      <div class="tblwrap"><table>
+        <thead><tr><th>Surface</th><th>Applicant</th><th>Worker</th><th>Supervisor</th><th>Admin</th></tr></thead>
+        <tbody>
+          <tr><td>Own case graph (cases → persons/income/notices/issuances/journal)</td><td><span class="pill ok">read</span></td><td><span class="pill ok">read/write</span></td><td><span class="pill ok">read/write</span></td><td><span class="pill ok">read/write</span></td></tr>
+          <tr><td><em>Other people's</em> cases</td><td><span class="pill crit">zero rows</span></td><td><span class="pill ok">statewide</span></td><td><span class="pill ok">statewide</span></td><td><span class="pill ok">statewide</span></td></tr>
+          <tr><td>tasks (queue)</td><td><span class="pill crit">none</span></td><td><span class="pill ok">read/write</span></td><td><span class="pill ok">read/write</span></td><td><span class="pill ok">read/write</span></td></tr>
+          <tr><td>Authorize CalWORKs grants (<code>authorize_case</code>)</td><td><span class="pill crit">refused</span></td><td><span class="pill crit">refused</span></td><td><span class="pill ok">yes</span></td><td><span class="pill ok">yes</span></td></tr>
+          <tr><td>rule_params (eligibility policy)</td><td><span class="pill crit">none</span></td><td><span class="pill info">read</span></td><td><span class="pill info">read</span></td><td><span class="pill gold">read/write</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted" style="margin-top:10px">Role escalation is impossible from the client: roles live in JWT
+      <code>app_metadata</code>, writable only with the service key. Self-signup always lands as <em>applicant</em>.
+      e2e scenario 4 proves the crit cells: an applicant session selecting another applicant's cases gets <strong>zero rows</strong>, not an error.</p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>The EDBC engine</h3><span class="time">six programs · FFY2026-verified · fully traced</span></div>
+    <div class="bd">
+      <div class="grid2">
+        <div>
+          <p class="small">Pure TypeScript (<code>src/lib/engine.ts</code>): same snapshot + same params ⇒ same result, byte for byte.
+          Rules are read from <code>rule_params</code> at every run, so policy is data, not code. Each program emits a step-by-step
+          trace — the tests pin exact dollar amounts:</p>
+          <div class="tblwrap"><table>
+            <thead><tr><th>Program</th><th>Structure</th><th>Golden check</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill" style="color:var(--s-cf)">● CalFresh</span></td><td>200%/100% FPL tests, 20% earned + standard + shelter deductions, allotment − 30% net</td><td class="num">Maria → <strong>$686</strong></td></tr>
+              <tr><td><span class="pill" style="color:var(--s-cw)">● CalWORKs</span></td><td>MBSAC applicant test, $600+50% disregards, MAP − countable</td><td class="num">Maria → <strong>$675</strong></td></tr>
+              <tr><td><span class="pill" style="color:var(--s-mc)">● Medi-Cal</span></td><td>per-person MAGI tiers: 138 / 266 / 213% FPL</td><td>children-only cases proven</td></tr>
+              <tr><td><span class="pill" style="color:var(--s-ga)">● GA/GR</span></td><td>LA GR standard, $100 cash limit</td><td class="num">James → <strong>$221</strong></td></tr>
+              <tr><td><span class="pill" style="color:var(--s-capi)">● CAPI</span></td><td>SSI methodology, 2026 standard $1,233.94</td><td class="num">Robert → <strong>$453</strong></td></tr>
+              <tr><td><span class="pill" style="color:var(--s-rca)">● RCA</span></td><td>4-month window (2025-05-05 policy change)</td><td>window flip tested</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div>
+          <p class="small" style="margin-bottom:8px"><strong>A real trace row, as stored and rendered:</strong></p>
+          <pre class="block" style="font-size:12px"><button class="cp">Copy</button>{ "step": "D5",
+  "label": "Excess shelter deduction",
+  "detail": "Shelter $1400 rent + $663 SUA = $2063;
+             minus half of adjusted income $535.5;
+             capped at $744",
+  "value": "−$744",
+  "pass": null }</pre>
+          <p class="small muted">Rule values verified during the research phase: CalFresh FFY2026 (CDSS ACIN I-46-25),
+          MBSAC eff. 7/2025, MAP Region 1 eff. 10/2024, CAPI 2026 standards, RCA 4-month window.
+          Only the external interfaces (IEVS/MEDS/SSA/SAVE) are simulated — everything else is live computation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>Repository layout</h3></div>
+    <div class="bd"><pre class="block"><button class="cp">Copy</button>calsaws-reimagined/
+├─ supabase/migrations/     0001_schema.sql · 0002_rls.sql (schema, RLS, atomic fns)
+├─ src/lib/
+│   ├─ engine.ts            EDBC engine — pure, traced, node-testable
+│   ├─ params.ts            rule defaults + admin registry (seeds rule_params)
+│   ├─ seed-core.ts         deterministic caseload: 5 golden households + 45 generated
+│   └─ supabase/server.ts   cookie client (RLS) + admin client (service role)
+├─ src/proxy.ts             Next 16 proxy — session refresh + role gates
+├─ src/app/
+│   ├─ portal/              applicant: apply wizard · prescreener · my benefits · NOAs
+│   └─ (staff)/             worker queue · case tabs + EDBC · supervisor · admin · reports
+├─ tests/engine.test.ts     25 golden assertions (Vitest)
+├─ e2e/scenarios.spec.ts    8 end-to-end scenarios (Playwright)
+└─ DEPLOY.md · README.md</pre></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ DEMO TAB ════════════════════════════ -->
+<section id="tab-demo" role="tabpanel" hidden>
+
+  <div class="callout"><strong>Format:</strong> ~12 minutes, fully hands-on — you drive, they watch, then <em>they</em> drive.
+  Have two browser windows side by side: a <strong>normal window</strong> (staff) and a <strong>private/incognito window</strong> (the applicant).
+  All demo logins use password <code>CalSAWS-demo-2026!</code> and are one-click-fillable on the login page.</div>
+
+  <div class="card"><div class="hd"><span class="stepnum">1</span><h3>Cold open — the stakes</h3><span class="time">1 min</span></div>
+    <div class="bd">
+      <p><strong>Do:</strong> open the app's landing page. Point at the live counters, then the “Then vs. now” strip.</p>
+      <p><strong>Say:</strong> <em>“California spent <strong>$1.025 billion</strong> building four welfare systems, then ~$178M a year running three of them in parallel. Training one eligibility worker takes 28 weeks. What you're looking at was built by AI in an afternoon — and every number on this screen is coming out of a live Postgres database right now.”</em></p>
+    </div>
+  </div>
+
+  <div class="card golden"><div class="hd"><span class="stepnum">2</span><h3>The kill shot — a real account, created live</h3><span class="time">3 min</span></div>
+    <div class="bd">
+      <p><strong>Do (incognito window):</strong></p>
+      <ol style="padding-left:20px;display:grid;gap:6px;margin:0">
+        <li><strong>Apply for benefits</strong> → household: yourself + two kids (ages 6 and 3)</li>
+        <li>Income <strong>$1,600</strong>/mo · savings $250 → rent <strong>$1,400</strong>, utilities $180</li>
+        <li>Programs: <strong>CalFresh + CalWORKs + Medi-Cal</strong> → Submit</li>
+        <li>It asks you to create an account — use <em>any email you invent on the spot</em>. Ask the room for one.</li>
+        <li>Submit → a real case number appears: <code>C-2xxxxx</code></li>
+      </ol>
+      <p style="margin-top:10px"><strong>Say:</strong> <em>“That account did not exist ninety seconds ago. No pre-baked demo user, no script. It's a row in the auth table with row-level security around everything it owns.”</em></p>
+      <div class="callout xs">💡 If someone's skeptical, hand them the keyboard and let them invent the household. The engine doesn't care — that's the point.</div>
+    </div>
+  </div>
+
+  <div class="card golden"><div class="hd"><span class="stepnum">3</span><h3>The worker — explainable EDBC</h3><span class="time">3 min</span></div>
+    <div class="bd">
+      <p><strong>Do (normal window):</strong> sign in as <code>worker.dana@demo.calsaws.test</code>.</p>
+      <ol style="padding-left:20px;display:grid;gap:6px;margin:0">
+        <li>The case from step 2 is <strong>already in the queue</strong>, with an SLA countdown chip. Open it.</li>
+        <li>Walk the tabs quickly: Household, Income, <strong>Data Matches</strong> (“this is IEVS — the wage cross-check every county runs”).</li>
+        <li><strong>EDBC tab → Run EDBC.</strong> Results in about a second:
+          <div style="margin:8px 0"><span class="pill ok">CalFresh — Eligible · <strong>$686/mo</strong> · aid code 09</span>
+          <span class="pill ok">CalWORKs — Eligible · <strong>$675/mo</strong> · aid code 30</span>
+          <span class="pill ok">Medi-Cal — Eligible · M1</span></div></li>
+        <li>Open <strong>“How we got here”</strong> — the full trace: gross test vs $4,442 (200% FPL), 20% earned deduction, $209 standard deduction, shelter capped at $744, net vs $2,221, allotment math.</li>
+        <li><strong>Accept &amp; Save</strong> → toast: <em>routed to supervisor</em>.</li>
+      </ol>
+      <p style="margin-top:10px"><strong>Say:</strong> <em>“The legacy EDBC is an overnight batch and a black box. This is the same determination — FFY2026 rules, read live from the database — in one second, with every step of the math on screen. And CalWORKs grants still require supervisor authorization, exactly like the county-configurable controls you have today.”</em></p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">4</span><h3>The Yellow Banner — integrity they'll recognize</h3><span class="time">2 min</span></div>
+    <div class="bd">
+      <p><strong>Do:</strong> Person Search → “Brooks” → open <code>C-100005</code>.</p>
+      <p>The banner reads the <em>verbatim</em> production text: <strong>“Full Case Review is required before EDBC is run and authorized.”</strong>
+      IEVS says <strong>$2,400</strong>; the case says <strong>$1,600</strong>. Try Run EDBC — <strong>blocked, server-side</strong>.
+      Click <strong>Review &amp; resolve</strong> → take the employer-verified amount → the resolution is journaled → run EDBC again: it computes on the corrected income.</p>
+      <p><strong>Say:</strong> <em>“Same integrity control you run today — minus the sticky notes and the phone tag.”</em></p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">5</span><h3>Supervisor authorize + live policy change</h3><span class="time">2 min</span></div>
+    <div class="bd">
+      <p><strong>Do:</strong> switch to <code>supervisor.angela@…</code> → Authorizations → your step-2 case → <strong>Authorize</strong>.
+      <span class="small muted">(One SQL transaction just wrote the NOAs, issued the EBT benefits, closed the tasks, and journaled it.)</span></p>
+      <p><strong>Then</strong> switch to <code>admin.chris@…</code> → Rules &amp; Config → set <strong>“GA/GR monthly grant” 221 → 400</strong> → Save.
+      Back as Dana: open <code>C-100002</code> (James Carter) → EDBC → deselect all but General Relief → Run → <strong>$400</strong>, with the new standard right there in the trace.</p>
+      <p><strong>Say:</strong> <em>“That was a statewide policy change with zero deployment. In the legacy world that's a change request, a release train, and a quarter.”</em> (Set it back to 221.)</p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><span class="stepnum">6</span><h3>Close the loop + reports</h3><span class="time">2 min</span></div>
+    <div class="bd">
+      <p><strong>Do (incognito window):</strong> refresh <strong>My benefits</strong> — status <span class="pill ok">Active</span>, a plain-language
+      <strong>approval NOA</strong> per program, and <strong>EBT issuance rows</strong>. Open a notice: amount, the “why” in plain English, hearing rights.</p>
+      <p><strong>Then (staff window):</strong> Reports → the dashboard already includes the case you just approved. Show <strong>Timeliness</strong> (% within SLA
+      vs the 90% target), then the statutory tabs — <strong>CF 296</strong>, <strong>CA 237 CW</strong>, <strong>CA 255</strong> — and export the CSV.
+      Finish with ✨ <strong>Copilot</strong>: ask <em>“Explain case C-100002.”</em></p>
+      <p><strong>The closer:</strong> <em>“Real accounts, real Postgres, row-level security, atomic benefit issuance, and an
+      8-scenario end-to-end test suite — including one that proves applicants can't see each other's cases. This is the art of the possible.
+      Now imagine this team pointed at the real thing.”</em></p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>Cheat sheet</h3></div>
+    <div class="bd"><div class="grid2">
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Logins · password <code>CalSAWS-demo-2026!</code></p>
+        <div class="tblwrap"><table>
+          <tbody>
+            <tr><td>🙋 Applicant</td><td><code>applicant.maria@demo.calsaws.test</code></td></tr>
+            <tr><td>🗂️ Worker</td><td><code>worker.dana@demo.calsaws.test</code></td></tr>
+            <tr><td>✅ Supervisor</td><td><code>supervisor.angela@demo.calsaws.test</code></td></tr>
+            <tr><td>⚙️ Admin</td><td><code>admin.chris@demo.calsaws.test</code></td></tr>
+          </tbody>
+        </table></div>
+        <p class="xs muted" style="margin-top:8px">Reset between demos: Admin → Rules &amp; Config → ♻️ Reset demo data (keeps all accounts).</p>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Golden cases — expected results</p>
+        <div class="tblwrap"><table>
+          <tbody>
+            <tr><td><code>C-100001</code> Maria, 3-person, $1,600</td><td class="num">CF <strong>$686</strong> · CW <strong>$675</strong> · MC ✓</td></tr>
+            <tr><td><code>C-100002</code> James, homeless, $0</td><td class="num">⚡ Expedited · CF <strong>$298</strong> · GR <strong>$221</strong></td></tr>
+            <tr><td><code>C-100003</code> Nguyen, 4-person, $5,800</td><td>CF ✕ · CW ✕ · MC children only</td></tr>
+            <tr><td><code>C-100004</code> Robert, 68, non-citizen</td><td class="num">CAPI <strong>$453</strong> · MC aged ✓</td></tr>
+            <tr><td><code>C-100005</code> Tanya — IEVS mismatch</td><td><span class="pill warn">Yellow Banner</span> resolve → re-run</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  CalSAWS Reimagined · synthetic data only · rules FFY2026-verified but illustrative of structure ·
+  built &amp; QA'd 2026-07-06 · repo: <a href="https://github.com/regardo911/calsaws-reimagined">regardo911/calsaws-reimagined</a>
+</footer>
+
+<script>
+// tabs
+const tabs = document.querySelectorAll('.tabs button');
+const panels = { deploy: document.getElementById('tab-deploy'), arch: document.getElementById('tab-arch'), demo: document.getElementById('tab-demo') };
+tabs.forEach(b => b.addEventListener('click', () => {
+  tabs.forEach(x => x.setAttribute('aria-selected', String(x === b)));
+  Object.entries(panels).forEach(([k, p]) => p.hidden = k !== b.dataset.tab);
+  window.scrollTo({ top: 0 });
+}));
+// copy buttons
+document.querySelectorAll('pre.block').forEach(pre => {
+  const btn = pre.querySelector('.cp');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    const text = pre.textContent.replace(/^Copy\s*/,'').trim();
+    try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied ✓'; }
+    catch { btn.textContent = 'Select + ⌘C'; }
+    setTimeout(() => btn.textContent = 'Copy', 1600);
+  });
+});
+</script>
