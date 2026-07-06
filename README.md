@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CalSAWS Reimagined — v2 Platform
 
-## Getting Started
+An AI-built, production-shaped reimagining of **CalSAWS** (the California Statewide Automated Welfare System):
+multi-user eligibility determination (EDBC), benefit calculation, case management, notices, issuance, and live
+reporting — **Next.js on Vercel + Supabase Postgres with Row-Level Security**. Synthetic data only.
 
-First, run the development server:
+## What's real
+
+- **Server-side EDBC rules engine** (CalFresh, CalWORKs, Medi-Cal, GA/GR, CAPI, RCA) with full calculation traces,
+  verified against golden households (`npm test`, 25 assertions). Rules live in the `rule_params` table — Admin edits
+  change determinations for everyone, no deploy.
+- **Real multi-user auth** (Supabase): open applicant self-signup + seeded staff accounts; roles enforced by
+  middleware/server checks **and** database RLS.
+- **Atomic workflow**: accept → notices + EBT issuances + status + task closure happens in a single SECURITY DEFINER
+  SQL function. CalWORKs grants route to supervisor authorization.
+- **End-to-end verified**: 8 Playwright scenarios (`npm run test:e2e`) including a full stranger-signs-up →
+  applies → worker EDBC → supervisor authorizes → applicant-sees-benefits loop, an RLS negative test, and a
+  live rule-change test.
+
+## Demo accounts (password: `CalSAWS-demo-2026!`)
+
+| Role | Email |
+|---|---|
+| Applicant | `applicant.maria@demo.calsaws.test` |
+| Eligibility Worker | `worker.dana@demo.calsaws.test` |
+| Supervisor | `supervisor.angela@demo.calsaws.test` |
+| Administrator | `admin.chris@demo.calsaws.test` |
+
+Or create your own applicant account via **Sign up** — it works identically.
+
+## Setup from clone
 
 ```bash
+npm install
+cp .env.example .env.local            # fill in the calsaws Supabase project keys
+# apply supabase/migrations/*.sql to the project (SQL editor or `supabase db push`)
+npm run db:seed                       # demo users + 50-case synthetic caseload + rules
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `npm test` — engine golden-household suite (Vitest)
+- `npm run test:e2e` — full end-to-end suite (Playwright; reseeds the DB first)
+- `GET /api/health` — DB connectivity + seed status
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See [DEPLOY.md](./DEPLOY.md) for the Vercel import runbook and environment-variable table.
 
-## Learn More
+## Layout
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+supabase/migrations/   schema + RLS + atomic workflow functions (SQL)
+src/lib/engine.ts      EDBC engine (pure, traced, node-testable)
+src/lib/params.ts      rule defaults + admin registry
+src/lib/seed-core.ts   deterministic synthetic caseload (5 golden households + 45)
+src/app/               portal (applicant) + (staff) worker/supervisor/admin/reports
+src/proxy.ts           session refresh + role gating
+tests/                 engine unit tests · e2e/  Playwright scenarios
+```
