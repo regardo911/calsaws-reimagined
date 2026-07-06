@@ -6,6 +6,14 @@ import { test, expect } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 import { config } from 'dotenv';
 import { login, USERS, PASSWORD, expectNoConsoleErrors } from './helpers';
+import { writeFileSync, readFileSync } from 'node:fs';
+
+const STATE_FILE = 'test-results/.e2e-state.json';
+function saveState(s: { email: string; caseNumber: string }) { writeFileSync(STATE_FILE, JSON.stringify(s)); }
+function loadState(): { email: string; caseNumber: string } {
+  try { return JSON.parse(readFileSync(STATE_FILE, 'utf8')); }
+  catch { return { email: FRESH_EMAIL, caseNumber: freshCaseNumber }; }
+}
 
 config({ path: '.env.local' }); config();
 const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -63,6 +71,7 @@ test('1. fresh-applicant end-to-end loop', async ({ browser }) => {
   await expect(caseEl).toBeVisible({ timeout: 20_000 });
   freshCaseNumber = (await caseEl.textContent())!.trim();
   expect(freshCaseNumber).toMatch(/^C-2\d{5}$/);
+  saveState({ email: FRESH_EMAIL, caseNumber: freshCaseNumber });
 
   // -- worker: the case is in the queue; run EDBC; verify golden math --
   const wCtx = await browser.newContext();
@@ -150,7 +159,7 @@ test('3. yellow banner blocks EDBC until resolved', async ({ browser }) => {
   await login(w, USERS.worker);
   // find C-100005 via search
   await w.goto('/worker/search?q=Brooks');
-  await w.getByRole('link', { name: 'C-100005' }).click();
+  await w.getByRole('link', { name: 'C-100005' }).first().click();
   await w.waitForURL(/\/case\//);
   await expect(w.getByTestId('yellow-banner')).toBeVisible();
   await expect(w.getByTestId('yellow-banner')).toContainText('Full Case Review is required');
@@ -233,7 +242,7 @@ test('6. admin param change recomputes GA grant to $400', async ({ browser }) =>
   const w = await wCtx.newPage();
   await login(w, USERS.worker);
   await w.goto('/worker/search?q=Carter');
-  await w.getByRole('link', { name: 'C-100002' }).click();
+  await w.getByRole('link', { name: 'C-100002' }).first().click();
   await w.getByTestId('tab-edbc').click();
   // GA only, so nothing else is affected
   await w.getByTestId('edbc-prog-CF').click(); // deselect CF
@@ -261,11 +270,12 @@ test('7. state persists across fresh sessions (database-backed)', async ({ brows
   await page.getByTestId('signout').isVisible().catch(() => {});
   await ctx.close();
 
+  const st = loadState();
   const ctx2 = await browser.newContext();
   const page2 = await ctx2.newPage();
-  await login(page2, FRESH_EMAIL);
-  await expect(page2.getByTestId(`case-${freshCaseNumber}`)).toBeVisible();
-  await expect(page2.getByTestId(`case-${freshCaseNumber}`).getByTestId('status-pill')).toHaveText('Active');
+  await login(page2, st.email);
+  await expect(page2.getByTestId(`case-${st.caseNumber}`)).toBeVisible();
+  await expect(page2.getByTestId(`case-${st.caseNumber}`).getByTestId('status-pill')).toHaveText('Active');
   await ctx2.close();
 });
 
@@ -289,6 +299,8 @@ test('8. health check green and reports reconcile', async ({ browser, request })
   expect(csv.ok()).toBe(true);
   const text = await csv.text();
   expect(text).toContain('case_number');
-  expect(text).toContain(freshCaseNumber);
+  const st = loadState();
+  expect(st.caseNumber).toMatch(/^C-2\d{5}$/);
+  expect(text).toContain(st.caseNumber);
   await ctx.close();
 });
