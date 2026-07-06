@@ -127,6 +127,7 @@ footer{max-width:1040px;margin:0 auto;padding:0 20px 50px;color:var(--ink3);font
       <button role="tab" aria-selected="true" data-tab="intro">✨ Introduction</button>
       <button role="tab" aria-selected="false" data-tab="arch">🏛️ Architecture</button>
       <button role="tab" aria-selected="false" data-tab="demo">🎬 Demo Script</button>
+      <button role="tab" aria-selected="false" data-tab="reference">📚 Reference Material</button>
       <button role="tab" aria-selected="false" data-tab="deploy">🚀 Deployment</button>
     </div>
   </div>
@@ -148,57 +149,153 @@ footer{max-width:1040px;margin:0 auto;padding:0 20px 50px;color:var(--ink3);font
   </div></div>
 
   <div class="stats">
-    <div class="stat"><div class="v num">9</div><div class="l">AI workers deployed</div><div class="d">1 orchestrator · 7 research specialists · 1 QA harness</div></div>
-    <div class="stat"><div class="v num">1M+</div><div class="l">tokens of work</div><div class="d">851,506 metered in research alone</div></div>
-    <div class="stat"><div class="v num">277</div><div class="l">research tool calls</div><div class="d">searches · PDF extraction · live site walkthroughs</div></div>
-    <div class="stat"><div class="v num">33</div><div class="l">automated checks, all green</div><div class="d">25 unit assertions + 8 end-to-end scenarios</div></div>
-    <div class="stat"><div class="v num">73→26</div><div class="l">minutes compressed</div><div class="d">73.5 min of agent-work ran in 26.3 min wall-clock</div></div>
+    <div class="stat"><div class="v num">8</div><div class="l">AI agents · 13 staffed roles</div><div class="d">1 orchestrator + 7 researchers; 5 engineering workstreams</div></div>
+    <div class="stat"><div class="v num">7,717</div><div class="l">lines of code shipped</div><div class="d">4,315 platform · 2,672 v1 demo · 730 docs</div></div>
+    <div class="stat"><div class="v num">~1.35M</div><div class="l">tokens consumed</div><div class="d">851,506 metered (research) + est. ≥500K build/QA — see meter below</div></div>
+    <div class="stat"><div class="v num">277</div><div class="l">research tool calls</div><div class="d">searches · PDF extraction · 94-step live portal walkthrough</div></div>
+    <div class="stat"><div class="v num">33</div><div class="l">automated checks, green</div><div class="d">25 unit assertions + 8 end-to-end scenarios</div></div>
+    <div class="stat"><div class="v num">73→26</div><div class="l">minutes compressed</div><div class="d">73.5 min of parallel research in 26.3 min wall-clock</div></div>
   </div>
 
-  <div class="card"><div class="hd"><h3>The team that was deployed</h3><span class="time">hired, briefed, and running in seconds</span></div>
+  <div class="card"><div class="hd"><h3>The team that was deployed</h3><span class="time">a full delivery team — hired, briefed, and running in seconds</span></div>
     <div class="bd">
-      <div class="diag"><svg viewBox="0 0 960 360" role="img" aria-label="Agentic team org chart">
+      <div class="diag"><svg viewBox="0 0 960 570" role="img" aria-label="Agentic delivery team org chart">
         <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="context-stroke"/></marker></defs>
-        <rect class="box navybox" x="330" y="16" width="300" height="70" rx="12"/>
-        <text class="t w" x="352" y="44">🧠 The Orchestrator</text>
-        <text class="s" x="352" y="61" fill="rgba(255,255,255,.78)">Claude Opus · 1M-token context · architecture, code,</text>
-        <text class="s" x="352" y="74" fill="rgba(255,255,255,.78)">integration, provisioning, deployment — the eng lead</text>
-        <rect class="zone" x="16" y="128" width="928" height="128" rx="14"/>
-        <text class="t" x="34" y="152">Research fleet — 7 specialists, all in parallel, each blind to the others</text>
-        <rect class="box" x="34"  y="166" width="122" height="74" rx="9" style="stroke:var(--s-cf)"/><text class="t" x="44" y="186">📜 Archivist</text><text class="s" x="44" y="201">146-pp official</text><text class="s" x="44" y="213">Config Guide, mined</text><text class="s" x="44" y="228">96K tok · 16 calls</text>
-        <rect class="box" x="164" y="166" width="122" height="74" rx="9" style="stroke:var(--s-cw)"/><text class="t" x="174" y="186">🕵️ Field Agent</text><text class="s" x="174" y="201">walked the real</text><text class="s" x="174" y="213">BenefitsCal, live</text><text class="s" x="174" y="228">186K tok · 94 calls</text>
-        <rect class="box" x="294" y="166" width="122" height="74" rx="9" style="stroke:var(--s-mc)"/><text class="t" x="304" y="186">⚖️ Policy I</text><text class="s" x="304" y="201">CalFresh + CalWORKs</text><text class="s" x="304" y="213">FFY2026 verified</text><text class="s" x="304" y="228">104K tok · 32 calls</text>
-        <rect class="box" x="424" y="166" width="122" height="74" rx="9" style="stroke:var(--s-ga)"/><text class="t" x="434" y="186">⚖️ Policy II</text><text class="s" x="434" y="201">Medi-Cal · GR ·</text><text class="s" x="434" y="213">CAPI · RCA rules</text><text class="s" x="434" y="228">77K tok · 33 calls</text>
-        <rect class="box" x="554" y="166" width="122" height="74" rx="9" style="stroke:var(--s-capi)"/><text class="t" x="564" y="186">🗂️ Workflow</text><text class="s" x="564" y="201">worker screens, EDBC</text><text class="s" x="564" y="213">path, verbatim UI text</text><text class="s" x="564" y="228">220K tok · 34 calls</text>
-        <rect class="box" x="684" y="166" width="122" height="74" rx="9" style="stroke:var(--s-rca)"/><text class="t" x="694" y="186">🏛️ Historian</text><text class="s" x="694" y="201">legacy systems, costs,</text><text class="s" x="694" y="213">IEVS/MEDS interfaces</text><text class="s" x="694" y="228">80K tok · 34 calls</text>
-        <rect class="box" x="814" y="166" width="122" height="74" rx="9" style="stroke:var(--gold)"/><text class="t" x="824" y="186">📊 Compliance</text><text class="s" x="824" y="201">CF 296 · CA 237 ·</text><text class="s" x="824" y="213">QC/APT standards</text><text class="s" x="824" y="228">88K tok · 34 calls</text>
-        <rect class="box" x="330" y="288" width="300" height="56" rx="12" style="stroke:var(--ok)"/>
-        <text class="t" x="352" y="311" style="fill:var(--ok)">🤖 The QA harness</text>
-        <text class="s" x="352" y="327">25 golden-dollar assertions + 8 end-to-end scenarios — the reviewers that never rubber-stamp</text>
-        <path class="arrow" d="M480 86 V 120"/>
-        <path class="arrow ok" d="M480 256 V 280"/>
-      </svg></div>
-      <p class="small muted">Each specialist got a one-paragraph brief and returned structured, sourced findings.
-      The orchestrator merged them, wrote ~2,700 lines of tested platform code, provisioned the database, and ran the
-      verifiers — the same loop a human team runs in weeks, executed in hours.</p>
-    </div>
-  </div>
+        <rect class="box navybox" x="315" y="14" width="330" height="72" rx="12"/>
+        <text class="t w" x="337" y="42">🧠 Orchestrator — Architect &amp; Eng Lead</text>
+        <text class="s" x="337" y="59" fill="rgba(255,255,255,.78)">Claude Opus · 1M-token context · decomposition, system design,</text>
+        <text class="s" x="337" y="72" fill="rgba(255,255,255,.78)">integration, code review, DB provisioning, release</text>
 
-  <div class="card"><div class="hd"><h3>The part that should change how you think</h3><span class="time">agents auditing the work</span></div>
-    <div class="bd">
-      <p class="small">The research fleet didn't just collect facts — it <strong>corrected the build's own starting assumptions</strong>:</p>
+        <rect class="zone" x="16" y="118" width="928" height="122" rx="14"/>
+        <text class="t" x="34" y="141">Research fleet — 7 specialist agents, in parallel, each blind to the others</text>
+        <rect class="box" x="34"  y="154" width="122" height="72" rx="9" style="stroke:var(--s-cf)"/><text class="t" x="44" y="173">📜 Archivist</text><text class="s" x="44" y="188">146-pp Config Guide</text><text class="s" x="44" y="200">fully extracted</text><text class="s" x="44" y="214">96,433 tok · 16 calls</text>
+        <rect class="box" x="164" y="154" width="122" height="72" rx="9" style="stroke:var(--s-cw)"/><text class="t" x="174" y="173">🕵️ Field Agent</text><text class="s" x="174" y="188">live BenefitsCal</text><text class="s" x="174" y="200">walkthrough</text><text class="s" x="174" y="214">186,049 tok · 94 calls</text>
+        <rect class="box" x="294" y="154" width="122" height="72" rx="9" style="stroke:var(--s-mc)"/><text class="t" x="304" y="173">⚖️ Policy I</text><text class="s" x="304" y="188">CalFresh · CalWORKs</text><text class="s" x="304" y="200">FFY2026 verified</text><text class="s" x="304" y="214">104,014 tok · 32 calls</text>
+        <rect class="box" x="424" y="154" width="122" height="72" rx="9" style="stroke:var(--s-ga)"/><text class="t" x="434" y="173">⚖️ Policy II</text><text class="s" x="434" y="188">Medi-Cal · GR</text><text class="s" x="434" y="200">CAPI · RCA</text><text class="s" x="434" y="214">76,740 tok · 33 calls</text>
+        <rect class="box" x="554" y="154" width="122" height="72" rx="9" style="stroke:var(--s-capi)"/><text class="t" x="564" y="173">🗂️ Workflow</text><text class="s" x="564" y="188">EDBC path, screens,</text><text class="s" x="564" y="200">verbatim UI text</text><text class="s" x="564" y="214">220,429 tok · 34 calls</text>
+        <rect class="box" x="684" y="154" width="122" height="72" rx="9" style="stroke:var(--s-rca)"/><text class="t" x="694" y="173">🏛️ Historian</text><text class="s" x="694" y="188">legacy costs, IEVS/</text><text class="s" x="694" y="200">MEDS interfaces</text><text class="s" x="694" y="214">79,660 tok · 34 calls</text>
+        <rect class="box" x="814" y="154" width="122" height="72" rx="9" style="stroke:var(--gold)"/><text class="t" x="824" y="173">📊 Compliance</text><text class="s" x="824" y="188">CF 296 · CA 237</text><text class="s" x="824" y="200">QC/APT standards</text><text class="s" x="824" y="214">88,181 tok · 34 calls</text>
+
+        <rect class="zone" x="16" y="272" width="928" height="150" rx="14"/>
+        <text class="t" x="34" y="295">Build crew — 5 engineering workstreams (one orchestrator, five hats; every line typed and reviewed in one context)</text>
+        <rect class="box" x="34"  y="310" width="166" height="96" rx="9" style="stroke:var(--s-cf)"/><text class="t" x="46" y="330">🧮 Rules Engineer</text><text class="s" x="46" y="346">EDBC engine, 6 programs,</text><text class="s" x="46" y="358">traced determinations,</text><text class="s" x="46" y="370">FFY2026 param registry</text><text class="t" x="46" y="392" style="fill:var(--primary)">537 LOC · TypeScript</text>
+        <rect class="box" x="212" y="310" width="166" height="96" rx="9" style="stroke:var(--s-cw)"/><text class="t" x="224" y="330">🗄️ Database Engineer</text><text class="s" x="224" y="346">15-table schema, RLS</text><text class="s" x="224" y="358">policies, atomic workflow</text><text class="s" x="224" y="370">functions, seed pipeline</text><text class="t" x="224" y="392" style="fill:var(--primary)">955 LOC · SQL + TS</text>
+        <rect class="box" x="390" y="310" width="166" height="96" rx="9" style="stroke:var(--s-mc)"/><text class="t" x="402" y="330">🖥️ Full-stack Engineer</text><text class="s" x="402" y="346">18 routes: portal, worker,</text><text class="s" x="402" y="358">supervisor, admin, reports,</text><text class="s" x="402" y="370">server actions, role proxy</text><text class="t" x="402" y="392" style="fill:var(--primary)">2,316 LOC · TSX/TS</text>
+        <rect class="box" x="568" y="310" width="166" height="96" rx="9" style="stroke:var(--s-capi)"/><text class="t" x="580" y="330">🧪 QA Engineer</text><text class="s" x="580" y="346">authored both suites:</text><text class="s" x="580" y="358">golden-dollar unit tests +</text><text class="s" x="580" y="370">8 browser e2e scenarios</text><text class="t" x="580" y="392" style="fill:var(--primary)">536 LOC · Vitest/Playwright</text>
+        <rect class="box" x="746" y="310" width="190" height="96" rx="9" style="stroke:var(--s-ga)"/><text class="t" x="758" y="330">🚀 Platform Engineer</text><text class="s" x="758" y="346">Supabase project + migrations,</text><text class="s" x="758" y="358">secrets handling, private repo,</text><text class="s" x="758" y="370">deploy runbook, health endpoint</text><text class="t" x="758" y="392" style="fill:var(--primary)">infra + 730 LOC docs</text>
+
+        <rect class="box" x="240" y="450" width="480" height="104" rx="12" style="stroke:var(--ok)"/>
+        <text class="t" x="262" y="474" style="fill:var(--ok)">🤖 The QA harness (runs on every change)</text>
+        <text class="s" x="262" y="492">Vitest — 25 assertions pin benefit math to the dollar: $686 CF · $675 CW · $298/$221</text>
+        <text class="s" x="262" y="505">James · $453 CAPI · RCA window flips · yellow-banner block/unblock</text>
+        <text class="s" x="262" y="521">Playwright — 8 scenarios drive a real browser vs live Postgres: signup→EDBC→authorize</text>
+        <text class="s" x="262" y="534">(11.9s) · RLS cross-tenant denial · role gates · live rule-flip to $400 · persistence · health</text>
+
+        <path class="arrow" d="M480 86 V 112"/>
+        <path class="arrow" d="M480 240 V 266"/>
+        <path class="arrow ok" d="M480 422 V 444"/>
+      </svg></div>
+
+      <p class="eyebrow" style="margin:16px 0 8px">The meter — where the tokens went</p>
       <div class="tblwrap"><table>
-        <thead><tr><th>The baseline said</th><th>The agents found</th><th>Consequence</th></tr></thead>
+        <thead><tr><th>Worker</th><th>Scope</th><th class="num">Tool calls</th><th class="num">Runtime</th><th class="num">Tokens (metered)</th></tr></thead>
         <tbody>
-          <tr><td>FFY2025 CalFresh figures</td><td>Verified <strong>FFY2026</strong> values from CDSS ACIN I-46-25 (allotments, deductions, $744 shelter cap, $663 SUA)</td><td>Every benefit amount recomputed & re-tested ($658→$686 for the reference household)</td></tr>
-          <tr><td>RCA window = 12 months</td><td>Cut to <strong>4 months</strong> for arrivals on/after 2025-05-05</td><td>Rule + tests updated — a policy change most humans would have missed</td></tr>
-          <tr><td>“CA 237 = applications report”</td><td>CA 237 CW is <strong>caseload movement</strong>; CF 296 replaced DFA 296 in 2016; CA 800 is fiscal, not error rates</td><td>Statutory reports renamed to what county staff actually file</td></tr>
+          <tr><td>🗂️ Workflow specialist</td><td>worker screens, EDBC path, Yellow Banner verbatim</td><td class="num">34</td><td class="num">10.1 min</td><td class="num">220,429</td></tr>
+          <tr><td>🕵️ Field agent</td><td>benefitscal.com live walkthrough</td><td class="num">94</td><td class="num">26.3 min</td><td class="num">186,049</td></tr>
+          <tr><td>⚖️ Policy I</td><td>CalFresh + CalWORKs FFY2026 params</td><td class="num">32</td><td class="num">8.6 min</td><td class="num">104,014</td></tr>
+          <tr><td>📜 Archivist</td><td>CIT-0355-22 Config Guide extraction</td><td class="num">16</td><td class="num">4.2 min</td><td class="num">96,433</td></tr>
+          <tr><td>📊 Compliance analyst</td><td>report catalog, QC/APT standards</td><td class="num">34</td><td class="num">8.9 min</td><td class="num">88,181</td></tr>
+          <tr><td>🏛️ Historian</td><td>legacy systems, costs, interfaces</td><td class="num">34</td><td class="num">8.0 min</td><td class="num">79,660</td></tr>
+          <tr><td>⚖️ Policy II</td><td>Medi-Cal, GR, CAPI, RCA</td><td class="num">33</td><td class="num">7.4 min</td><td class="num">76,740</td></tr>
+          <tr style="font-weight:700"><td>Research fleet subtotal</td><td>7 agents, parallel</td><td class="num">277</td><td class="num">26.3 min wall</td><td class="num">851,506</td></tr>
+          <tr><td>🧠 Orchestrator (build + QA + docs)</td><td>7,717 LOC, provisioning, 2 QA cycles, this guide</td><td class="num">—</td><td class="num">~4 hrs</td><td class="num">est. ≥500,000*</td></tr>
+          <tr style="font-weight:750"><td colspan="4">Program total</td><td class="num">≈ 1.35M+</td></tr>
         </tbody>
       </table></div>
-      <div class="quotebar">The pitch in one line: we didn’t use AI as an autocomplete — we deployed it as a staffed,
-      parallel, self-auditing engineering team, and shipped a working eligibility platform in a day.</div>
+      <p class="xs muted">*Research-fleet tokens are exact, from the workflow harness meter (input + output per agent). The orchestrator's
+      main session is not separately metered by the harness; the estimate is conservative, derived from code volume and context size, and is
+      labeled as such — the same discipline the platform applies to its own numbers.</p>
     </div>
   </div>
+
+  <div class="card"><div class="hd"><h3>The self-auditing loop — spelled out</h3><span class="time">the agents fact-checked the build and caught real errors</span></div>
+    <div class="bd">
+      <p class="small">Here is the loop, in plain terms — this is the part that is genuinely different from “a developer using AI autocomplete”:</p>
+      <ol style="padding-left:22px;display:grid;gap:8px;margin:10px 0 4px" class="small">
+        <li><strong>The build started from a written baseline</strong> — eligibility rules and platform behavior drafted from domain knowledge (the equivalent of your BA's first-pass requirements doc).</li>
+        <li><strong>Seven research agents were sent to verify it independently</strong> against primary sources: CDSS ACINs, the CalSAWS Configuration Guide, county handbooks, the live public portal.</li>
+        <li><strong>Where a source contradicted the baseline, the source won.</strong> Each discrepancy came back with a citation, the engine parameters were corrected, and the automated tests were re-pinned to the corrected math — same day.</li>
+        <li><strong>The QA harness then re-proved everything</strong> — 33 checks, including the exact dollar outcomes.</li>
+      </ol>
+
+      <p class="eyebrow" style="margin:16px 0 8px">One example, walked end to end</p>
+      <div class="callout" style="font-size:14px">
+        <strong>Maria's CalFresh allotment (family of 3 · $1,600/mo earnings · $1,400 rent).</strong><br>
+        ① Baseline computed with FFY<strong>2025</strong> values (max allotment $768, standard deduction $204, shelter cap $712) → benefit <strong>$658/mo</strong>.<br>
+        ② The Policy I agent pulled <strong>CDSS ACIN I-46-25</strong> (effective 10/2025) and found the FFY<strong>2026</strong> values: max allotment <strong>$785</strong>, standard deduction <strong>$209</strong>, shelter cap <strong>$744</strong>, SUA <strong>$663</strong>.<br>
+        ③ The engine's parameters were corrected and the unit test was re-pinned: Maria's benefit is <strong>$686/mo</strong>.<br>
+        ④ <strong>Why you should care:</strong> shipped with the stale numbers, <em>every CalFresh determination in the system would have been wrong</em> — for this family, by $28/month. The error was caught by an agent, with a citation, in the same working session. No release train, no regression sprint.
+      </div>
+
+      <p class="eyebrow" style="margin:16px 0 8px">Every correction the agents made</p>
+      <div class="tblwrap"><table>
+        <thead><tr><th>What the build assumed</th><th>What the agents verified (source)</th><th>What changed in the product</th></tr></thead>
+        <tbody>
+          <tr><td>FFY2025 CalFresh figures</td><td>FFY<strong>2026</strong> COLA values (CDSS ACIN I-46-25, Attachment I)</td><td>All CalFresh parameters replaced; benefits recomputed; tests re-pinned ($658→$686)</td></tr>
+          <tr><td>Refugee Cash Assistance window = 12 months</td><td>Cut to <strong>4 months</strong> for arrivals on/after 2025-05-05 (federal policy change)</td><td>Rule updated + a test that proves the window flips eligibility</td></tr>
+          <tr><td>“CA 237 is an applications report”</td><td>CA 237 CW = <strong>caseload movement</strong>; CF 296 replaced DFA 296 in 2016; CA 800 is fiscal claiming, not error rates (CalSAWS Reports Overview CIT-0038-23)</td><td>Reports module renamed to the forms county staff actually file</td></tr>
+        </tbody>
+      </table></div>
+
+      <p class="eyebrow" style="margin:16px 0 8px">What this means for a real program</p>
+      <ul class="check">
+        <li><strong>Annual COLA updates become a config change + an automated regression run</strong> — hours, not a release cycle. (Watch it live in the demo: Admin flips a rule, the next determination uses it.)</li>
+        <li><strong>Policy drift gets caught by agents with citations</strong> — the RCA change is exactly the kind of mid-year federal change that silently breaks eligibility systems.</li>
+        <li><strong>Every determination carries its own audit trail</strong> — the trace stored with each EDBC result shows the tests, deductions, and dollar math a hearing officer would ask for.</li>
+      </ul>
+
+      <div class="quotebar">The pitch in one line: we didn't use AI as an autocomplete — we deployed it as a staffed, parallel,
+      self-auditing delivery team, and shipped a working, tested eligibility platform in a day.</div>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>Scope delivered</h3><span class="time">what the team shipped</span></div>
+    <div class="bd"><div class="grid2">
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Platform</p>
+        <ul class="check">
+          <li><strong>6 benefit programs</strong> — CalFresh, CalWORKs, Medi-Cal, GA/GR, CAPI, RCA — with traced, explainable EDBC</li>
+          <li><strong>4 real user roles</strong> + open applicant self-signup; RLS-enforced isolation</li>
+          <li><strong>Full worker workflow</strong> — queue/SLA, person search, registration, Yellow Banner, authorization, NOAs, EBT issuance, journal</li>
+          <li><strong>Live policy engine</strong> — 20 admin-editable rule parameters, zero-deploy changes</li>
+          <li><strong>Reporting</strong> — live dashboards, timeliness vs 90%, CF 296 / CA 237 CW / CA 255, CSV</li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Engineering rigor</p>
+        <ul class="check">
+          <li><strong>15-table Postgres schema</strong> with migrations, RLS policies, atomic SQL workflow functions</li>
+          <li><strong>33 automated checks green</strong> — incl. a test proving applicants can't read each other's data</li>
+          <li><strong>The money test</strong>: stranger signs up → applies → worker determines → supervisor authorizes → benefits visible — <strong>11.9 seconds</strong>, fully automated</li>
+          <li>Private GitHub repo, one-click Vercel deploy path, health endpoint, reseedable demo data</li>
+        </ul>
+        <p class="small muted" style="margin-top:10px">Context for the room: the four legacy consortium systems cost
+        <strong>$1.025B</strong> to build and ~<strong>$178M/yr</strong> to run in parallel; training one eligibility
+        worker takes <strong>28 weeks</strong>.</p>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="callout"><strong>Read next:</strong> 🏛️ <em>Architecture</em> for how it's put together ·
+  🎬 <em>Demo Script</em> to run the room · 📚 <em>Reference Material</em> for the primary sources behind the rules ·
+  🚀 <em>Deployment</em> to put it on a URL.</div>
+</section>
+
+<!-- ════════════════════════════ REFERENCE TAB ════════════════════════════ -->
+<section id="tab-reference" role="tabpanel" hidden>
+  <div class="callout"><strong>Why this tab exists.</strong> So project teams can verify that nothing here was improvised:
+  the rules engine, EDBC math, configuration model, workflow behavior, and reports were all derived from the primary
+  documents below — each one identified by its real document number so you can pull it yourself.</div>
 
   <div class="card"><div class="hd"><h3>The source foundation</h3><span class="time">primary documents, not improvisation</span></div>
     <div class="bd">
@@ -246,35 +343,6 @@ footer{max-width:1040px;margin:0 auto;padding:0 20px 50px;color:var(--ink3);font
     </div>
   </div>
 
-  <div class="card"><div class="hd"><h3>Scope delivered</h3><span class="time">what the team shipped</span></div>
-    <div class="bd"><div class="grid2">
-      <div>
-        <p class="eyebrow" style="margin-bottom:8px">Platform</p>
-        <ul class="check">
-          <li><strong>6 benefit programs</strong> — CalFresh, CalWORKs, Medi-Cal, GA/GR, CAPI, RCA — with traced, explainable EDBC</li>
-          <li><strong>4 real user roles</strong> + open applicant self-signup; RLS-enforced isolation</li>
-          <li><strong>Full worker workflow</strong> — queue/SLA, person search, registration, Yellow Banner, authorization, NOAs, EBT issuance, journal</li>
-          <li><strong>Live policy engine</strong> — 20 admin-editable rule parameters, zero-deploy changes</li>
-          <li><strong>Reporting</strong> — live dashboards, timeliness vs 90%, CF 296 / CA 237 CW / CA 255, CSV</li>
-        </ul>
-      </div>
-      <div>
-        <p class="eyebrow" style="margin-bottom:8px">Engineering rigor</p>
-        <ul class="check">
-          <li><strong>15-table Postgres schema</strong> with migrations, RLS policies, atomic SQL workflow functions</li>
-          <li><strong>33 automated checks green</strong> — incl. a test proving applicants can't read each other's data</li>
-          <li><strong>The money test</strong>: stranger signs up → applies → worker determines → supervisor authorizes → benefits visible — <strong>11.9 seconds</strong>, fully automated</li>
-          <li>Private GitHub repo, one-click Vercel deploy path, health endpoint, reseedable demo data</li>
-        </ul>
-        <p class="small muted" style="margin-top:10px">Context for the room: the four legacy consortium systems cost
-        <strong>$1.025B</strong> to build and ~<strong>$178M/yr</strong> to run in parallel; training one eligibility
-        worker takes <strong>28 weeks</strong>.</p>
-      </div>
-    </div></div>
-  </div>
-
-  <div class="callout"><strong>Read next:</strong> 🏛️ <em>Architecture</em> for how it's put together,
-  🎬 <em>Demo Script</em> to run the room, 🚀 <em>Deployment</em> to put it on a URL.</div>
 </section>
 
 <!-- ════════════════════════════ DEPLOY TAB ════════════════════════════ -->
@@ -710,7 +778,7 @@ E2E_BASE_URL=https://&lt;your-app&gt;.vercel.app npm run test:e2e</pre>
 <script>
 // tabs
 const tabs = document.querySelectorAll('.tabs button');
-const panels = { intro: document.getElementById('tab-intro'), arch: document.getElementById('tab-arch'), demo: document.getElementById('tab-demo'), deploy: document.getElementById('tab-deploy') };
+const panels = { intro: document.getElementById('tab-intro'), arch: document.getElementById('tab-arch'), demo: document.getElementById('tab-demo'), reference: document.getElementById('tab-reference'), deploy: document.getElementById('tab-deploy') };
 tabs.forEach(b => b.addEventListener('click', () => {
   tabs.forEach(x => x.setAttribute('aria-selected', String(x === b)));
   Object.entries(panels).forEach(([k, p]) => p.hidden = k !== b.dataset.tab);
