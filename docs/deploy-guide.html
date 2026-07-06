@@ -200,6 +200,52 @@ footer{max-width:1040px;margin:0 auto;padding:0 20px 50px;color:var(--ink3);font
     </div>
   </div>
 
+  <div class="card"><div class="hd"><h3>The source foundation</h3><span class="time">primary documents, not improvisation</span></div>
+    <div class="bd">
+      <p class="small" style="margin-bottom:6px">Nothing in this platform was invented from thin air. The research fleet worked from
+      <strong>official CalSAWS project documents, CDSS/DHCS policy issuances, federal standards, county handbooks, and a live walkthrough
+      of the production public portal</strong> — 277 documented retrievals, every finding returned with its citation. The cornerstone was the
+      document this project started from:</p>
+
+      <div class="callout" style="border-color:var(--gold);background:var(--gold-tint)">
+        <strong>📜 CalSAWS Configuration Guide — CIT-0355-22 (Nov 2022, 146 pages).</strong> Provided at kickoff and fully
+        text-extracted, page by page. It supplied the platform's structural DNA: the Global/Local/Task navigation model, the
+        <em>County → Office → Section → Unit → Position → Staff</em> org hierarchy, the Worker&nbsp;ID format (e.g. <code>45LS01220A</code>),
+        the Task Type / Automated Action model, the 29-role / 1,498-security-group model, and the county-configurable
+        <em>1st/2nd-level authorization + benefit-issuance thresholds</em> that became this build's supervisor-authorization flow.
+      </div>
+
+      <div class="tblwrap"><table>
+        <thead><tr><th>Reference</th><th>What it is</th><th>What it informed here</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3" class="eyebrow" style="padding-top:14px">Rules engine &amp; EDBC</td></tr>
+          <tr><td><strong>CDSS ACIN I-46-25</strong> + Attachment I</td><td>FFY2026 CalFresh COLA (eff. 10/2025)</td><td>Allotments ($298/546/785/994…), standard deductions ($209–299), $744 shelter cap, $663 SUA, $24 minimum — the CalFresh math in <code>rule_params</code></td></tr>
+          <tr><td><strong>CDSS MBSAC tables</strong> (eff. 7/2025) · <strong>MAP Region 1</strong> (eff. 10/2024)</td><td>CalWORKs need + payment standards</td><td>Applicant test vs MBSAC; grant = MAP − countable income ($600 + 50% disregards)</td></tr>
+          <tr><td><strong>DHCS MAGI tiers &amp; ABD-FPL standards</strong> (2025)</td><td>Medi-Cal income thresholds</td><td>138% adult / 266% children / 213% pregnant tiers; $1,801 aged/disabled standard</td></tr>
+          <tr><td><strong>CAPI/SSI-SSP payment standards</strong> (CDSS, 2025→2026)</td><td>SSI-linked cash standards</td><td>CAPI engine: $1,233.94 individual standard, $20/$65+half disregards, $2,000 resource limit</td></tr>
+          <tr><td><strong>RCA policy change</strong> (arrivals on/after 2025-05-05)</td><td>Refugee Cash Assistance window</td><td>The 12→<strong>4-month</strong> eligibility window — caught by research, encoded + tested</td></tr>
+          <tr><td><strong>LA County DPSS ePolicy / GR handbook</strong></td><td>County General Relief rules</td><td>GR $221 standard, $100 applicant cash limit — the GA/GR calculator</td></tr>
+          <tr><td colspan="3" class="eyebrow" style="padding-top:14px">Platform, workflow &amp; configuration</td></tr>
+          <tr><td><strong>CalSAWS Config Guide CIT-0355-22</strong> ⭐</td><td>The 2022 guide above</td><td>Org model, Worker IDs, task management, security/authorization design</td></tr>
+          <tr><td><strong>CalSAWS Yellow Banner job aids</strong> (CIT-0169-23 · CIT-0074-23)</td><td>EDBC mismatch procedures</td><td>The verbatim banner text (“Full Case Review is required before EDBC is run and authorized”), block-until-resolved behavior</td></tr>
+          <tr><td><strong>CalSAWS e-Application job aid</strong> (CIT-0128-22) · <strong>Migration Training Guide</strong> (CIT-0136-21)</td><td>Intake &amp; worker training materials</td><td>Regular Intake vs Add-a-Program, person clearance, application registration flow</td></tr>
+          <tr><td><strong>benefitscal.com</strong> — live production walkthrough</td><td>The real public portal (94 recorded browser actions)</td><td>Applicant journey, application sections, document rules, language reality (21 languages), “Things To Do” model → the portal UX</td></tr>
+          <tr><td colspan="3" class="eyebrow" style="padding-top:14px">Reporting &amp; compliance</td></tr>
+          <tr><td><strong>CalSAWS Reports Overview</strong> (CIT-0038-23) · <strong>Reports Navigation</strong> (CIT-0006-25)</td><td>The system's actual report catalog</td><td>CF 296 / CA 237 CW / CA 255 structures, business-day cadences, Scheduled vs On-Request model</td></tr>
+          <tr><td><strong>DHCS county performance standards</strong> (Article 25 · ACWDL 23-14E)</td><td>Medi-Cal timeliness rules</td><td>90%-within-45/90-day standards behind the Timeliness dashboard</td></tr>
+          <tr><td><strong>USDA FNS SNAP standards</strong> (7 CFR 275.16 · APT guidance)</td><td>Federal CalFresh accountability</td><td>30-day/3-day expedited SLAs, the 90% timeliness target line</td></tr>
+          <tr><td colspan="3" class="eyebrow" style="padding-top:14px">Context &amp; history</td></tr>
+          <tr><td><strong>LAO / OSI / CWDA records</strong> · CalSAWS JPA materials</td><td>SAWS consortium history &amp; budgets</td><td>The $1.025B / ~$178M-yr legacy cost story; LRS/C-IV/CalWIN consolidation facts</td></tr>
+        </tbody>
+      </table></div>
+
+      <p class="small muted" style="margin-top:12px"><strong>Traceability:</strong> every value in the rules engine lives in the
+      <code>rule_params</code> table and traces to a citation above; the golden-household tests pin the derived math to the dollar
+      ($686 CalFresh / $675 CalWORKs for the reference family). Where research contradicted the build's assumptions, the primary source won —
+      see the corrections table above. The full sourced research addendum ships in the repo (<code>ARCHITECTURE.md</code>).</p>
+    </div>
+  </div>
+
   <div class="card"><div class="hd"><h3>Scope delivered</h3><span class="time">what the team shipped</span></div>
     <div class="bd"><div class="grid2">
       <div>
