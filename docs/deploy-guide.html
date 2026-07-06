@@ -81,6 +81,15 @@ td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:760px){.grid2{grid-template-columns:1fr}}
 kbd{background:var(--sunken);border:1px solid var(--line2);border-bottom-width:2px;border-radius:6px;padding:1px 7px;font:600 12.5px ui-monospace,monospace}
+/* ---- intro / stats ---- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:6px 0 10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;border-top:4px solid var(--gold)}
+.stat .v{font-size:30px;font-weight:780;letter-spacing:-.01em;line-height:1.1}
+.stat .l{font-size:12.5px;color:var(--ink2);margin-top:4px}
+.stat .d{font-size:11.5px;color:var(--ink3);margin-top:4px}
+.lede{font-size:17.5px;line-height:1.65;max-width:46em}
+.lede strong{color:var(--primary)}
+.quotebar{border-left:5px solid var(--gold);background:var(--gold-tint);border-radius:10px;padding:16px 20px;font-size:16px;font-weight:600;margin:18px 0}
 /* ---- diagrams ---- */
 .diag{margin:16px 0;overflow-x:auto}
 .diag svg{min-width:640px;width:100%;height:auto;display:block}
@@ -115,16 +124,115 @@ footer{max-width:1040px;margin:0 auto;padding:0 20px 50px;color:var(--ink3);font
       <span><span class="k">Built</span>2026-07-06 · one-shot AI build</span>
     </div>
     <div class="tabs" role="tablist">
-      <button role="tab" aria-selected="true" data-tab="deploy">🚀 Deployment</button>
+      <button role="tab" aria-selected="true" data-tab="intro">✨ Introduction</button>
       <button role="tab" aria-selected="false" data-tab="arch">🏛️ Architecture</button>
       <button role="tab" aria-selected="false" data-tab="demo">🎬 Demo Script</button>
+      <button role="tab" aria-selected="false" data-tab="deploy">🚀 Deployment</button>
     </div>
   </div>
 </div>
 
 <main>
+<!-- ════════════════════════════ INTRO TAB ════════════════════════════ -->
+<section id="tab-intro" role="tabpanel">
+
+  <div class="card"><div class="bd">
+    <div class="eyebrow" style="margin-bottom:10px">What this is</div>
+    <p class="lede"><strong>An AI engineering team rebuilt the working core of CalSAWS in one afternoon.</strong>
+    Not a mock-up, not slideware: a multi-user eligibility platform — intake, EDBC determination with auditable
+    calculation traces, supervisor authorization, benefit issuance, statutory reporting — running on real
+    authentication and a row-level-secured Postgres database, verified end to end by an automated test suite.</p>
+    <p class="lede" style="margin-top:12px">The point isn't just the app. It's <strong>how it was built</strong>:
+    an orchestrated team of AI agents — researchers, a builder, automated verifiers — deployed in parallel,
+    the way you'd staff a project team. That's the operating model this page is selling.</p>
+  </div></div>
+
+  <div class="stats">
+    <div class="stat"><div class="v num">9</div><div class="l">AI workers deployed</div><div class="d">1 orchestrator · 7 research specialists · 1 QA harness</div></div>
+    <div class="stat"><div class="v num">1M+</div><div class="l">tokens of work</div><div class="d">851,506 metered in research alone</div></div>
+    <div class="stat"><div class="v num">277</div><div class="l">research tool calls</div><div class="d">searches · PDF extraction · live site walkthroughs</div></div>
+    <div class="stat"><div class="v num">33</div><div class="l">automated checks, all green</div><div class="d">25 unit assertions + 8 end-to-end scenarios</div></div>
+    <div class="stat"><div class="v num">73→26</div><div class="l">minutes compressed</div><div class="d">73.5 min of agent-work ran in 26.3 min wall-clock</div></div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>The team that was deployed</h3><span class="time">hired, briefed, and running in seconds</span></div>
+    <div class="bd">
+      <div class="diag"><svg viewBox="0 0 960 360" role="img" aria-label="Agentic team org chart">
+        <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="context-stroke"/></marker></defs>
+        <rect class="box navybox" x="330" y="16" width="300" height="70" rx="12"/>
+        <text class="t w" x="352" y="44">🧠 The Orchestrator</text>
+        <text class="s" x="352" y="61" fill="rgba(255,255,255,.78)">Claude Opus · 1M-token context · architecture, code,</text>
+        <text class="s" x="352" y="74" fill="rgba(255,255,255,.78)">integration, provisioning, deployment — the eng lead</text>
+        <rect class="zone" x="16" y="128" width="928" height="128" rx="14"/>
+        <text class="t" x="34" y="152">Research fleet — 7 specialists, all in parallel, each blind to the others</text>
+        <rect class="box" x="34"  y="166" width="122" height="74" rx="9" style="stroke:var(--s-cf)"/><text class="t" x="44" y="186">📜 Archivist</text><text class="s" x="44" y="201">146-pp official</text><text class="s" x="44" y="213">Config Guide, mined</text><text class="s" x="44" y="228">96K tok · 16 calls</text>
+        <rect class="box" x="164" y="166" width="122" height="74" rx="9" style="stroke:var(--s-cw)"/><text class="t" x="174" y="186">🕵️ Field Agent</text><text class="s" x="174" y="201">walked the real</text><text class="s" x="174" y="213">BenefitsCal, live</text><text class="s" x="174" y="228">186K tok · 94 calls</text>
+        <rect class="box" x="294" y="166" width="122" height="74" rx="9" style="stroke:var(--s-mc)"/><text class="t" x="304" y="186">⚖️ Policy I</text><text class="s" x="304" y="201">CalFresh + CalWORKs</text><text class="s" x="304" y="213">FFY2026 verified</text><text class="s" x="304" y="228">104K tok · 32 calls</text>
+        <rect class="box" x="424" y="166" width="122" height="74" rx="9" style="stroke:var(--s-ga)"/><text class="t" x="434" y="186">⚖️ Policy II</text><text class="s" x="434" y="201">Medi-Cal · GR ·</text><text class="s" x="434" y="213">CAPI · RCA rules</text><text class="s" x="434" y="228">77K tok · 33 calls</text>
+        <rect class="box" x="554" y="166" width="122" height="74" rx="9" style="stroke:var(--s-capi)"/><text class="t" x="564" y="186">🗂️ Workflow</text><text class="s" x="564" y="201">worker screens, EDBC</text><text class="s" x="564" y="213">path, verbatim UI text</text><text class="s" x="564" y="228">220K tok · 34 calls</text>
+        <rect class="box" x="684" y="166" width="122" height="74" rx="9" style="stroke:var(--s-rca)"/><text class="t" x="694" y="186">🏛️ Historian</text><text class="s" x="694" y="201">legacy systems, costs,</text><text class="s" x="694" y="213">IEVS/MEDS interfaces</text><text class="s" x="694" y="228">80K tok · 34 calls</text>
+        <rect class="box" x="814" y="166" width="122" height="74" rx="9" style="stroke:var(--gold)"/><text class="t" x="824" y="186">📊 Compliance</text><text class="s" x="824" y="201">CF 296 · CA 237 ·</text><text class="s" x="824" y="213">QC/APT standards</text><text class="s" x="824" y="228">88K tok · 34 calls</text>
+        <rect class="box" x="330" y="288" width="300" height="56" rx="12" style="stroke:var(--ok)"/>
+        <text class="t" x="352" y="311" style="fill:var(--ok)">🤖 The QA harness</text>
+        <text class="s" x="352" y="327">25 golden-dollar assertions + 8 end-to-end scenarios — the reviewers that never rubber-stamp</text>
+        <path class="arrow" d="M480 86 V 120"/>
+        <path class="arrow ok" d="M480 256 V 280"/>
+      </svg></div>
+      <p class="small muted">Each specialist got a one-paragraph brief and returned structured, sourced findings.
+      The orchestrator merged them, wrote ~2,700 lines of tested platform code, provisioned the database, and ran the
+      verifiers — the same loop a human team runs in weeks, executed in hours.</p>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>The part that should change how you think</h3><span class="time">agents auditing the work</span></div>
+    <div class="bd">
+      <p class="small">The research fleet didn't just collect facts — it <strong>corrected the build's own starting assumptions</strong>:</p>
+      <div class="tblwrap"><table>
+        <thead><tr><th>The baseline said</th><th>The agents found</th><th>Consequence</th></tr></thead>
+        <tbody>
+          <tr><td>FFY2025 CalFresh figures</td><td>Verified <strong>FFY2026</strong> values from CDSS ACIN I-46-25 (allotments, deductions, $744 shelter cap, $663 SUA)</td><td>Every benefit amount recomputed & re-tested ($658→$686 for the reference household)</td></tr>
+          <tr><td>RCA window = 12 months</td><td>Cut to <strong>4 months</strong> for arrivals on/after 2025-05-05</td><td>Rule + tests updated — a policy change most humans would have missed</td></tr>
+          <tr><td>“CA 237 = applications report”</td><td>CA 237 CW is <strong>caseload movement</strong>; CF 296 replaced DFA 296 in 2016; CA 800 is fiscal, not error rates</td><td>Statutory reports renamed to what county staff actually file</td></tr>
+        </tbody>
+      </table></div>
+      <div class="quotebar">The pitch in one line: we didn’t use AI as an autocomplete — we deployed it as a staffed,
+      parallel, self-auditing engineering team, and shipped a working eligibility platform in a day.</div>
+    </div>
+  </div>
+
+  <div class="card"><div class="hd"><h3>Scope delivered</h3><span class="time">what the team shipped</span></div>
+    <div class="bd"><div class="grid2">
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Platform</p>
+        <ul class="check">
+          <li><strong>6 benefit programs</strong> — CalFresh, CalWORKs, Medi-Cal, GA/GR, CAPI, RCA — with traced, explainable EDBC</li>
+          <li><strong>4 real user roles</strong> + open applicant self-signup; RLS-enforced isolation</li>
+          <li><strong>Full worker workflow</strong> — queue/SLA, person search, registration, Yellow Banner, authorization, NOAs, EBT issuance, journal</li>
+          <li><strong>Live policy engine</strong> — 20 admin-editable rule parameters, zero-deploy changes</li>
+          <li><strong>Reporting</strong> — live dashboards, timeliness vs 90%, CF 296 / CA 237 CW / CA 255, CSV</li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Engineering rigor</p>
+        <ul class="check">
+          <li><strong>15-table Postgres schema</strong> with migrations, RLS policies, atomic SQL workflow functions</li>
+          <li><strong>33 automated checks green</strong> — incl. a test proving applicants can't read each other's data</li>
+          <li><strong>The money test</strong>: stranger signs up → applies → worker determines → supervisor authorizes → benefits visible — <strong>11.9 seconds</strong>, fully automated</li>
+          <li>Private GitHub repo, one-click Vercel deploy path, health endpoint, reseedable demo data</li>
+        </ul>
+        <p class="small muted" style="margin-top:10px">Context for the room: the four legacy consortium systems cost
+        <strong>$1.025B</strong> to build and ~<strong>$178M/yr</strong> to run in parallel; training one eligibility
+        worker takes <strong>28 weeks</strong>.</p>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="callout"><strong>Read next:</strong> 🏛️ <em>Architecture</em> for how it's put together,
+  🎬 <em>Demo Script</em> to run the room, 🚀 <em>Deployment</em> to put it on a URL.</div>
+</section>
+
 <!-- ════════════════════════════ DEPLOY TAB ════════════════════════════ -->
-<section id="tab-deploy" role="tabpanel">
+<section id="tab-deploy" role="tabpanel" hidden>
 
   <div class="callout ok"><strong>Where you're starting from.</strong> The hard parts are already done: the Supabase
   project <code>calsaws</code> exists, both migrations are applied, and the database is seeded (4 demo accounts,
@@ -556,7 +664,7 @@ E2E_BASE_URL=https://&lt;your-app&gt;.vercel.app npm run test:e2e</pre>
 <script>
 // tabs
 const tabs = document.querySelectorAll('.tabs button');
-const panels = { deploy: document.getElementById('tab-deploy'), arch: document.getElementById('tab-arch'), demo: document.getElementById('tab-demo') };
+const panels = { intro: document.getElementById('tab-intro'), arch: document.getElementById('tab-arch'), demo: document.getElementById('tab-demo'), deploy: document.getElementById('tab-deploy') };
 tabs.forEach(b => b.addEventListener('click', () => {
   tabs.forEach(x => x.setAttribute('aria-selected', String(x === b)));
   Object.entries(panels).forEach(([k, p]) => p.hidden = k !== b.dataset.tab);
