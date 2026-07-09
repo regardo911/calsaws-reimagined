@@ -5,6 +5,14 @@ import { createClient, createAdminClient } from '@/lib/supabase/server';
 
 const HOME: Record<string, string> = { applicant: '/portal', worker: '/worker', supervisor: '/supervisor', admin: '/admin' };
 
+// Prevent open redirects: only accept local absolute paths (single leading '/'),
+// rejecting protocol-relative ('//'), backslash-normalized ('/\') and scheme'd targets.
+function safeNext(next: string, fallback: string): string {
+  return next.startsWith('/') && !next.startsWith('//') && !next.startsWith('/\\')
+    ? next
+    : fallback;
+}
+
 export async function signIn(_prev: { error?: string } | undefined, formData: FormData) {
   const email = String(formData.get('email') || '').trim();
   const password = String(formData.get('password') || '');
@@ -13,7 +21,7 @@ export async function signIn(_prev: { error?: string } | undefined, formData: Fo
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: 'Sign-in failed: ' + error.message };
   const role = (data.user?.app_metadata?.calsaws_role as string) ?? 'applicant';
-  redirect(next && next.startsWith('/') ? next : (HOME[role] ?? '/portal'));
+  redirect(safeNext(next, HOME[role] ?? '/portal'));
 }
 
 export async function signUp(_prev: { error?: string } | undefined, formData: FormData) {
@@ -35,7 +43,7 @@ export async function signUp(_prev: { error?: string } | undefined, formData: Fo
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { error: 'Account created but sign-in failed: ' + error.message };
-  redirect(next && next.startsWith('/') ? next : '/portal');
+  redirect(safeNext(next, '/portal'));
 }
 
 export async function signOut() {

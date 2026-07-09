@@ -26,7 +26,14 @@ export async function proxy(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   const role: string | null = user ? (user.app_metadata?.calsaws_role ?? 'applicant') : null;
   const path = request.nextUrl.pathname;
-  const to = (p: string) => NextResponse.redirect(new URL(p, request.url));
+  // Carry the session cookies refreshed by updateSession/getUser onto every redirect,
+  // otherwise a fresh NextResponse.redirect drops them and forces intermittent logouts.
+  const redirectTo = (url: URL) => {
+    const redirect = NextResponse.redirect(url);
+    response.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie));
+    return redirect;
+  };
+  const to = (p: string) => redirectTo(new URL(p, request.url));
 
   const needsAuth = (p: string) =>
     p.startsWith('/worker') || p.startsWith('/case') || p.startsWith('/reports') ||
@@ -35,7 +42,7 @@ export async function proxy(request: NextRequest) {
   if (needsAuth(path) && !user) {
     const login = new URL('/login', request.url);
     login.searchParams.set('next', path);
-    return NextResponse.redirect(login);
+    return redirectTo(login);
   }
   if ((path.startsWith('/worker') || path.startsWith('/case') || path.startsWith('/reports')) && role && !STAFF.includes(role)) return to('/portal');
   if (path.startsWith('/supervisor') && role && !['supervisor', 'admin'].includes(role)) return to(STAFF.includes(role) ? '/worker' : '/portal');

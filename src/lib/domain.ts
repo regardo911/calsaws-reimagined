@@ -20,7 +20,8 @@ export const STATUS_META: Record<string, { label: string; cls: string }> = {
   renewal_due: { label: 'Renewal Due', cls: 'warn' },
 };
 
-export const COUNTIES = ['Los Angeles', 'San Diego', 'Alameda', 'Fresno', 'Sacramento', 'Riverside', 'Kern', 'Orange', 'Santa Clara', 'Humboldt'];
+// Re-exported from seed-core so county pickers have ONE source of truth (the 12 supported counties).
+export { COUNTY_NAMES as COUNTIES } from './seed-core';
 
 export const money = (n: number | null | undefined) => '$' + Number(n || 0).toLocaleString();
 export const fdate = (iso?: string | null) => {

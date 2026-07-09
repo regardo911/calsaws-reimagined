@@ -68,7 +68,10 @@ export default async function Landing() {
             {contrast.map(([t, d]) => <div key={t}><strong>{t}</strong><p className="small muted">{d}</p></div>)}
           </div>
         </div></div>
-        <p className="xs muted" style={{ marginTop: 24 }}>Synthetic caseload · every account, case, and determination lives in a real Postgres database.</p>
+        <div className="row wrap" style={{ marginTop: 24, alignItems: 'center', gap: 16 }}>
+          <Link href="/guide" className="btn ghost sm">How this was built →</Link>
+          <p className="xs muted" style={{ margin: 0 }}>Synthetic caseload · every account, case, and determination lives in a real Postgres database.</p>
+        </div>
       </main>
     </>
   );

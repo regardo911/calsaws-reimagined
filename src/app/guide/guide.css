@@ -1,0 +1,230 @@
+/* ============================================================================
+   CalSAWS Reimagined — public GUIDE (/guide/*)
+   Scoped styles for the 5-tab in-app guide. Reuses the app's design tokens
+   (globals.css :root vars) so light + dark both work automatically.
+   Class contract: everything a tab page needs is namespaced `g-`.
+   ========================================================================== */
+
+.guide {
+  /* hero band reads well in BOTH themes — do NOT use --primary-strong (it
+     flips light in dark mode). Local navy tokens instead. */
+  --g-hero-a: #0f2e52;
+  --g-hero-b: #17456e;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ground);
+  color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  .guide { --g-hero-a: #0b1f38; --g-hero-b: #12385c; }
+}
+:root[data-theme="dark"] .guide { --g-hero-a: #0b1f38; --g-hero-b: #12385c; }
+:root[data-theme="light"] .guide { --g-hero-a: #0f2e52; --g-hero-b: #17456e; }
+
+/* ---------- hero ---------- */
+.guide-hero {
+  background: linear-gradient(150deg, var(--g-hero-a) 0%, var(--g-hero-b) 100%);
+  color: #fff;
+  padding: 34px 24px 30px;
+}
+.guide-hero-inner { max-width: 1080px; margin: 0 auto; }
+.guide-brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: #fff; text-decoration: none; font-weight: 700; font-size: 15px;
+  opacity: .95; margin-bottom: 16px;
+}
+.guide-brand:hover { opacity: 1; }
+.guide-seal {
+  width: 26px; height: 26px; border-radius: 50%; flex: none;
+  background: radial-gradient(circle at 35% 30%, #f3c94f, #c9920e 70%);
+  display: grid; place-items: center; color: #402f05; font-weight: 800; font-size: 12px;
+}
+.guide-eyebrow {
+  font-size: 11.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+:root[data-theme="dark"] .guide-hero .guide-eyebrow { color: #f0c869; }
+@media (prefers-color-scheme: dark) { .guide-hero .guide-eyebrow { color: #f0c869; } }
+.guide-h1 {
+  font-size: clamp(28px, 4.5vw, 42px); font-weight: 780; letter-spacing: -.018em;
+  margin: 0 0 10px;
+}
+.guide-tagline { font-size: 17px; line-height: 1.55; opacity: .92; max-width: 44em; margin: 0; }
+.guide-live {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 18px; font-size: 13px; opacity: .9;
+}
+.guide-live a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.guide-live-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #5fd08a; flex: none;
+  box-shadow: 0 0 0 3px rgba(95, 208, 138, .25);
+}
+
+/* ---------- sticky tab nav ---------- */
+.guide-nav {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.guide-nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 14px; }
+.guide-tabs {
+  display: flex; gap: 2px; overflow-x: auto;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.guide-tabs::-webkit-scrollbar { display: none; }
+.guide-tab {
+  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  padding: 14px 16px; font-size: 14.5px; font-weight: 600;
+  color: var(--ink-2); text-decoration: none;
+  border-bottom: 3px solid transparent; margin-bottom: -1px;
+}
+.guide-tab:hover { color: var(--ink); background: var(--sunken); }
+.guide-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 700; }
+.guide-tab-ic { font-size: 15px; line-height: 1; }
+@media (max-width: 560px) {
+  .guide-tab { padding: 13px 12px; font-size: 13.5px; }
+}
+
+/* ---------- main + footer ---------- */
+.guide-main { flex: 1; min-width: 0; padding: 30px 24px 64px; }
+.guide-inner { max-width: 1080px; margin: 0 auto; }
+.guide-footer {
+  border-top: 1px solid var(--line); background: var(--surface);
+  padding: 22px 24px 40px;
+}
+.guide-footer-inner {
+  max-width: 1080px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+.guide-footer a { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 14px; }
+.guide-footer a:hover { text-decoration: underline; }
+@media (max-width: 700px) { .guide-main { padding: 22px 16px 56px; } }
+
+/* ============================================================================
+   CONTENT VOCABULARY — the classes tab pages use.
+   ========================================================================== */
+
+/* vertical rhythm for a page's sections */
+.g-stack { display: flex; flex-direction: column; gap: 22px; }
+
+/* lede + labels */
+.g-lede { font-size: 18px; line-height: 1.6; color: var(--ink); max-width: 46em; }
+.g-lede strong { color: var(--primary); }
+.g-eyebrow {
+  font-size: 11.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.g-prose { max-width: 46em; }
+.g-prose p { margin: 0 0 12px; line-height: 1.62; }
+.g-prose p:last-child { margin-bottom: 0; }
+.g-h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+
+/* section card */
+.g-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r); box-shadow: var(--shadow); overflow: hidden;
+}
+.g-card-hd {
+  padding: 14px 20px; border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.g-card-title { font-size: 17px; font-weight: 680; margin: 0; }
+.g-card-hd .g-card-meta { margin-left: auto; font-size: 12.5px; color: var(--ink-3); white-space: nowrap; }
+.g-card-bd { padding: 18px 20px; }
+.g-card-bd > :first-child { margin-top: 0; }
+.g-card-bd > :last-child { margin-bottom: 0; }
+
+/* responsive grids */
+.g-grid { display: grid; gap: 16px; }
+.g-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.g-grid-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 860px) { .g-grid-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .g-grid-2, .g-grid-3 { grid-template-columns: 1fr; } }
+
+/* stat tile */
+.g-stat {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 16px 18px; border-top: 4px solid var(--gold);
+}
+.g-stat-v { font-size: 28px; font-weight: 780; letter-spacing: -.01em; line-height: 1.1; }
+.g-stat-l { font-size: 13px; color: var(--ink-2); margin-top: 4px; }
+.g-stat-d { font-size: 12px; color: var(--ink-3); margin-top: 5px; }
+
+/* tables — ALWAYS wrap in .g-tblwrap so wide tables scroll, never break layout */
+.g-tblwrap {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line); border-radius: var(--r); background: var(--surface);
+}
+.g-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.g-table th {
+  text-align: left; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 700; padding: 11px 14px;
+  border-bottom: 1.5px solid var(--line-strong); white-space: nowrap;
+  background: var(--surface); position: sticky; top: 0;
+}
+.g-table td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.g-table tbody tr:nth-child(even) { background: color-mix(in srgb, var(--sunken) 55%, transparent); }
+.g-table tbody tr:last-child td { border-bottom: 0; }
+.g-table td.r, .g-table th.r { text-align: right; }
+.g-table .mono, .g-table code { white-space: nowrap; }
+
+/* callout / note box */
+.g-callout {
+  border-radius: var(--r); padding: 13px 16px; font-size: 14px; line-height: 1.55;
+  border-left: 5px solid var(--primary); background: var(--info-tint); color: var(--ink);
+}
+.g-callout > :first-child { margin-top: 0; }
+.g-callout > :last-child { margin-bottom: 0; }
+.g-callout.info { border-left-color: var(--primary); background: var(--info-tint); }
+.g-callout.ok   { border-left-color: var(--ok);   background: var(--ok-tint); }
+.g-callout.warn { border-left-color: var(--warn); background: var(--warn-tint); }
+.g-callout.crit { border-left-color: var(--crit); background: var(--crit-tint); }
+.g-callout.gold { border-left-color: var(--gold); background: var(--gold-tint); }
+.g-callout-title { font-weight: 700; display: block; margin-bottom: 4px; }
+
+/* key/value grid — use <dl class="g-kv"> with <dt> key + <dd> value pairs */
+.g-kv { display: grid; grid-template-columns: minmax(130px, max-content) 1fr; gap: 8px 22px; margin: 0; }
+.g-kv dt { color: var(--ink-2); font-weight: 650; font-size: 14px; }
+.g-kv dd { margin: 0; color: var(--ink); font-size: 14px; }
+@media (max-width: 480px) { .g-kv { grid-template-columns: 1fr; gap: 2px 0; } .g-kv dd { margin-bottom: 8px; } }
+
+/* chips / pills */
+.g-chip {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  padding: 3px 11px; border-radius: 99px; font-size: 12.5px; font-weight: 650;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink-2);
+}
+.g-chip .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.g-chip.ok   { background: var(--ok-tint);   color: var(--ok);      border-color: transparent; }
+.g-chip.warn { background: var(--warn-tint); color: var(--warn);    border-color: transparent; }
+.g-chip.crit { background: var(--crit-tint); color: var(--crit);    border-color: transparent; }
+.g-chip.info { background: var(--info-tint); color: var(--primary); border-color: transparent; }
+.g-chip.gold { background: var(--gold-tint); color: var(--gold);    border-color: transparent; }
+
+/* inline code */
+.g-code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .88em;
+  background: var(--sunken); color: var(--ink); padding: 1.5px 6px; border-radius: 5px;
+  border: 1px solid var(--line); white-space: nowrap;
+}
+
+/* figure + caption for screenshots */
+.g-figure { margin: 0; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; background: var(--sunken); }
+.g-figure img { display: block; width: 100%; max-width: 100%; height: auto; }
+.g-figcap { padding: 10px 14px; font-size: 13px; color: var(--ink-2); border-top: 1px solid var(--line); }
+
+/* SVG diagram wrapper — centered, capped, scrolls on narrow screens, never squashes */
+.g-diag { margin: 4px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.g-diag svg { display: block; width: 100%; height: auto; max-width: 960px; min-width: 560px; margin: 0 auto; }
+.g-diag text { font-family: system-ui, "Segoe UI", sans-serif; fill: var(--ink-2); }
+.g-figcap.g-diag-cap { border-top: 0; padding: 8px 4px 0; text-align: center; }
+
+/* small helper: numbered step badge (demo script) */
+.g-stepnum {
+  width: 30px; height: 30px; border-radius: 50%; flex: none;
+  background: var(--primary-tint); color: var(--primary);
+  display: grid; place-items: center; font-weight: 750; font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) { .guide * { transition: none !important; } }

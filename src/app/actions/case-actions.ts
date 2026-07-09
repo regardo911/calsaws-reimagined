@@ -20,7 +20,20 @@ async function requireStaff() {
   return { supabase, user, role };
 }
 
-/** Load a case + children via the service client (staff-only paths check first). */
+/**
+ * County authorization for service-role paths. createAdminClient() bypasses RLS,
+ * so we must gate it ourselves: probe the case through the caller's RLS-scoped
+ * client — out-of-county (or unknown) returns null. Admin sees all counties.
+ * Throws before any admin-client read/write on a case the caller may not touch.
+ */
+async function assertCaseVisible(caseId: string, role: string) {
+  if (role === 'admin') return;
+  const supabase = await createClient();
+  const { data } = await supabase.from('cases').select('id').eq('id', caseId).maybeSingle();
+  if (!data) throw new Error('case not found');
+}
+
+/** Load a case + children via the service client (callers gate county first). */
 async function loadCaseGraph(caseId: string) {
   const admin = createAdminClient();
   const [{ data: c }, { data: persons }, { data: income }, { data: resources }, { data: expenses }, { data: matches }] = await Promise.all([
@@ -37,7 +50,8 @@ async function loadCaseGraph(caseId: string) {
 
 export async function runEdbcAction(caseId: string, programs: Program[], benefitMonth: string):
   Promise<{ runId: string; output: EdbcOutput }> {
-  const { user } = await requireStaff();
+  const { user, role } = await requireStaff();
+  await assertCaseVisible(caseId, role); // county gate before any service-role access
   const { c, snapshot } = await loadCaseGraph(caseId);
   const P = await loadParams();
   const output = runEDBC(P, snapshot, programs.length ? programs : (c.programs as Program[]));
@@ -181,13 +195,15 @@ export async function resetDemoAction() {
 export async function copilotAction(q: string, caseNumber?: string): Promise<{ answer: string }> {
   await requireStaff();
   const P = await loadParams();
-  const admin = createAdminClient();
   const ql = q.toLowerCase();
   const caseM = q.match(/C-\d{6}/i) || (caseNumber ? [caseNumber] : null);
 
   if (caseM) {
     const num = caseM[0].toUpperCase();
-    const { data: c } = await admin.from('cases').select('*').eq('case_number', num).single();
+    // Resolve via the caller's RLS-scoped client — an out-of-county case number
+    // returns null here (RLS), so the copilot refuses instead of leaking PII.
+    const supabase = await createClient();
+    const { data: c } = await supabase.from('cases').select('*').eq('case_number', num).maybeSingle();
     if (!c) return { answer: `I can't find case ${num}. Case numbers look like C-100001.` };
     const { snapshot } = await loadCaseGraph(c.id);
     const out = runEDBC(P, snapshot, c.programs as Program[]);

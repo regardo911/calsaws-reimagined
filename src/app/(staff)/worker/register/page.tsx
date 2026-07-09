@@ -4,10 +4,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { submitApplicationAction } from '@/app/actions/case-actions';
 import type { Program } from '@/lib/engine';
+import { COUNTY_NAMES } from '@/lib/seed-core';
 
 const PROGRAMS: Program[] = ['CF', 'CW', 'MC', 'GA', 'CAPI', 'RCA'];
 const NAMES: Record<Program, string> = { CF: 'CalFresh', CW: 'CalWORKs', MC: 'Medi-Cal', GA: 'General Relief', CAPI: 'CAPI', RCA: 'Refugee Cash' };
-const COUNTIES = ['Los Angeles', 'San Diego', 'Alameda', 'Fresno', 'Sacramento'];
 
 export default function RegisterPage() {
   const [mode, setMode] = useState('Regular Intake');
@@ -70,7 +70,7 @@ export default function RegisterPage() {
           <div><label className="f">Children under 18</label><input className="in num" type="number" min={0} value={kids} onChange={e => setKids(+e.target.value || 0)} /></div>
           <div><label className="f">Monthly income ($)</label><input className="in num" type="number" min={0} value={income} onChange={e => setIncome(+e.target.value || 0)} /></div>
           <div><label className="f">Monthly rent ($)</label><input className="in num" type="number" min={0} value={rent} onChange={e => setRent(+e.target.value || 0)} /></div>
-          <div><label className="f">County</label><select className="in" value={county} onChange={e => setCounty(e.target.value)}>{COUNTIES.map(c => <option key={c}>{c}</option>)}</select></div>
+          <div><label className="f">County</label><select className="in" value={county} onChange={e => setCounty(e.target.value)}>{COUNTY_NAMES.map(c => <option key={c}>{c}</option>)}</select></div>
         </div>
         <div><span className="f">Programs requested</span>
           <div className="choices">

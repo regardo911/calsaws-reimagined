@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { submitApplicationAction, type ApplicationPayload } from '@/app/actions/case-actions';
 import type { Program } from '@/lib/engine';
+import { COUNTY_NAMES } from '@/lib/seed-core';
 
 const PROGRAMS: { key: Program; name: string; desc: string; cssVar: string; needsKids?: boolean; adultOnly?: boolean }[] = [
   { key: 'CF', name: 'CalFresh', desc: 'Monthly money for groceries on an EBT card.', cssVar: '--s-cf' },
@@ -14,7 +15,6 @@ const PROGRAMS: { key: Program; name: string; desc: string; cssVar: string; need
   { key: 'CW', name: 'CalWORKs', desc: 'Cash aid and job services for families with children.', cssVar: '--s-cw', needsKids: true },
   { key: 'GA', name: 'General Relief', desc: 'County cash aid for adults.', cssVar: '--s-ga', adultOnly: true },
 ];
-const COUNTIES = ['Los Angeles', 'San Diego', 'Alameda', 'Fresno', 'Sacramento', 'Riverside', 'Kern', 'Orange', 'Santa Clara', 'Humboldt'];
 const DRAFT_KEY = 'calsaws-apply-draft';
 
 interface Draft {
@@ -156,7 +156,7 @@ export default function ApplyPage() {
               <div className="row" style={{ justifyContent: 'space-between' }}><span className="muted">Programs</span><span>{d.programs.join(', ') || '—'}</span></div>
               <div><label className="f" htmlFor="county">County</label>
                 <select id="county" className="in" style={{ maxWidth: 240 }} value={d.county} onChange={e => save({ ...d, county: e.target.value })}>
-                  {COUNTIES.map(c => <option key={c}>{c}</option>)}
+                  {COUNTY_NAMES.map(c => <option key={c}>{c}</option>)}
                 </select></div>
               <p className="xs muted">Submitting requires an account so you can track your case — you’ll be asked to create one if you’re not signed in.</p>
             </div>

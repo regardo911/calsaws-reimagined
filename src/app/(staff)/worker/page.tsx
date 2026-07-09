@@ -1,8 +1,7 @@
 // Worker dashboard — live task queue with SLA countdowns. RLS-scoped staff reads.
 import Link from 'next/link';
 import { getStaffContext } from '@/lib/auth-helpers';
-import { loadParams } from '@/lib/rules';
-import { slaInfo, fdate, type DbCase } from '@/lib/domain';
+import { fdate, type DbCase } from '@/lib/domain';
 import { ProgPill, SlaChip, PriorityPill, Tile } from '@/components/ui';
 import type { Program } from '@/lib/engine';
 
@@ -10,20 +9,27 @@ export const dynamic = 'force-dynamic';
 
 export default async function WorkerDashboard() {
   const { supabase, profile } = await getStaffContext();
-  const P = await loadParams();
   const { data: tasks } = await supabase
     .from('tasks').select('*, cases(*, persons(name, role)), profiles:assigned_to(full_name)')
     .eq('status', 'open').order('due_date');
 
+  // Rank by priority (Critical > High > Normal), then by due date.
+  const prank = (p: string) => (p === 'Critical' ? 0 : p === 'High' ? 1 : 2);
   const rows = (tasks ?? [])
     .filter(t => t.cases)
-    .map(t => ({ t, c: t.cases as DbCase & { id: string }, sla: slaInfo(t.cases as DbCase, P) }))
-    .sort((a, b) => (a.t.priority === 'Critical' ? 0 : 1) - (b.t.priority === 'Critical' ? 0 : 1) || a.t.due_date.localeCompare(b.t.due_date));
+    .map(t => {
+      // SLA chip is driven by the task's own due_date (correct for renewals / supervisor-returned tasks).
+      const due = new Date(t.due_date + (t.due_date.length === 10 ? 'T12:00:00' : ''));
+      const left = Math.ceil((due.getTime() - Date.now()) / 86400000);
+      return { t, c: t.cases as DbCase & { id: string }, sla: { left, overdue: left < 0, atRisk: left >= 0 && left <= 5 } };
+    })
+    .sort((a, b) => prank(a.t.priority) - prank(b.t.priority) || a.t.due_date.localeCompare(b.t.due_date));
 
   const mine = profile.role === 'worker' ? rows.filter(r => r.t.assigned_to === profile.id) : rows;
-  const expedited = rows.filter(r => r.t.priority === 'Critical');
-  const atRisk = rows.filter(r => r.sla.atRisk);
-  const overdue = rows.filter(r => r.sla.overdue);
+  // Tiles count the same set the table renders (assigned-to-me for workers) so tiles and table agree.
+  const expedited = mine.filter(r => r.t.priority === 'Critical');
+  const atRisk = mine.filter(r => r.sla.atRisk);
+  const overdue = mine.filter(r => r.sla.overdue);
 
   return (
     <>

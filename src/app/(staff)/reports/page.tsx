@@ -14,8 +14,11 @@ const TABS = [['dash', 'Live dashboard'], ['timeliness', 'Timeliness'], ['worker
 const PVAR: Record<Program, string> = { CF: '--s-cf', CW: '--s-cw', MC: '--s-mc', GA: '--s-ga', CAPI: '--s-capi', RCA: '--s-rca' };
 
 export default async function ReportsPage({ searchParams }: { searchParams: Promise<{ tab?: string; county?: string }> }) {
-  const { tab = 'dash', county = 'All' } = await searchParams;
-  const { supabase } = await getStaffContext();
+  const { tab = 'dash', county: countyParam = 'All' } = await searchParams;
+  const { supabase, profile } = await getStaffContext();
+  const isAdmin = profile.role === 'admin';
+  // Non-admin staff are RLS-scoped to a single county — lock the filter + labels to it.
+  const county = isAdmin ? countyParam : profile.county;
   const P = await loadParams();
 
   const [{ data: casesAll }, { data: issAll }, { data: tasksAll }, { data: runsAll }, { data: workers }] = await Promise.all([
@@ -36,13 +39,19 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
       <div className="row wrap" style={{ justifyContent: 'space-between', marginBottom: 6 }}>
         <h1 style={{ fontSize: 23 }}>Reports & analytics</h1>
         <div className="row wrap">
-          <form method="get" action="/reports" className="row">
-            <input type="hidden" name="tab" value={tab} />
-            <select className="in" name="county" defaultValue={county} style={{ width: 'auto' }} aria-label="County filter">
-              {counties.map(c => <option key={c}>{c}</option>)}
+          {isAdmin ? (
+            <form method="get" action="/reports" className="row">
+              <input type="hidden" name="tab" value={tab} />
+              <select className="in" name="county" defaultValue={county} style={{ width: 'auto' }} aria-label="County filter">
+                {counties.map(c => <option key={c}>{c}</option>)}
+              </select>
+              <button className="btn ghost sm" type="submit">Filter</button>
+            </form>
+          ) : (
+            <select className="in" defaultValue={county} disabled style={{ width: 'auto' }} aria-label="County filter">
+              <option>{county}</option>
             </select>
-            <button className="btn ghost sm" type="submit">Filter</button>
-          </form>
+          )}
           <a className="btn ghost sm" href={`/reports/csv?tab=${tab}&county=${encodeURIComponent(county)}`}>⬇ Export CSV</a>
         </div>
       </div>
@@ -115,7 +124,7 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
           return { label: `${PROG[p].name} (${P.sla[p]}d)`, value: pct, color: pct >= 90 ? 'var(--ok)' : pct >= 75 ? 'var(--warn)' : 'var(--crit)' };
         }).filter(Boolean) as { label: string; value: number; color: string }[];
         const overdue = (tasksAll ?? []).filter(t => t.status === 'open').map(t => {
-          const c = (casesAll ?? []).find(x => x.id === t.case_id);
+          const c = cases.find(x => x.id === t.case_id);
           if (!c) return null;
           const sla = slaInfo(c as DbCase, P);
           return sla.overdue ? { t, c, sla } : null;
@@ -147,11 +156,11 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
       })()}
 
       {tab === 'workers' && (() => {
-        const rows = (workers ?? []).map(w => ({
+        const rows = (workers ?? []).filter(w => county === 'All' || w.county === county).map(w => ({
           w,
-          open: (tasksAll ?? []).filter(t => t.status === 'open' && t.assigned_to === w.id).length,
-          dets: (runsAll ?? []).filter(r => r.accepted_by === w.id).length,
-          cl: (casesAll ?? []).filter(c => c.assigned_to === w.id).length,
+          open: (tasksAll ?? []).filter(t => t.status === 'open' && t.assigned_to === w.id && ids.has(t.case_id)).length,
+          dets: (runsAll ?? []).filter(r => r.accepted_by === w.id && ids.has(r.case_id)).length,
+          cl: cases.filter(c => c.assigned_to === w.id).length,
         }));
         return (
           <div className="grid g2">
@@ -178,7 +187,7 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
           head = ['County', 'Households', 'Persons approx.', 'Issuance ($)'];
           rows = countiesList.map(cty => {
             const cs = cases.filter(c => c.county === cty && (c.programs as Program[]).includes('CF') && c.status === 'approved');
-            const issd = iss.filter(i => i.program === 'CF' && cs.some(c => c.id === i.case_id)).reduce((s, i) => s + Number(i.amount), 0);
+            const issd = iss.filter(i => i.program === 'CF' && i.date.startsWith(thisMonth) && cs.some(c => c.id === i.case_id)).reduce((s, i) => s + Number(i.amount), 0);
             return [cty, cs.length, cs.length * 2, issd] as (string | number)[];
           }).filter(r => (r[1] as number) > 0);
         } else if (tab === 'ca237cw') {
@@ -187,21 +196,22 @@ export default async function ReportsPage({ searchParams }: { searchParams: Prom
           head = ['County', 'Cases', 'Grants ($)'];
           rows = countiesList.map(cty => {
             const cs = cases.filter(c => c.county === cty && (c.programs as Program[]).includes('CW') && c.status === 'approved');
-            const grants = iss.filter(i => i.program === 'CW' && cs.some(c => c.id === i.case_id)).reduce((s, i) => s + Number(i.amount), 0);
+            const grants = iss.filter(i => i.program === 'CW' && i.date.startsWith(thisMonth) && cs.some(c => c.id === i.case_id)).reduce((s, i) => s + Number(i.amount), 0);
             return [cty, cs.length, grants] as (string | number)[];
           }).filter(r => (r[1] as number) > 0);
         } else {
           title = 'CA 255 — Denials and Other Non-Approvals Report';
           sub = 'Application dispositions by program · companion to CA 237 · scheduled 7th business day';
-          head = ['Program', 'Received', 'Approved', 'Denied', 'Pending'];
+          head = ['Program', 'Received', 'Approved', 'Denied', 'Pending', 'Renewal due'];
           rows = (['CF', 'CW', 'MC', 'GA', 'CAPI', 'RCA'] as Program[]).map(p => {
             const cs = cases.filter(c => (c.programs as Program[]).includes(p));
             return [PROG[p].name, cs.length, cs.filter(c => c.status === 'approved').length,
               cs.filter(c => c.status === 'denied').length,
-              cs.filter(c => ['pending', 'yellow_banner', 'pending_authorization'].includes(c.status)).length] as (string | number)[];
+              cs.filter(c => ['pending', 'yellow_banner', 'pending_authorization'].includes(c.status)).length,
+              cs.filter(c => c.status === 'renewal_due').length] as (string | number)[];
           }).filter(r => (r[1] as number) > 0);
         }
-        const totals = head.map((_, i) => i === 0 ? 'Statewide total' : rows.reduce((s, r) => s + (typeof r[i] === 'number' ? (r[i] as number) : 0), 0));
+        const totals = head.map((_, i) => i === 0 ? (county === 'All' ? 'Statewide total' : `${county} total`) : rows.reduce((s, r) => s + (typeof r[i] === 'number' ? (r[i] as number) : 0), 0));
         return (
           <div className="card"><div className="bd">
             <div style={{ borderBottom: '3px solid var(--primary-strong)', paddingBottom: 12, marginBottom: 4 }}>
