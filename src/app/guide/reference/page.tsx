@@ -186,6 +186,18 @@ const CORRECTIONS: { what: ReactNode; source: ReactNode; impact: ReactNode }[] =
   },
 ];
 
+// ---- Full source inventory: every document the research team drew on (from the research log) ----
+const CIT_IDS = [
+  'CIT-0006-25', 'CIT-0008-26', 'CIT-0010-25', 'CIT-0017-22', 'CIT-0019-21', 'CIT-0030-22', 'CIT-0038-23',
+  'CIT-0039-23', 'CIT-0071-20', 'CIT-0074-23', 'CIT-0076-23', 'CIT-0089-20', 'CIT-0099-24', 'CIT-0103-22',
+  'CIT-0135-21', 'CIT-0136-21', 'CIT-0148-20', 'CIT-0148-24', 'CIT-0150-22', 'CIT-0169-23', 'CIT-0173-22',
+  'CIT-0179-23', 'CIT-0198-23', 'CIT-0206-23', 'CIT-0229-21', 'CIT-0239-22', 'CIT-0240-21', 'CIT-0248-23',
+  'CIT-0287-22', 'CIT-0290-23', 'CIT-0294-22', 'CIT-0313-23', 'CIT-0340-23', 'CIT-0354-22', 'CIT-0355-22',
+];
+const ACIN_IDS = ['ACIN I-15-26', 'ACIN I-19-16', 'ACIN I-33-21', 'ACIN I-45-24', 'ACIN I-46-25', 'ACIN I-48-23', 'ACIN I-61-24'];
+const ACL_IDS = ['ACL 08-30', 'ACL 16-39E', 'ACL 17-98', 'ACL 18-117', 'ACL 21-130', 'ACL 21-130E', 'ACL 23-83', 'ACL 24-55', 'ACL 24-63', 'ACL 25-36', 'ACL 25-50', 'ACL 25-65', 'ACL 25-68', 'ACL 25-78'];
+const OTHER_IDS = ['ACWDL 23-14E', 'ACWDL 25-18', '7 CFR 273.9', '7 CFR 275.16', 'MPP 42', 'MPP 44', 'MPP 63'];
+
 export default function Page() {
   return (
     <div className="g-stack">
@@ -197,8 +209,9 @@ export default function Page() {
           Every threshold, standard, banner, and report name in this platform traces to a real government
           source — a CDSS all-county letter, a CalSAWS configuration or job-aid document ({CODE('CIT-…')}), a
           federal regulation, or the live BenefitsCal application — <strong>not invented from thin air.</strong>{' '}
-          Below is the one cornerstone document, the fourteen sources behind the engine, and the corrections
-          the research team made when the build drifted from current policy.
+          Below is the cornerstone document, the key sources behind the engine (with what each establishes),
+          the full inventory of <strong>63 government documents</strong> the research team drew on, and the
+          corrections it made when the build drifted from current policy.
         </p>
       </div>
 
@@ -243,7 +256,7 @@ export default function Page() {
       <section className="g-card">
         <div className="g-card-hd">
           <h3 className="g-card-title">Primary-source citations</h3>
-          <span className="g-card-meta">1 cornerstone + 14 sources</span>
+          <span className="g-card-meta">the key sources, with what each establishes</span>
         </div>
         <div className="g-card-bd">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -272,6 +285,43 @@ export default function Page() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Full source inventory ---------- */}
+      <section className="g-card">
+        <div className="g-card-hd">
+          <h3 className="g-card-title">Full source inventory</h3>
+          <span className="g-card-meta">every document the research team drew on · 63 total</span>
+        </div>
+        <div className="g-card-bd">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="g-callout info">
+              The Research team drew on <strong>63 government documents</strong> (plus the live BenefitsCal
+              portal) while building and verifying the platform. The key ones — with what each establishes — are
+              in the table above; the complete list below comes straight from the research log.
+            </div>
+            <div>
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CalSAWS County Information Transmittals — 35</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{CIT_IDS.map((id) => <span key={id} className="g-code">{id}</span>)}</div>
+            </div>
+            <div>
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CDSS All-County Information Notices (ACIN) — 7</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{ACIN_IDS.map((id) => <span key={id} className="g-code">{id}</span>)}</div>
+            </div>
+            <div>
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CDSS All-County Letters (ACL) — 14</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{ACL_IDS.map((id) => <span key={id} className="g-code">{id}</span>)}</div>
+            </div>
+            <div>
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>Medi-Cal letters · federal regulations · MPP — 7</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{OTHER_IDS.map((id) => <span key={id} className="g-code">{id}</span>)}</div>
+            </div>
+            <div>
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>Live production reference</div>
+              <span className="g-code">benefitscal.com — 94 recorded actions</span>
+            </div>
           </div>
         </div>
       </section>
