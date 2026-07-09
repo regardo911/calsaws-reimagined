@@ -1,25 +1,26 @@
 // Public guide — INTRODUCTION tab. Static server component (no 'use client',
-// no DB). Foregrounds the agentic build: Claude Opus 4.8 orchestrator + Fable 5
-// agents, run in Claude Code. The delivery-team org chart lives here.
+// no DB). Foregrounds the agentic build: an AI Orchestrator (Claude Opus 4.8)
+// directing two teams of Fable 5 agents, run in Claude Code. Read like an org chart.
 
 type Chip = { x: number; y: number; label: string; title?: string };
 
+// Research team — 7 AI agents.
 const researchChips: Chip[] = [
-  { x: 78, y: 256, label: '📚 Archivist' },
-  { x: 172, y: 256, label: '🔍 Field agent' },
-  { x: 266, y: 256, label: '📋 Policy I', title: 'Policy analyst I' },
-  { x: 360, y: 256, label: '📋 Policy II', title: 'Policy analyst II' },
-  { x: 126, y: 292, label: '🔀 Workflow' },
-  { x: 220, y: 292, label: '🕰 Historian' },
-  { x: 314, y: 292, label: '⚖ Compliance' },
+  { x: 54, y: 218, label: '📚 Archivist' },
+  { x: 156, y: 218, label: '🔍 Field agent' },
+  { x: 258, y: 218, label: '📋 Policy I', title: 'Policy analyst I' },
+  { x: 360, y: 218, label: '📋 Policy II', title: 'Policy analyst II' },
+  { x: 105, y: 256, label: '🔀 Workflow' },
+  { x: 207, y: 256, label: '🕰 Historian' },
+  { x: 309, y: 256, label: '⚖ Compliance' },
 ];
-
+// Engineering team — 5 AI agents (same "agent" framing as Research).
 const engChips: Chip[] = [
-  { x: 538, y: 256, label: '⚙ Rules engine' },
-  { x: 646, y: 256, label: '🗄 Database' },
-  { x: 754, y: 256, label: '🧩 Full-stack' },
-  { x: 592, y: 292, label: '🧪 QA / tests' },
-  { x: 700, y: 292, label: '🏗 Platform' },
+  { x: 512, y: 218, label: '⚙ Rules engine' },
+  { x: 614, y: 218, label: '🗄 Database' },
+  { x: 716, y: 218, label: '🧩 Full-stack' },
+  { x: 563, y: 256, label: '🚀 Platform' },
+  { x: 665, y: 256, label: '🧪 QA / test' },
 ];
 
 const GH = 'https://github.com/regardo911/calsaws-reimagined';
@@ -30,8 +31,7 @@ export default function Page() {
       <p className="g-lede">
         A working California eligibility platform — <strong>CalFresh, CalWORKs, Medi-Cal,
         General Relief, CAPI, and RCA</strong> — that determines benefits, issues them, and
-        reports on them end to end. It was built by an <strong>autonomous AI delivery team</strong>,
-        and it runs live.
+        reports on them end to end. It was built by an <strong>AI team</strong>, and it runs live.
       </p>
 
       <div className="g-callout info">
@@ -43,142 +43,132 @@ export default function Page() {
       </div>
 
       {/* ------------------------------------------------------------------ */}
-      {/* HOW IT WAS BUILT — the agentic delivery team                       */}
+      {/* HOW IT WAS BUILT — the AI team                                     */}
       {/* ------------------------------------------------------------------ */}
       <section className="g-card">
         <div className="g-card-hd">
-          <h2 className="g-card-title">How it was built — an autonomous AI delivery team</h2>
-          <span className="g-card-meta">Built in an afternoon</span>
+          <h2 className="g-card-title">How it was built — an AI team</h2>
+          <span className="g-card-meta">a lead + two teams of AI agents</span>
         </div>
         <div className="g-card-bd">
           <p className="g-prose">
-            Not one model in one pass. A single <strong>Claude Opus 4.8</strong> orchestrator —
-            running in <strong>Claude Code</strong>, holding the whole system in a 1M-token
-            context — briefed and ran two peer teams of <strong>Fable 5</strong> agents: a{' '}
-            <strong>Research team</strong> that read the real CalSAWS rules and source documents,
-            and an <strong>Engineering team</strong> that wrote the platform. An automated test
-            harness re-checked every determination to the dollar on each change — and when a
-            source contradicted the build, the source won. Every rule traces to a document: one
-            agent extracted the 146-page CalSAWS Configuration Guide (CIT-0355-22) page by page;
-            another walked benefitscal.com live across 94 recorded actions.
+            Think of it as a software team, except the team is AI. A single{' '}
+            <strong>AI Orchestrator</strong> — <strong>Claude Opus 4.8</strong>, running in{' '}
+            <strong>Claude Code</strong> — planned the system and directed two teams of{' '}
+            <strong>Fable 5</strong> agents: a <strong>Research team</strong> that read the real
+            CalSAWS rules and source documents, and an <strong>Engineering team</strong> that wrote
+            the code. Every change was re-checked by an automated test suite before it shipped, and
+            when a source contradicted the build, the source won. The same setup then ran a large
+            audit to harden the platform for wide use.
           </p>
 
-          {/* # boxes — the numbers, updated */}
+          {/* # boxes — full numbers, no abbreviations */}
           <div className="g-grid g-grid-3">
             <div className="g-stat">
-              <div className="g-stat-v">8</div>
-              <div className="g-stat-l">AI agents · 13 roles</div>
-              <div className="g-stat-d">1 orchestrator + 7 research + 5 engineering workstreams</div>
+              <div className="g-stat-v">100+</div>
+              <div className="g-stat-l">AI agents</div>
+              <div className="g-stat-d">built, audited &amp; hardened the platform</div>
             </div>
             <div className="g-stat">
-              <div className="g-stat-v" style={{ fontSize: 24 }}>Opus 4.8</div>
-              <div className="g-stat-l">orchestrator model</div>
-              <div className="g-stat-d">+ Fable 5 agents · run in Claude Code</div>
+              <div className="g-stat-v" style={{ fontSize: 21 }}>Opus 4.8 + Fable 5</div>
+              <div className="g-stat-l">the AI models</div>
+              <div className="g-stat-d">orchestrator + agents, run in Claude Code</div>
             </div>
             <div className="g-stat">
-              <div className="g-stat-v">~1.35M</div>
-              <div className="g-stat-l">tokens · one-shot build</div>
-              <div className="g-stat-d">851K metered research + est. build/QA</div>
+              <div className="g-stat-v" style={{ fontSize: 23 }}>6,200,000+</div>
+              <div className="g-stat-l">tokens of AI work</div>
+              <div className="g-stat-d">building, auditing &amp; documenting the platform</div>
             </div>
           </div>
           <div className="g-grid g-grid-3" style={{ marginTop: 12 }}>
             <div className="g-stat">
-              <div className="g-stat-v">38</div>
-              <div className="g-stat-l">automated checks green</div>
-              <div className="g-stat-d">25 unit + 13 end-to-end · re-run every build</div>
+              <div className="g-stat-v">146</div>
+              <div className="g-stat-l">pages researched</div>
+              <div className="g-stat-d">the CalSAWS Configuration Guide (CIT-0355-22), read page by page — plus other primary sources</div>
             </div>
             <div className="g-stat">
-              <div className="g-stat-v">~5.3K</div>
+              <div className="g-stat-v">6,700</div>
               <div className="g-stat-l">lines of code</div>
-              <div className="g-stat-d">app + 15-table schema + tests</div>
+              <div className="g-stat-d">the app, the database schema &amp; the tests</div>
             </div>
             <div className="g-stat">
-              <div className="g-stat-v">1 day</div>
-              <div className="g-stat-l">afternoon build</div>
-              <div className="g-stat-d">live on Vercel; extended since</div>
+              <div className="g-stat-v">38</div>
+              <div className="g-stat-l">automated tests</div>
+              <div className="g-stat-d">re-prove every benefit to the dollar — e.g. Maria&apos;s $686 — on every change</div>
             </div>
           </div>
 
-          {/* The team that was deployed */}
+          {/* The team that was deployed — read like an org chart */}
           <p className="g-eyebrow" style={{ margin: '22px 0 8px' }}>The team that was deployed</p>
           <div className="g-diag">
             <svg
-              viewBox="0 0 960 500"
+              viewBox="0 0 960 520"
               role="img"
-              aria-label="Agentic delivery team — a Claude Opus 4.8 orchestrator over peer Research and Engineering teams of Fable 5 agents, with a cross-cutting automated test harness beneath both."
+              aria-label="AI delivery team org chart: an AI Orchestrator (Claude Opus 4.8) directs a Research team of 7 agents and an Engineering team of 5 agents; an automated test suite re-checks every change before it ships."
             >
               <defs>
-                <marker id="iarr" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="7.5" refY="3.5" orient="auto">
+                <marker id="i2arr" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="7.5" refY="3.5" orient="auto">
                   <path d="M0,0 L8,3.5 L0,7 Z" fill="var(--ink-3)" />
                 </marker>
-                <marker id="iarrb" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="0.5" refY="3.5" orient="auto">
-                  <path d="M8,0 L0,3.5 L8,7 Z" fill="var(--ink-3)" />
+                <marker id="i2ok" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="7.5" refY="3.5" orient="auto">
+                  <path d="M0,0 L8,3.5 L0,7 Z" fill="var(--ok)" />
                 </marker>
               </defs>
 
-              {/* Orchestrator */}
-              <rect x="320" y="20" width="320" height="76" rx="10" fill="var(--surface)" stroke="var(--primary)" strokeWidth="2" />
-              <text x="480" y="46" textAnchor="middle" fontSize="15" fontWeight="600" fill="var(--ink)">Orchestrator · Delivery Lead</text>
-              <text x="480" y="64" textAnchor="middle" fontSize="11" fill="var(--ink-2)">Claude Opus 4.8 · 1M-token context · in Claude Code</text>
-              <text x="480" y="82" textAnchor="middle" fontSize="10" fill="var(--ink-3)">architecture · integration · code review · release</text>
+              {/* Orchestrator (the lead) */}
+              <rect x="300" y="20" width="360" height="78" rx="10" fill="var(--surface)" stroke="var(--primary)" strokeWidth="2" />
+              <text x="480" y="47" textAnchor="middle" fontSize="15.5" fontWeight="700" fill="var(--ink)">🧠 AI Orchestrator · Delivery Lead</text>
+              <text x="480" y="67" textAnchor="middle" fontSize="11.5" fill="var(--ink-2)">Claude Opus 4.8 · runs in Claude Code</text>
+              <text x="480" y="85" textAnchor="middle" fontSize="10.5" fill="var(--ink-3)">plans the system · integrates · reviews every line</text>
 
-              {/* Fan-out rail — siblings, not a chain */}
-              <line x1="480" y1="96" x2="480" y2="120" stroke="var(--line-strong)" strokeWidth="1.5" />
-              <line x1="250" y1="120" x2="710" y2="120" stroke="var(--line-strong)" strokeWidth="1.5" />
-              <line x1="250" y1="120" x2="250" y2="150" stroke="var(--line-strong)" strokeWidth="1.5" markerEnd="url(#iarr)" />
-              <line x1="710" y1="120" x2="710" y2="150" stroke="var(--line-strong)" strokeWidth="1.5" markerEnd="url(#iarr)" />
+              {/* Fan-out: the lead DIRECTS two teams (org-chart branches) */}
+              <line x1="480" y1="98" x2="480" y2="120" stroke="var(--line-strong)" strokeWidth="2" />
+              <line x1="255" y1="120" x2="705" y2="120" stroke="var(--line-strong)" strokeWidth="2" />
+              <line x1="255" y1="120" x2="255" y2="150" stroke="var(--line-strong)" strokeWidth="2" markerEnd="url(#i2arr)" />
+              <line x1="705" y1="120" x2="705" y2="150" stroke="var(--line-strong)" strokeWidth="2" markerEnd="url(#i2arr)" />
+              <text x="230" y="114" textAnchor="middle" fontSize="10.5" fontStyle="italic" fill="var(--ink-3)">directs</text>
+              <text x="730" y="114" textAnchor="middle" fontSize="10.5" fontStyle="italic" fill="var(--ink-3)">directs</text>
 
-              {/* Research team header */}
-              <rect x="70" y="150" width="360" height="60" rx="10" fill="var(--surface)" stroke="var(--line)" strokeWidth="1.5" />
-              <text x="250" y="176" textAnchor="middle" fontSize="14" fontWeight="600" fill="var(--ink)">Research team</text>
-              <text x="250" y="196" textAnchor="middle" fontSize="10.5" fill="var(--ink-3)">7 Fable 5 agents · parallel · each independent</text>
-
-              {/* Engineering team header */}
-              <rect x="530" y="150" width="360" height="60" rx="10" fill="var(--surface)" stroke="var(--line)" strokeWidth="1.5" />
-              <text x="710" y="176" textAnchor="middle" fontSize="14" fontWeight="600" fill="var(--ink)">Engineering team</text>
-              <text x="710" y="196" textAnchor="middle" fontSize="10.5" fill="var(--ink-3)">5 workstreams · one shared context</text>
-
-              {/* Peer link — double-headed, NOT a reporting line */}
-              <line x1="430" y1="182" x2="530" y2="182" stroke="var(--ink-3)" strokeWidth="1.3" strokeDasharray="4 3" markerStart="url(#iarrb)" markerEnd="url(#iarr)" />
-              <text x="480" y="176" textAnchor="middle" fontSize="9.5" fontStyle="italic" fill="var(--ink-3)">verify ⇄ build</text>
-              <text x="480" y="202" textAnchor="middle" fontSize="9" fill="var(--ink-3)">sources win</text>
-
-              {/* Research zone */}
-              <rect x="64" y="224" width="372" height="150" rx="10" fill="var(--sunken)" fillOpacity="0.5" stroke="var(--line)" strokeWidth="1" strokeDasharray="5 4" />
-              <text x="78" y="244" textAnchor="start" fontSize="10" fontWeight="600" fill="var(--ink-3)">· 7 research agents ·</text>
+              {/* Research team */}
+              <rect x="40" y="150" width="430" height="214" rx="10" fill="var(--sunken)" fillOpacity="0.45" stroke="var(--line)" strokeWidth="1.5" />
+              <text x="255" y="178" textAnchor="middle" fontSize="14.5" fontWeight="700" fill="var(--ink)">Research team</text>
+              <text x="255" y="197" textAnchor="middle" fontSize="10.5" fill="var(--ink-3)">7 AI agents · Fable 5 · read the real rules</text>
               {researchChips.map((c) => (
                 <g key={c.label}>
                   {c.title ? <title>{c.title}</title> : null}
-                  <rect x={c.x} y={c.y} width={86} height={30} rx={6} fill="var(--surface)" stroke="var(--line)" strokeWidth={1} />
-                  <text x={c.x + 43} y={c.y + 20} textAnchor="middle" fontSize="9.5" fill="var(--ink-2)">{c.label}</text>
+                  <rect x={c.x} y={c.y} width={96} height={30} rx={6} fill="var(--surface)" stroke="var(--line-strong)" strokeWidth={1} />
+                  <text x={c.x + 48} y={c.y + 20} textAnchor="middle" fontSize="9.5" fill="var(--ink-2)">{c.label}</text>
                 </g>
               ))}
+              <text x="255" y="318" textAnchor="middle" fontSize="10" fill="var(--ink-3)">extracted the 146-page Config Guide · walked BenefitsCal live</text>
 
-              {/* Engineering zone */}
-              <rect x="524" y="224" width="372" height="150" rx="10" fill="var(--sunken)" fillOpacity="0.5" stroke="var(--line)" strokeWidth="1" strokeDasharray="5 4" />
-              <text x="538" y="244" textAnchor="start" fontSize="10" fontWeight="600" fill="var(--ink-3)">5 engineering workstreams (Orchestrator&apos;s hats)</text>
+              {/* Engineering team */}
+              <rect x="490" y="150" width="430" height="214" rx="10" fill="var(--sunken)" fillOpacity="0.45" stroke="var(--line)" strokeWidth="1.5" />
+              <text x="705" y="178" textAnchor="middle" fontSize="14.5" fontWeight="700" fill="var(--ink)">Engineering team</text>
+              <text x="705" y="197" textAnchor="middle" fontSize="10.5" fill="var(--ink-3)">5 AI agents · Fable 5 · wrote the code</text>
               {engChips.map((c) => (
                 <g key={c.label}>
-                  <rect x={c.x} y={c.y} width={100} height={30} rx={6} fill="var(--surface)" stroke="var(--line)" strokeWidth={1} />
-                  <text x={c.x + 50} y={c.y + 20} textAnchor="middle" fontSize="9.5" fill="var(--ink-2)">{c.label}</text>
+                  <rect x={c.x} y={c.y} width={96} height={30} rx={6} fill="var(--surface)" stroke="var(--line-strong)" strokeWidth={1} />
+                  <text x={c.x + 48} y={c.y + 20} textAnchor="middle" fontSize="9.5" fill="var(--ink-2)">{c.label}</text>
                 </g>
               ))}
+              <text x="705" y="318" textAnchor="middle" fontSize="10" fill="var(--ink-3)">6 programs · Next.js 16 · Postgres + row-level security</text>
 
-              {/* QA loop connectors — dashed double-headed, one to each team */}
-              <line x1="250" y1="374" x2="250" y2="418" stroke="var(--ok)" strokeWidth="1.4" strokeDasharray="5 4" markerStart="url(#iarrb)" markerEnd="url(#iarr)" />
-              <line x1="710" y1="374" x2="710" y2="418" stroke="var(--ok)" strokeWidth="1.4" strokeDasharray="5 4" markerStart="url(#iarrb)" markerEnd="url(#iarr)" />
-              <text x="262" y="399" textAnchor="start" fontSize="9" fill="var(--ink-3)">re-proves</text>
-              <text x="722" y="399" textAnchor="start" fontSize="9" fill="var(--ink-3)">re-proves</text>
+              {/* both teams' work flows down into automated testing */}
+              <line x1="255" y1="364" x2="255" y2="410" stroke="var(--ok)" strokeWidth="1.6" strokeDasharray="5 4" markerEnd="url(#i2ok)" />
+              <line x1="705" y1="364" x2="705" y2="410" stroke="var(--ok)" strokeWidth="1.6" strokeDasharray="5 4" markerEnd="url(#i2ok)" />
+              <text x="480" y="392" textAnchor="middle" fontSize="10" fontStyle="italic" fill="var(--ink-3)">every change is checked ↓</text>
 
-              {/* Automated test harness — cross-cutting band beneath both teams */}
-              <rect x="64" y="418" width="832" height="64" rx="10" fill="var(--ok-tint)" stroke="var(--ok)" strokeWidth="2" />
-              <text x="480" y="444" textAnchor="middle" fontSize="13" fontWeight="600" fill="var(--ink)">🔁 Automated test harness — cross-checks every change</text>
-              <text x="480" y="464" textAnchor="middle" fontSize="10.5" fill="var(--ink-3)">25 unit assertions + 13 end-to-end scenarios · green on every build</text>
+              {/* Automated testing — concrete: real tests, real dollar amounts */}
+              <rect x="40" y="410" width="880" height="88" rx="10" fill="var(--ok-tint)" stroke="var(--ok)" strokeWidth="2" />
+              <text x="480" y="438" textAnchor="middle" fontSize="14" fontWeight="700" fill="var(--ink)">✅ Automated testing — 38 tests re-run after every change</text>
+              <text x="480" y="462" textAnchor="middle" fontSize="11.5" fill="var(--ink-2)">✔ CalFresh $686 &#160;·&#160; ✔ CalWORKs $675 &#160;·&#160; ✔ applicants can&apos;t see each other&apos;s cases</text>
+              <text x="480" y="482" textAnchor="middle" fontSize="11.5" fontWeight="600" fill="var(--crit)">✖ a wrong benefit amount is caught before it can ship</text>
             </svg>
           </div>
           <p className="g-figcap g-diag-cap">
-            Orchestrator on top; Research and Engineering as peers under a shared fan-out; the automated test
-            harness spans both and loops back to each. A control loop, not a reporting chain.
+            Read it like an org chart: one lead directs two teams of AI agents — one researches the real rules,
+            one writes the code — and an automated test suite re-checks every change to the dollar before it ships.
           </p>
         </div>
       </section>

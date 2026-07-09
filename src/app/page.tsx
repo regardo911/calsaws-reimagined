@@ -1,7 +1,10 @@
-// Landing — public. Live stats come straight from the database.
+// Landing — public. Live stats come straight from the database. This is the
+// "Login here" tab of the site-wide tab bar (shared with the /guide pages).
 import Link from 'next/link';
 import { createAdminClient } from '@/lib/supabase/server';
 import { money } from '@/lib/domain';
+import GuideTabs from './guide/GuideTabs';
+import './guide/guide.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,14 +24,17 @@ export default async function Landing() {
     { href: '/login?as=supervisor', icon: '✅', name: 'Supervisor', desc: 'Authorize grants, reassign tasks, watch SLA timeliness — as Angela Ruiz.' },
     { href: '/login?as=admin', icon: '⚙️', name: 'Administrator', desc: 'Tune eligibility rules live, manage users, statewide reports — as Chris Yamamoto.' },
   ];
-  const contrast: [string, string][] = [
-    ['$1.025B to build 4 systems', 'ISAWS, LEADER, C-IV, CalWIN — plus ~$178M/yr running three in parallel. → one platform, rebuilt by AI.'],
-    ['100+ portal screens, 45-min application', '→ a guided application that skips what doesn’t apply — minutes, not an afternoon.'],
-    ['Overnight batch EDBC', '→ real-time determination with a full plain-English calculation trace.'],
-    ['28 weeks to train a new worker', '→ an eligibility copilot that explains any case, rule, and limit in seconds.'],
-    ['Boilerplate legal notices', '→ plain-language NOAs generated per determination.'],
-    ['Month-end paper reports', '→ live dashboards; CF 296 / CA 237 CW on demand, computed from the caseload.'],
+
+  // Before / after — for a 5-second executive skim.
+  const beforeAfter: [string, string][] = [
+    ['$1.025B to build four legacy systems (ISAWS, LEADER, C-IV, CalWIN)', 'One platform, rebuilt by an AI team'],
+    ['100+ portal screens · a 45-minute application', 'A guided application — done in minutes'],
+    ['Overnight batch eligibility — a black box', 'Real-time determination with the math shown on screen'],
+    ['28 weeks to train a new eligibility worker', 'An AI copilot explains any case, rule, or limit in seconds'],
+    ['Boilerplate legal notices', 'Plain-language notices, generated per determination'],
+    ['Paper reports at month-end', 'Live dashboards — CF 296 / CA 237 CW on demand'],
   ];
+  const cell = { padding: '11px 16px', borderTop: '1px solid var(--line)', fontSize: 14.5, lineHeight: 1.4 } as const;
 
   return (
     <>
@@ -43,7 +49,7 @@ export default async function Landing() {
         <h1>The eligibility platform for 58 counties — reimagined end to end.</h1>
         <p style={{ fontSize: 18, opacity: .9, maxWidth: '38em', marginTop: 16 }}>
           One system for intake, eligibility determination, benefit calculation, case management, and reporting —
-          multi-user, database-backed, with real-time explainable EDBC. Built by AI.
+          multi-user, database-backed, with real-time explainable EDBC. Built by an AI team.
         </p>
         <div className="row wrap" style={{ marginTop: 26, gap: 24 }}>
           <div><div className="num" style={{ fontSize: 26, fontWeight: 750 }}>{total ?? 0}</div><div className="small" style={{ opacity: .8 }}>cases in system</div></div>
@@ -52,8 +58,12 @@ export default async function Landing() {
           <div><div className="num" style={{ fontSize: 26, fontWeight: 750 }}>{money(issued)}</div><div className="small" style={{ opacity: .8 }}>benefits issued (90d)</div></div>
         </div>
       </div></div>
+
+      {/* site-wide tab bar — this page is the "Login here" tab */}
+      <div className="guide-nav"><div className="guide-nav-inner"><GuideTabs /></div></div>
+
       <main className="portal-body" id="main">
-        <div className="eyebrow" style={{ marginBottom: 12 }}>Enter as</div>
+        <div className="eyebrow" style={{ marginBottom: 12 }}>Sign in as</div>
         <div className="grid g4">
           {roles.map(r => (
             <Link key={r.name} className="role-card" href={r.href} data-testid={`role-${r.name.toLowerCase().replace(/\s/g, '-')}`}>
@@ -62,16 +72,21 @@ export default async function Landing() {
             </Link>
           ))}
         </div>
+
+        {/* Before → After */}
         <div className="card" style={{ marginTop: 34 }}><div className="bd">
-          <div className="eyebrow" style={{ marginBottom: 10 }}>Then vs. now</div>
-          <div className="grid g3">
-            {contrast.map(([t, d]) => <div key={t}><strong>{t}</strong><p className="small muted">{d}</p></div>)}
+          <div className="eyebrow" style={{ marginBottom: 12 }}>The legacy system, reimagined with AI</div>
+          <div style={{ border: '1px solid var(--line)', borderRadius: 'var(--r)', overflow: 'hidden', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+            <div style={{ padding: '11px 16px', fontWeight: 800, fontSize: 12.5, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--crit)', background: 'rgba(180,45,32,.09)' }}>Before · legacy CalSAWS</div>
+            <div style={{ padding: '11px 16px', fontWeight: 800, fontSize: 12.5, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--ok)', background: 'rgba(31,122,68,.11)', borderLeft: '1px solid var(--line)' }}>After · this platform</div>
+            {beforeAfter.flatMap(([b, a], i) => [
+              <div key={`b${i}`} style={{ ...cell, color: 'var(--ink-2)' }}><span style={{ color: 'var(--crit)', fontWeight: 800, marginRight: 7 }}>✕</span>{b}</div>,
+              <div key={`a${i}`} style={{ ...cell, borderLeft: '1px solid var(--line)', color: 'var(--ink)', fontWeight: 600 }}><span style={{ color: 'var(--ok)', fontWeight: 800, marginRight: 7 }}>✓</span>{a}</div>,
+            ])}
           </div>
         </div></div>
-        <div className="row wrap" style={{ marginTop: 24, alignItems: 'center', gap: 16 }}>
-          <Link href="/guide" className="btn ghost sm">How this was built →</Link>
-          <p className="xs muted" style={{ margin: 0 }}>Synthetic caseload · every account, case, and determination lives in a real Postgres database.</p>
-        </div>
+
+        <p className="xs muted" style={{ marginTop: 20 }}>Synthetic caseload · every account, case, and determination lives in a real Postgres database. See how it was built in the tabs above.</p>
       </main>
     </>
   );

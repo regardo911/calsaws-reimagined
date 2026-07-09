@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const TABS = [
+  { href: '/', label: 'Login here', icon: '🔑' },
   { href: '/guide/introduction', label: 'Introduction', icon: '✨' },
   { href: '/guide/demo', label: 'Demo Script', icon: '🎬' },
-  { href: '/guide/accounts', label: 'Accounts by County', icon: '🔑' },
+  { href: '/guide/accounts', label: 'Accounts by County', icon: '🗂️' },
   { href: '/guide/reference', label: 'Reference Material', icon: '📚' },
   { href: '/guide/architecture', label: 'Architecture', icon: '🏛️' },
 ] as const;
@@ -14,9 +15,9 @@ const TABS = [
 export default function GuideTabs() {
   const pathname = usePathname();
   return (
-    <nav className="guide-tabs" aria-label="Guide sections">
+    <nav className="guide-tabs" aria-label="Site sections">
       {TABS.map((t) => {
-        const active = pathname === t.href || pathname.startsWith(t.href + '/');
+        const active = t.href === '/' ? pathname === '/' : (pathname === t.href || pathname.startsWith(t.href + '/'));
         return (
           <Link
             key={t.href}
