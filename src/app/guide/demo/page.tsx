@@ -17,6 +17,7 @@ interface Step {
   title: string;
   win: Win;
   route: ReactNode;
+  href?: string; // when set, the Screen route links straight to the live page
   do: ReactNode;
   say?: ReactNode; // omit when the spec's "Say" is "—" (let the screen speak)
   alt: string;
@@ -29,6 +30,7 @@ const STEPS: Step[] = [
     title: 'The live platform, in numbers',
     win: 'public',
     route: <code className="g-code">/</code>,
+    href: '/',
     do: <>Show the hero, the four live database counters, and the &ldquo;Then vs. now&rdquo; strip.</>,
     say: (
       <>
@@ -46,6 +48,7 @@ const STEPS: Step[] = [
     title: 'Public eligibility check (no login)',
     win: 'applicant',
     route: <code className="g-code">/portal/prescreen</code>,
+    href: '/portal/prescreen',
     do: <>Run the quick eligibility check; show the qualifying-program pills that come back.</>,
     say: (
       <>&ldquo;No login. Anyone can check eligibility in seconds — the limits read live from the rules table.&rdquo;</>
@@ -62,6 +65,7 @@ const STEPS: Step[] = [
         <code className="g-code">/portal/apply</code> <span className="muted">· step 1 (Household)</span>
       </>
     ),
+    href: '/portal/apply',
     do: <>Enter yourself plus two kids (ages 6 and 3).</>,
     say: <>&ldquo;A guided application, not a 100-screen maze.&rdquo;</>,
     alt: 'Screenshot: step 1 of the guided application, the Household step.',
@@ -76,6 +80,7 @@ const STEPS: Step[] = [
         <code className="g-code">/portal/apply</code> <span className="muted">· step 4 (Programs)</span>
       </>
     ),
+    href: '/portal/apply',
     do: (
       <>
         Select <strong>CalFresh + CalWORKs + Medi-Cal</strong>.
@@ -93,6 +98,7 @@ const STEPS: Step[] = [
         <code className="g-code">/portal/apply</code> <span className="muted">· step 5 (Review)</span>
       </>
     ),
+    href: '/portal/apply',
     do: (
       <>
         Enter income <strong>$1,600/mo</strong> · savings <strong>$250</strong> · rent <strong>$1,400</strong> ·
@@ -111,6 +117,7 @@ const STEPS: Step[] = [
         <code className="g-code">/signup</code> <span className="muted">· account gate</span>
       </>
     ),
+    href: '/signup',
     do: <>Invent an email on the spot — ask the room to give you one.</>,
     say: <>&ldquo;That account did not exist ninety seconds ago — there is no pre-baked demo user here.&rdquo;</>,
     alt: 'Screenshot: the self-signup form that gates submitting an application.',
@@ -125,6 +132,7 @@ const STEPS: Step[] = [
         <code className="g-code">/portal/apply</code> <span className="muted">· success</span>
       </>
     ),
+    href: '/portal/apply',
     do: (
       <>
         Show the new case number <code className="g-code">C-2xxxxx</code> and the ⚡ expedited callout if it appears.
@@ -139,6 +147,7 @@ const STEPS: Step[] = [
     title: 'Sign in as the worker',
     win: 'staff',
     route: <code className="g-code">/login</code>,
+    href: '/login',
     do: (
       <>
         Show the four demo-fill buttons, then sign in as <code className="g-code">worker.dana@</code> (Los Angeles).
@@ -152,6 +161,7 @@ const STEPS: Step[] = [
     title: 'The worker’s county queue',
     win: 'staff',
     route: <code className="g-code">/worker</code>,
+    href: '/worker',
     do: (
       <>
         Point out the SLA tiles and the case you just created (steps 6&ndash;7), already in the queue with a
@@ -249,6 +259,7 @@ const STEPS: Step[] = [
         <span className="muted">· sign in <code className="g-code">supervisor.angela@</code></span>
       </>
     ),
+    href: '/supervisor',
     do: (
       <>
         Authorizations → the case from step 12 → <strong>Authorize</strong> — one SQL transaction writes the NOAs,
@@ -268,6 +279,7 @@ const STEPS: Step[] = [
         <span className="muted">· sign in <code className="g-code">admin.chris@</code></span>
       </>
     ),
+    href: '/admin',
     do: (
       <>
         Rules &amp; Config → change the <strong>GA/GR monthly grant 221 → 400</strong> → Save.
@@ -324,6 +336,7 @@ const STEPS: Step[] = [
         <span className="muted">→ <code className="g-code">?tab=cf296</code></span>
       </>
     ),
+    href: '/reports?tab=timeliness',
     do: (
       <>
         The dashboard already includes the approved case → <strong>Timeliness</strong> (% within SLA vs{' '}
@@ -367,7 +380,8 @@ export default function Page() {
         <div className="g-eyebrow">Tab 2 · Demo Script</div>
         <h2 className="g-h2">A 12-minute, hands-on walkthrough</h2>
         <p className="g-lede">
-          One natural sequence through the live platform, all in <strong>Los Angeles County</strong>: an applicant
+          The walkthrough runs through <strong>all four roles — applicant → worker → supervisor → admin</strong> in
+          one natural sequence through the live platform, all in <strong>Los Angeles County</strong>: an applicant
           self-serves, a worker processes the case, a supervisor authorizes it, an admin changes a rule, and the
           reports and Copilot tie it together. Every screen is real — <strong>a real account, a real Postgres row,
           and the math shown on screen.</strong>
@@ -402,113 +416,15 @@ export default function Page() {
         their own case.
       </div>
 
-      {/* ---- cheat sheet ---- */}
-      <div className="g-card">
-        <div className="g-card-hd">
-          <h3 className="g-card-title">Demo cheat sheet</h3>
-          <span className="g-card-meta">Los Angeles logins · shared password · golden values</span>
-        </div>
-        <div className="g-card-bd g-stack">
-          <div className="g-callout gold">
-            <span className="g-callout-title">One shared password</span>
-            All four accounts sign in with <code className="g-code">CalSAWS-demo-2026!</code> — one-click fillable
-            from the demo buttons on <code className="g-code">/login</code>.
-          </div>
-
-          <div className="g-tblwrap">
-            <table className="g-table">
-              <thead>
-                <tr>
-                  <th>Role</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Worker ID</th>
-                  <th>Scope</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Applicant</td>
-                  <td>Maria Reyes</td>
-                  <td><code className="g-code">applicant.maria@demo.calsaws.test</code></td>
-                  <td className="muted">—</td>
-                  <td>Own case only</td>
-                </tr>
-                <tr>
-                  <td>Worker</td>
-                  <td>Dana Whitfield</td>
-                  <td><code className="g-code">worker.dana@demo.calsaws.test</code></td>
-                  <td><code className="g-code">19LS01220A</code></td>
-                  <td>Los Angeles County</td>
-                </tr>
-                <tr>
-                  <td>Supervisor</td>
-                  <td>Angela Ruiz</td>
-                  <td><code className="g-code">supervisor.angela@demo.calsaws.test</code></td>
-                  <td><code className="g-code">19LS01200S</code></td>
-                  <td>Los Angeles County</td>
-                </tr>
-                <tr>
-                  <td>Admin</td>
-                  <td>Chris Yamamoto</td>
-                  <td><code className="g-code">admin.chris@demo.calsaws.test</code></td>
-                  <td className="muted">—</td>
-                  <td>Statewide (all counties)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div>
-            <div className="g-eyebrow" style={{ marginBottom: 8 }}>Golden expected values</div>
-            <div className="g-tblwrap">
-              <table className="g-table">
-                <thead>
-                  <tr>
-                    <th>Household</th>
-                    <th>Case</th>
-                    <th>Expected determination</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Maria Reyes</td>
-                    <td><code className="g-code">C-100001</code></td>
-                    <td>
-                      CalFresh <strong>$686</strong> · CalWORKs <strong>$675</strong> · Medi-Cal eligible
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>James Carter <span className="g-chip crit"><span className="dot" style={{ background: 'currentColor' }} />expedited</span></td>
-                    <td><code className="g-code">C-100002</code></td>
-                    <td>
-                      CalFresh <strong>$298</strong> · General Relief <strong>$221</strong> · Medi-Cal adult
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Robert Okafor</td>
-                    <td><code className="g-code">C-100004</code></td>
-                    <td>CAPI <strong>$453</strong> · Medi-Cal aged</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="g-callout warn">
-            <span className="g-callout-title">Don&rsquo;t conflate two case numbers</span>
-            The case you create live in step 7 is <code className="g-code">C-2xxxxx</code>. Seeded Maria is{' '}
-            <code className="g-code">C-100001</code> — keep them straight on stage.
-          </div>
-
-          <div className="g-callout info">
-            <span className="g-callout-title">Reset between runs</span>
-            To start clean: Admin → Rules &amp; Config → <strong>♻️ Reset demo data</strong>. It reseeds cases,
-            tasks, notices, and rules and keeps every account. (Also use it if you changed the GA/GR grant in step
-            15.)
-          </div>
-        </div>
-      </div>
+      {/* ---- logins pointer ---- */}
+      <p style={{ lineHeight: 1.6 }}>
+        The shared password for every demo account is <code className="g-code">CalSAWS-demo-2026!</code> — the full
+        per-county login list is on the{' '}
+        <a href="/guide/accounts" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>
+          Accounts by County
+        </a>{' '}
+        tab.
+      </p>
 
       {/* ---- the walkthrough ---- */}
       <div>
@@ -533,7 +449,15 @@ export default function Page() {
               <div className="g-card-bd g-stack">
                 <dl className="g-kv" style={{ margin: 0 }}>
                   <dt>Screen</dt>
-                  <dd>{s.route}</dd>
+                  <dd>
+                    {s.href ? (
+                      <a href={s.href} style={{ color: 'var(--primary)', textDecoration: 'none' }}>
+                        {s.route}
+                      </a>
+                    ) : (
+                      s.route
+                    )}
+                  </dd>
                   <dt>Do</dt>
                   <dd>{s.do}</dd>
                 </dl>
