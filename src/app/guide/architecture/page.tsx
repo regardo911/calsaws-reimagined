@@ -109,8 +109,8 @@ export default function Page() {
               <text x="284" y="190" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">RLS-scoped reads as the signed-in user</text>
               <rect x="268" y="218" width="294" height="64" rx="10" fill="#17456e" stroke="var(--primary)" strokeWidth="1.5" />
               <text x="284" y="242" fontSize="13.5" fontWeight="700" fill="#fff">Server Actions + EDBC Engine</text>
-              <text x="284" y="258" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.8)">runEDBC() · pure TS · full traces</text>
-              <text x="284" y="272" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.8)">client never computes a determination</text>
+              <text x="284" y="258" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.94)">runEDBC() · pure TS · full traces</text>
+              <text x="284" y="272" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.94)">client never computes a determination</text>
               <rect x="268" y="296" width="294" height="46" rx="10" fill="var(--surface)" stroke="var(--line-strong)" strokeWidth="1.4" />
               <text x="284" y="316" fontSize="13.5" fontWeight="700" fill="var(--ink)">/api/health · /reports/csv</text>
               <text x="284" y="332" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">route handlers</text>
@@ -124,8 +124,8 @@ export default function Page() {
               <text x="654" y="190" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">every anon-key query row-filtered by policy</text>
               <rect x="638" y="218" width="294" height="64" rx="10" fill="#17456e" stroke="var(--primary)" strokeWidth="1.5" />
               <text x="654" y="242" fontSize="13.5" fontWeight="700" fill="#fff">Postgres 17 · 15 tables</text>
-              <text x="654" y="258" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.8)">SECURITY DEFINER functions: accept_edbc_run,</text>
-              <text x="654" y="272" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.8)">authorize_case, submit_application (atomic)</text>
+              <text x="654" y="258" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.94)">SECURITY DEFINER functions: accept_edbc_run,</text>
+              <text x="654" y="272" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.94)">authorize_case, submit_application (atomic)</text>
               <rect x="638" y="296" width="294" height="46" rx="10" fill="var(--surface)" stroke="var(--line-strong)" strokeWidth="1.4" />
               <text x="654" y="316" fontSize="13.5" fontWeight="700" fill="var(--ink)">rule_params</text>
               <text x="654" y="332" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">live policy — admin edits hit every user, no deploy</text>
@@ -135,9 +135,9 @@ export default function Page() {
               <path d="M562 112 H 630" fill="none" stroke="var(--gold)" strokeWidth="1.8" markerEnd="url(#topo-arr-gold)" />
               <path d="M562 178 H 630" fill="none" stroke="var(--ink-3)" strokeWidth="1.8" markerEnd="url(#topo-arr)" />
               <path d="M562 250 H 630" fill="none" stroke="var(--ok)" strokeWidth="1.8" markerEnd="url(#topo-arr-ok)" />
-              <text x="572" y="100" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">anon key + JWT</text>
+              <text x="574" y="100" fontSize="10" fontWeight="500" fill="var(--ink-3)">anon key</text>
               <text x="572" y="166" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">RLS reads</text>
-              <text x="568" y="240" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">service key / RPC</text>
+              <text x="566" y="238" fontSize="10" fontWeight="500" fill="var(--ink-3)">service key</text>
               <text x="196" y="148" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">HTTPS</text>
             </svg>
           </div>
@@ -208,11 +208,11 @@ export default function Page() {
               <path d="M590 210 C 620 180, 630 160, 632 150" fill="none" stroke="var(--gold)" strokeWidth="1.8" markerEnd="url(#life-arr-gold)" />
               <text x="560" y="176" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">CW eligible</text>
               <path d="M735 162 V 212" fill="none" stroke="var(--ok)" strokeWidth="1.8" markerEnd="url(#life-arr-ok)" />
-              <text x="742" y="192" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">supervisor authorizes</text>
+              <text x="744" y="190" fontSize="10.5" fontWeight="500" fill="var(--ok)">supervisor authorizes</text>
               <path d="M590 236 C 620 240, 635 242, 652 242" fill="none" stroke="var(--ok)" strokeWidth="1.8" markerEnd="url(#life-arr-ok)" />
               <text x="596" y="262" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">no CW → finalize</text>
               <path d="M590 218 C 700 130, 800 170, 872 212" fill="none" stroke="var(--crit)" strokeWidth="1.8" markerEnd="url(#life-arr-crit)" />
-              <text x="810" y="196" fontSize="10.5" fontWeight="500" fill="var(--ink-3)">all ineligible</text>
+              <text x="826" y="286" fontSize="10.5" fontWeight="500" fill="var(--crit)">all ineligible</text>
             </svg>
           </div>
 
@@ -252,9 +252,9 @@ export default function Page() {
               {/* hub */}
               <rect x="390" y="120" width="180" height="86" rx="12" fill="#17456e" stroke="var(--primary)" strokeWidth="1.5" />
               <text x="412" y="148" fontSize="13.5" fontWeight="700" fill="#fff">cases</text>
-              <text x="412" y="166" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.8)">case_number · status</text>
-              <text x="412" y="180" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.8)">programs[] · expedited</text>
-              <text x="412" y="194" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.8)">applicant_profile_id → RLS</text>
+              <text x="412" y="166" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.94)">case_number · status</text>
+              <text x="412" y="180" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.94)">programs[] · expedited</text>
+              <text x="412" y="194" fontSize="10.5" fontWeight="500" fill="rgba(255,255,255,.94)">applicant_profile_id → RLS</text>
 
               {/* left: snapshot */}
               <rect x="30" y="30" width="180" height="40" rx="9" fill="var(--surface)" stroke="var(--line-strong)" strokeWidth="1.4" />
