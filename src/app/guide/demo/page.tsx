@@ -1,8 +1,10 @@
-// Public guide — Tab 2: Demo Script (single county: Los Angeles).
-// STATIC server component. No 'use client', no DB reads, no getStaffContext.
-// Content is faithful to spec Part G (the 19-step walkthrough) with the Part E
-// rename of the live-signup beat to "Create a real account, live" — no showmanship.
+// Public guide — Demo Script (single county: Los Angeles). STATIC server component.
+// Each step shows the real URL to click, the action (Do), an optional line (Say),
+// and a screenshot.
 import type { ReactNode } from 'react';
+
+const BASE = 'https://calsaws-reimagined.vercel.app';
+const HOST = 'calsaws-reimagined.vercel.app';
 
 type Win = 'public' | 'applicant' | 'staff';
 
@@ -16,10 +18,10 @@ interface Step {
   n: number;
   title: string;
   win: Win;
-  route: ReactNode;
-  href?: string; // when set, the Screen route links straight to the live page
+  path?: string; // the real URL path to click; omit when there's no single URL (e.g. Copilot)
+  note?: ReactNode; // short annotation after the URL
   do: ReactNode;
-  say?: ReactNode; // omit when the spec's "Say" is "—" (let the screen speak)
+  say?: ReactNode; // omit when the screen speaks for itself
   alt: string;
   cap: string;
 }
@@ -27,28 +29,18 @@ interface Step {
 const STEPS: Step[] = [
   {
     n: 1,
-    title: 'The live platform, in numbers',
-    win: 'public',
-    route: <code className="g-code">/</code>,
-    href: '/',
-    do: <>Show the hero, the four live database counters, and the &ldquo;Then vs. now&rdquo; strip.</>,
-    say: (
-      <>
-        &ldquo;California spent <strong>$1.025B</strong> building the four legacy consortium systems and
-        ~<strong>$178M/yr</strong> running the surviving three in parallel during migration. Training one
-        eligibility worker takes <strong>28 weeks</strong>. This was built by AI in an afternoon — and every
-        number on this page comes from a live Postgres database.&rdquo;
-      </>
-    ),
-    alt: 'Screenshot: the landing page hero with four live database counters and a then-vs-now comparison strip.',
-    cap: 'Landing page — hero, four live DB counters, and the “Then vs. now” strip.',
+    title: 'Start a new application',
+    win: 'applicant',
+    path: '/portal/apply',
+    do: <>Open the portal and begin a new application — no login needed to start.</>,
+    alt: 'Screenshot: the guided application start screen in the public portal.',
+    cap: 'Start a new application — the guided portal wizard, no login required to begin.',
   },
   {
     n: 2,
     title: 'Public eligibility check (no login)',
     win: 'applicant',
-    route: <code className="g-code">/portal/prescreen</code>,
-    href: '/portal/prescreen',
+    path: '/portal/prescreen',
     do: <>Run the quick eligibility check; show the qualifying-program pills that come back.</>,
     say: (
       <>&ldquo;No login. Anyone can check eligibility in seconds — the limits read live from the rules table.&rdquo;</>
@@ -58,14 +50,10 @@ const STEPS: Step[] = [
   },
   {
     n: 3,
-    title: 'Start a guided application — Household',
+    title: 'Guided application — Household',
     win: 'applicant',
-    route: (
-      <>
-        <code className="g-code">/portal/apply</code> <span className="muted">· step 1 (Household)</span>
-      </>
-    ),
-    href: '/portal/apply',
+    path: '/portal/apply',
+    note: 'step 1 (Household)',
     do: <>Enter yourself plus two kids (ages 6 and 3).</>,
     say: <>&ldquo;A guided application, not a 100-screen maze.&rdquo;</>,
     alt: 'Screenshot: step 1 of the guided application, the Household step.',
@@ -75,12 +63,8 @@ const STEPS: Step[] = [
     n: 4,
     title: 'Choose programs',
     win: 'applicant',
-    route: (
-      <>
-        <code className="g-code">/portal/apply</code> <span className="muted">· step 4 (Programs)</span>
-      </>
-    ),
-    href: '/portal/apply',
+    path: '/portal/apply',
+    note: 'step 4 (Programs)',
     do: (
       <>
         Select <strong>CalFresh + CalWORKs + Medi-Cal</strong>.
@@ -93,12 +77,8 @@ const STEPS: Step[] = [
     n: 5,
     title: 'Review the application',
     win: 'applicant',
-    route: (
-      <>
-        <code className="g-code">/portal/apply</code> <span className="muted">· step 5 (Review)</span>
-      </>
-    ),
-    href: '/portal/apply',
+    path: '/portal/apply',
+    note: 'step 5 (Review)',
     do: (
       <>
         Enter income <strong>$1,600/mo</strong> · savings <strong>$250</strong> · rent <strong>$1,400</strong> ·
@@ -112,12 +92,8 @@ const STEPS: Step[] = [
     n: 6,
     title: 'Create a real account, live',
     win: 'applicant',
-    route: (
-      <>
-        <code className="g-code">/signup</code> <span className="muted">· account gate</span>
-      </>
-    ),
-    href: '/signup',
+    path: '/signup',
+    note: 'account gate',
     do: <>Invent an email on the spot — ask the room to give you one.</>,
     say: <>&ldquo;That account did not exist ninety seconds ago — there is no pre-baked demo user here.&rdquo;</>,
     alt: 'Screenshot: the self-signup form that gates submitting an application.',
@@ -127,12 +103,8 @@ const STEPS: Step[] = [
     n: 7,
     title: 'Application received — a real case',
     win: 'applicant',
-    route: (
-      <>
-        <code className="g-code">/portal/apply</code> <span className="muted">· success</span>
-      </>
-    ),
-    href: '/portal/apply',
+    path: '/portal/apply',
+    note: 'success',
     do: (
       <>
         Show the new case number <code className="g-code">C-2xxxxx</code> and the ⚡ expedited callout if it appears.
@@ -146,8 +118,7 @@ const STEPS: Step[] = [
     n: 8,
     title: 'Sign in as the worker',
     win: 'staff',
-    route: <code className="g-code">/login</code>,
-    href: '/login',
+    path: '/login',
     do: (
       <>
         Show the four demo-fill buttons, then sign in as <code className="g-code">worker.dana@</code> (Los Angeles).
@@ -160,8 +131,7 @@ const STEPS: Step[] = [
     n: 9,
     title: 'The worker’s county queue',
     win: 'staff',
-    route: <code className="g-code">/worker</code>,
-    href: '/worker',
+    path: '/worker',
     do: (
       <>
         Point out the SLA tiles and the case you just created (steps 6&ndash;7), already in the queue with a
@@ -176,7 +146,7 @@ const STEPS: Step[] = [
     n: 10,
     title: 'Open the case — Household to Data Matches',
     win: 'staff',
-    route: <code className="g-code">/case/C-100001?tab=household</code>,
+    path: '/case/C-100001?tab=household',
     do: (
       <>
         Walk Household → Income → <strong>Data Matches</strong> (the &ldquo;IEVS wage cross-check&rdquo;).
@@ -189,7 +159,7 @@ const STEPS: Step[] = [
     n: 11,
     title: 'Run EDBC',
     win: 'staff',
-    route: <code className="g-code">/case/C-100001?tab=edbc</code>,
+    path: '/case/C-100001?tab=edbc',
     do: (
       <>
         <strong>Run EDBC</strong> (~1s): <strong>CF $686</strong> · aid 09 / <strong>CW $675</strong> · aid 30 /
@@ -206,12 +176,8 @@ const STEPS: Step[] = [
     n: 12,
     title: 'See the math — “How we got here”',
     win: 'staff',
-    route: (
-      <>
-        <code className="g-code">/case/C-100001?tab=edbc</code>{' '}
-        <span className="muted">· &ldquo;How we got here&rdquo; expanded</span>
-      </>
-    ),
+    path: '/case/C-100001?tab=edbc',
+    note: '“How we got here” expanded',
     do: (
       <>
         Expand the trace: gross vs <strong>$4,442</strong> (200% FPL), 20% earned-income deduction,
@@ -232,11 +198,8 @@ const STEPS: Step[] = [
     n: 13,
     title: 'Yellow Banner — an integrity block',
     win: 'staff',
-    route: (
-      <>
-        <code className="g-code">/case/C-100005?tab=matches</code> <span className="muted">→ case top</span>
-      </>
-    ),
+    path: '/case/C-100005?tab=matches',
+    note: '→ case top',
     do: (
       <>
         Person Search <strong>&ldquo;Brooks&rdquo;</strong> → <code className="g-code">C-100005</code> → the
@@ -253,13 +216,8 @@ const STEPS: Step[] = [
     n: 14,
     title: 'Supervisor authorizes the grant',
     win: 'staff',
-    route: (
-      <>
-        <code className="g-code">/supervisor</code>{' '}
-        <span className="muted">· sign in <code className="g-code">supervisor.angela@</code></span>
-      </>
-    ),
-    href: '/supervisor',
+    path: '/supervisor',
+    note: <>sign in <code className="g-code">supervisor.angela@</code></>,
     do: (
       <>
         Authorizations → the case from step 12 → <strong>Authorize</strong> — one SQL transaction writes the NOAs,
@@ -273,13 +231,8 @@ const STEPS: Step[] = [
     n: 15,
     title: 'Change a rule in Admin',
     win: 'staff',
-    route: (
-      <>
-        <code className="g-code">/admin</code>{' '}
-        <span className="muted">· sign in <code className="g-code">admin.chris@</code></span>
-      </>
-    ),
-    href: '/admin',
+    path: '/admin',
+    note: <>sign in <code className="g-code">admin.chris@</code></>,
     do: (
       <>
         Rules &amp; Config → change the <strong>GA/GR monthly grant 221 → 400</strong> → Save.
@@ -293,11 +246,8 @@ const STEPS: Step[] = [
     n: 16,
     title: 'Re-run with the new rule',
     win: 'staff',
-    route: (
-      <>
-        <code className="g-code">/case/C-100002?tab=edbc</code> <span className="muted">· back as Dana</span>
-      </>
-    ),
+    path: '/case/C-100002?tab=edbc',
+    note: 'back as Dana',
     do: (
       <>
         Open James Carter → deselect all but General Relief → Run → <strong>$400</strong>, with the new standard
@@ -312,11 +262,8 @@ const STEPS: Step[] = [
     n: 17,
     title: 'What the applicant sees',
     win: 'applicant',
-    route: (
-      <>
-        <code className="g-code">/portal</code> <span className="muted">· refresh</span>
-      </>
-    ),
+    path: '/portal',
+    note: 'refresh',
     do: (
       <>
         Status <strong>Active</strong>; a plain-language approval NOA per program; EBT issuance rows. Open a notice
@@ -330,13 +277,8 @@ const STEPS: Step[] = [
     n: 18,
     title: 'Reports and state forms',
     win: 'staff',
-    route: (
-      <>
-        <code className="g-code">/reports?tab=timeliness</code>{' '}
-        <span className="muted">→ <code className="g-code">?tab=cf296</code></span>
-      </>
-    ),
-    href: '/reports?tab=timeliness',
+    path: '/reports?tab=timeliness',
+    note: <>→ <code className="g-code">?tab=cf296</code></>,
     do: (
       <>
         The dashboard already includes the approved case → <strong>Timeliness</strong> (% within SLA vs{' '}
@@ -350,11 +292,7 @@ const STEPS: Step[] = [
     n: 19,
     title: 'Ask the Copilot',
     win: 'staff',
-    route: (
-      <>
-        <span className="muted">✨ Copilot panel · any staff page</span>
-      </>
-    ),
+    note: <>✨ Copilot panel · any staff page</>,
     do: (
       <>
         Open the ✨ Copilot and ask: <strong>&ldquo;Explain case C-100002.&rdquo;</strong>
@@ -377,43 +315,13 @@ export default function Page() {
     <div className="g-stack">
       {/* ---- intro ---- */}
       <div>
-        <div className="g-eyebrow">Tab 2 · Demo Script</div>
+        <div className="g-eyebrow">Demo Script</div>
         <h2 className="g-h2">A 12-minute, hands-on walkthrough</h2>
         <p className="g-lede">
-          The walkthrough runs through <strong>all four roles — applicant → worker → supervisor → admin</strong> in
-          one natural sequence through the live platform, all in <strong>Los Angeles County</strong>: an applicant
-          self-serves, a worker processes the case, a supervisor authorizes it, an admin changes a rule, and the
-          reports and Copilot tie it together. Every screen is real — <strong>a real account, a real Postgres row,
-          and the math shown on screen.</strong>
+          One natural sequence through all four roles — <strong>applicant → worker → supervisor → admin</strong> —
+          in <strong>Los Angeles County</strong>: an applicant self-serves, a worker processes the case, a
+          supervisor authorizes it, an admin changes a rule, and the reports and Copilot tie it together.
         </p>
-      </div>
-
-      <div className="g-grid g-grid-3">
-        <div className="g-stat">
-          <div className="g-stat-v">~12 min</div>
-          <div className="g-stat-l">Hands-on, one sitting</div>
-          <div className="g-stat-d">No slides — drive the real app.</div>
-        </div>
-        <div className="g-stat">
-          <div className="g-stat-v">19 steps</div>
-          <div className="g-stat-l">Applicant → worker → supervisor → admin → reports → Copilot</div>
-          <div className="g-stat-d">One screenshot per step.</div>
-        </div>
-        <div className="g-stat">
-          <div className="g-stat-v">Los Angeles</div>
-          <div className="g-stat-l">A single county, start to finish</div>
-          <div className="g-stat-d">County-scoped throughout.</div>
-        </div>
-      </div>
-
-      {/* ---- two-window note ---- */}
-      <div className="g-callout info">
-        <span className="g-callout-title">Run two browser windows</span>
-        Keep two windows open the whole time: a <strong>normal staff window</strong> and an{' '}
-        <strong>incognito applicant window</strong>. The incognito window is the public / applicant side (steps
-        2&ndash;7 and 17); the normal window is staff (worker Dana → supervisor Angela → admin Chris). Never sign a
-        staff account into the incognito window — keeping them separate is what proves an applicant only ever sees
-        their own case.
       </div>
 
       {/* ---- logins pointer ---- */}
@@ -430,8 +338,8 @@ export default function Page() {
       <div>
         <h2 className="g-h2">The walkthrough</h2>
         <p className="muted small" style={{ marginTop: 4 }}>
-          Each step lists the screen, the action to take (<strong>Do</strong>), and the plain line to say
-          (<strong>Say</strong>). Screenshots are placeholders until captured.
+          Each step lists the <strong>URL</strong> to click, the action to take (<strong>Do</strong>), and the plain
+          line to say (<strong>Say</strong>).
         </p>
       </div>
 
@@ -448,15 +356,23 @@ export default function Page() {
               </div>
               <div className="g-card-bd g-stack">
                 <dl className="g-kv" style={{ margin: 0 }}>
-                  <dt>Screen</dt>
+                  <dt>URL</dt>
                   <dd>
-                    {s.href ? (
-                      <a href={s.href} style={{ color: 'var(--primary)', textDecoration: 'none' }}>
-                        {s.route}
+                    {s.path ? (
+                      <a
+                        href={`${BASE}${s.path}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--primary)', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: 13.5, textDecoration: 'none', wordBreak: 'break-all' }}
+                      >
+                        {HOST}{s.path}
                       </a>
-                    ) : (
-                      s.route
-                    )}
+                    ) : null}
+                    {s.note ? (
+                      <span className="muted small" style={{ marginLeft: s.path ? 8 : 0 }}>
+                        {s.path ? '· ' : ''}{s.note}
+                      </span>
+                    ) : null}
                   </dd>
                   <dt>Do</dt>
                   <dd>{s.do}</dd>
