@@ -21,8 +21,10 @@ function LoginForm() {
   const preset = params.get('as');
   const next = params.get('next') ?? '';
   const isApplicant = preset === 'applicant';
-  const [email, setEmail] = useState(preset && DEMO[preset] ? DEMO[preset].email : '');
-  const [password, setPassword] = useState(preset && DEMO[preset] ? DEMO_PASSWORD : '');
+  // Staff logins prefill for a fast demo; the applicant path must NOT default
+  // into an existing account (they start fresh — prescreen → apply → signup).
+  const [email, setEmail] = useState(!isApplicant && preset && DEMO[preset] ? DEMO[preset].email : '');
+  const [password, setPassword] = useState(!isApplicant && preset && DEMO[preset] ? DEMO_PASSWORD : '');
   const [state, action, pending] = useActionState(signIn, undefined);
 
   const signInForm = (
@@ -46,11 +48,15 @@ function LoginForm() {
         <div className="card auth-card"><div className="bd">
           <h1 style={{ fontSize: 22 }}>Apply for benefits</h1>
           <p className="muted small" style={{ margin: '6px 0 16px' }}>
-            Start a new application now — no account needed to begin. You&rsquo;ll create one when you submit.
+            Start with a quick eligibility check — no login needed. It takes about a minute, then walks you into
+            the application.
           </p>
-          <Link className="btn big" href="/portal/apply" data-testid="start-application" style={{ display: 'block', textAlign: 'center' }}>
-            Start an application →
+          <Link className="btn big" href="/portal/prescreen" data-testid="start-prescreen" style={{ display: 'block', textAlign: 'center' }}>
+            Check your eligibility →
           </Link>
+          <p className="small muted" style={{ marginTop: 10, textAlign: 'center' }}>
+            or <Link href="/portal/apply">skip to the application</Link>
+          </p>
         </div></div>
 
         <div className="card auth-card" style={{ marginTop: 16 }}><div className="bd">
