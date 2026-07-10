@@ -18,6 +18,7 @@ interface Step {
   n: number;
   title: string;
   win: Win;
+  shot?: number; // which screenshot file (step-NN.png) — defaults to n; set when steps reorder
   path?: string; // the real URL path to click; omit when there's no single URL (e.g. Copilot)
   note?: ReactNode; // short annotation after the URL
   do: ReactNode;
@@ -29,17 +30,9 @@ interface Step {
 const STEPS: Step[] = [
   {
     n: 1,
-    title: 'Start a new application',
-    win: 'applicant',
-    path: '/portal/apply',
-    do: <>Open the portal and begin a new application — no login needed to start.</>,
-    alt: 'Screenshot: the guided application start screen in the public portal.',
-    cap: 'Start a new application — the guided portal wizard, no login required to begin.',
-  },
-  {
-    n: 2,
     title: 'Public eligibility check (no login)',
     win: 'applicant',
+    shot: 2,
     path: '/portal/prescreen',
     do: <>Run the quick eligibility check; show the qualifying-program pills that come back.</>,
     say: (
@@ -49,15 +42,26 @@ const STEPS: Step[] = [
     cap: 'Public pre-screen — instant eligibility check with qualifying-program pills.',
   },
   {
-    n: 3,
-    title: 'Guided application — Household',
+    n: 2,
+    title: 'Start a new application',
     win: 'applicant',
+    shot: 1,
+    path: '/portal/apply',
+    do: <>Open the portal and begin a new application — no login needed to start.</>,
+    alt: 'Screenshot: the guided application start screen in the public portal.',
+    cap: 'Start a new application — the guided portal wizard, no login required to begin.',
+  },
+  {
+    n: 3,
+    title: 'Household — you + two kids',
+    win: 'applicant',
+    shot: 3,
     path: '/portal/apply',
     note: 'step 1 (Household)',
     do: <>Enter yourself plus two kids (ages 6 and 3).</>,
     say: <>&ldquo;A guided application, not a 100-screen maze.&rdquo;</>,
     alt: 'Screenshot: step 1 of the guided application, the Household step.',
-    cap: 'Guided application — the Household step.',
+    cap: 'Household — you plus two kids.',
   },
   {
     n: 4,
@@ -346,7 +350,7 @@ export default function Page() {
       <div className="g-stack">
         {STEPS.map((s) => {
           const win = WIN[s.win];
-          const nn = String(s.n).padStart(2, '0');
+          const nn = String(s.shot ?? s.n).padStart(2, '0');
           return (
             <div className="g-card" key={s.n}>
               <div className="g-card-hd">
