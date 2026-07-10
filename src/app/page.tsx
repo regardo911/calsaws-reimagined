@@ -25,17 +25,6 @@ export default async function Landing() {
     { href: '/login?as=admin', icon: '⚙️', name: 'Administrator', desc: 'Tune eligibility rules live, manage users, statewide reports — as Chris Yamamoto.' },
   ];
 
-  // Before / after — for a 5-second executive skim.
-  const beforeAfter: [string, string][] = [
-    ['Built the traditional way — large vendor teams, multi-year, $1.025B across four systems (ISAWS · LEADER · C-IV · CalWIN)', 'Built by a team of autonomous AI agents — Fable 5 orchestrating Opus 4.8'],
-    ['Four separate systems across 58 counties', 'One platform — each county sees only its own cases (Row-Level Security), verified by automated tests'],
-    ['100+ portal screens · a 45-minute application', 'A guided application — done in minutes'],
-    ['Overnight batch eligibility — a black box', 'Real-time determination with the math shown on screen'],
-    ['28 weeks to train a new eligibility worker', 'An AI copilot explains any case, rule, or limit in seconds'],
-    ['Paper reports at month-end', 'Live dashboards — CF 296 / CA 237 CW on demand'],
-  ];
-  const cell = { padding: '11px 16px', borderTop: '1px solid var(--line)', fontSize: 14.5, lineHeight: 1.4 } as const;
-
   return (
     <>
       <header className="topbar">
@@ -77,17 +66,12 @@ export default async function Landing() {
           ))}
         </div>
 
-        {/* Before → After */}
-        <div className="card" style={{ marginTop: 34 }}><div className="bd">
-          <div className="eyebrow" style={{ marginBottom: 12 }}>The legacy system, reimagined with AI</div>
-          <div style={{ border: '1px solid var(--line)', borderRadius: 'var(--r)', overflow: 'hidden', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-            <div style={{ padding: '11px 16px', fontWeight: 800, fontSize: 12.5, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--crit)', background: 'rgba(180,45,32,.09)' }}>Before · legacy CalSAWS</div>
-            <div style={{ padding: '11px 16px', fontWeight: 800, fontSize: 12.5, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--ok)', background: 'rgba(31,122,68,.11)', borderLeft: '1px solid var(--line)' }}>After · this platform</div>
-            {beforeAfter.flatMap(([b, a], i) => [
-              <div key={`b${i}`} style={{ ...cell, color: 'var(--ink-2)' }}><span style={{ color: 'var(--crit)', fontWeight: 800, marginRight: 7 }}>✕</span>{b}</div>,
-              <div key={`a${i}`} style={{ ...cell, borderLeft: '1px solid var(--line)', color: 'var(--ink)', fontWeight: 600 }}><span style={{ color: 'var(--ok)', fontWeight: 800, marginRight: 7 }}>✓</span>{a}</div>,
-            ])}
-          </div>
+        {/* How it was built — one positive statement */}
+        <div className="card" style={{ marginTop: 34 }}><div className="bd" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span aria-hidden="true" style={{ color: 'var(--ok)', fontSize: 20, fontWeight: 800, lineHeight: 1, flexShrink: 0 }}>✓</span>
+          <p style={{ margin: 0, fontSize: 16.5, fontWeight: 600, color: 'var(--ink)' }}>
+            Built by a team of <strong>autonomous AI agents</strong> — Fable&nbsp;5 orchestrating Opus&nbsp;4.8.
+          </p>
         </div></div>
 
         <p className="xs muted" style={{ marginTop: 20 }}>Synthetic caseload · every account, case, and determination lives in a real Postgres database. See how it was built in the tabs above.</p>
