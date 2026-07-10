@@ -470,7 +470,7 @@ export async function seedAll(admin: SupabaseClient, log: SeedLog = { push: () =
       text: `Application registered via ${sc.source} (${sc.intake_mode}) for ${sc.programs.join(', ')}.`,
     });
 
-    // open tasks for in-flight statuses (pending_authorization has NO open task — it awaits the supervisor)
+    // open tasks for in-flight statuses
     if (sc.status === 'pending' || sc.status === 'yellow_banner') {
       await admin.from('tasks').insert({
         case_id: caseId,
@@ -478,6 +478,18 @@ export async function seedAll(admin: SupabaseClient, log: SeedLog = { push: () =
         priority: sc.expedited ? 'Critical' : sc.status === 'yellow_banner' ? 'High' : 'Normal',
         due_date: addDays(sc.application_date, sc.expedited ? 3 : 30),
         assigned_to: assigned,
+      });
+    }
+    // pending_authorization: a TRACKED supervisor task on the case's own SLA clock
+    // (0004 BUG-001 — parity with accept_edbc_run's runtime routing; assigned to the
+    // in-county supervisor, not the EW).
+    if (sc.status === 'pending_authorization') {
+      await admin.from('tasks').insert({
+        case_id: caseId,
+        type: 'Authorize CalWORKs grant',
+        priority: sc.expedited ? 'Critical' : 'High',
+        due_date: addDays(sc.application_date, sc.expedited ? 3 : 30),
+        assigned_to: cp.supervisor,
       });
     }
     if (sc.status === 'renewal_due') {
