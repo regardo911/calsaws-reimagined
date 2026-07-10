@@ -70,7 +70,7 @@ export default async function Landing() {
         <div className="card" style={{ marginTop: 34 }}><div className="bd" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span aria-hidden="true" style={{ color: 'var(--ok)', fontSize: 20, fontWeight: 800, lineHeight: 1, flexShrink: 0 }}>✓</span>
           <p style={{ margin: 0, fontSize: 16.5, fontWeight: 600, color: 'var(--ink)' }}>
-            Built by a team of <strong>autonomous AI agents</strong> — Fable&nbsp;5 orchestrating Opus&nbsp;4.8.
+            Built by a team of <strong>autonomous AI agents</strong>{' — '}Fable&nbsp;5 orchestrating Opus&nbsp;4.8.
           </p>
         </div></div>
 
