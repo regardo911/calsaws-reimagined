@@ -95,11 +95,10 @@ export default function Page() {
       </div>
 
       <p className="g-lede">
-        All 37 accounts below are <strong>live in the database right now</strong> &mdash; pick any row and sign in.
-        The scope each account gets is real and <strong>enforced in Postgres</strong>, not faked in the UI:
-        an applicant sees only their own case, a worker or supervisor sees only their own county
-        (<strong>county-scoped row-level security</strong>), and the single statewide administrator sees every county.
-        It is the clearest way to watch RLS work.
+        All 37 accounts are <strong>live</strong> &mdash; pick any row and sign in. The access each one gets is
+        real, not faked in the UI: <strong>applicants</strong> see only their own case,{' '}
+        <strong>workers and supervisors</strong> only their own county, and the <strong>statewide admin</strong>{' '}
+        sees every county.
       </p>
 
       <div className="g-grid g-grid-3">
@@ -122,10 +121,9 @@ export default function Page() {
 
       <div className="g-callout gold">
         <span className="g-callout-title">One password for every account</span>
-        Sign in at <a href="https://calsaws-reimagined.vercel.app">calsaws-reimagined.vercel.app</a> with any email in
-        the table and the shared password <span className="g-code">CalSAWS-demo-2026!</span>. Row-level security in
-        Postgres compares the signed-in profile&rsquo;s county to each case&rsquo;s county, so a county worker
-        literally cannot query another county&rsquo;s cases &mdash; the administrator (county <span className="g-code">Statewide</span>) bypasses that check.
+        Sign in at <a href="https://calsaws-reimagined.vercel.app">calsaws-reimagined.vercel.app</a> with any email
+        below and the shared password <span className="g-code">CalSAWS-demo-2026!</span>. A county worker can&rsquo;t
+        see another county&rsquo;s cases &mdash; the Statewide admin sees them all.
       </div>
 
       <div className="g-card">
