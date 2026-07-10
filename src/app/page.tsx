@@ -27,11 +27,11 @@ export default async function Landing() {
 
   // Before / after — for a 5-second executive skim.
   const beforeAfter: [string, string][] = [
-    ['$1.025B to build four legacy systems (ISAWS, LEADER, C-IV, CalWIN)', 'One platform, rebuilt by an AI team'],
+    ['Built the traditional way — large vendor teams, multi-year, $1.025B across four systems (ISAWS · LEADER · C-IV · CalWIN)', 'Built by a team of autonomous AI agents — Fable 5 orchestrating Opus 4.8'],
+    ['Four separate systems across 58 counties', 'One platform — each county sees only its own cases (Row-Level Security), verified by automated tests'],
     ['100+ portal screens · a 45-minute application', 'A guided application — done in minutes'],
     ['Overnight batch eligibility — a black box', 'Real-time determination with the math shown on screen'],
     ['28 weeks to train a new eligibility worker', 'An AI copilot explains any case, rule, or limit in seconds'],
-    ['Boilerplate legal notices', 'Plain-language notices, generated per determination'],
     ['Paper reports at month-end', 'Live dashboards — CF 296 / CA 237 CW on demand'],
   ];
   const cell = { padding: '11px 16px', borderTop: '1px solid var(--line)', fontSize: 14.5, lineHeight: 1.4 } as const;
@@ -55,7 +55,11 @@ export default async function Landing() {
           <div><div className="num" style={{ fontSize: 26, fontWeight: 750 }}>{total ?? 0}</div><div className="small" style={{ opacity: .8 }}>cases in system</div></div>
           <div><div className="num" style={{ fontSize: 26, fontWeight: 750 }}>{active ?? 0}</div><div className="small" style={{ opacity: .8 }}>active benefit cases</div></div>
           <div><div className="num" style={{ fontSize: 26, fontWeight: 750 }}>{pending ?? 0}</div><div className="small" style={{ opacity: .8 }}>in processing</div></div>
-          <div><div className="num" style={{ fontSize: 26, fontWeight: 750 }}>{money(issued)}</div><div className="small" style={{ opacity: .8 }}>benefits issued (90d)</div></div>
+          <div><div className="num" style={{ fontSize: 26, fontWeight: 750 }}>{money(issued)}</div><div className="small" style={{ opacity: .8 }}>benefits issued</div></div>
+        </div>
+        <div className="row" style={{ alignItems: 'center', gap: 8, marginTop: 16 }}>
+          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: '#3ddc84', boxShadow: '0 0 0 3px rgba(61,220,132,.22)' }} />
+          <span className="small" style={{ opacity: .85, fontWeight: 600, letterSpacing: '.03em' }}>Live Data</span>
         </div>
       </div></div>
 
