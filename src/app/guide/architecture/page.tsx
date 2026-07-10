@@ -30,39 +30,25 @@ export default function Page() {
         <div className="g-card-bd">
           <div className="g-prose">
             <p>
-              The stack is deliberately thin. Pages and forms are React server components under the{' '}
-              <strong>Next.js 16 App Router</strong>. User actions — run EDBC, accept a run, authorize a case,
-              submit an application — are <strong>server actions</strong>, so the browser never talks to the
-              database directly. Each action calls the <strong>ported EDBC engine</strong> (a faithful
-              TypeScript port of the CalFresh, CalWORKs, Medi-Cal, General Relief, CAPI, and RCA rules) and then
-              reads or writes Postgres over the signed-in user&apos;s session.
-            </p>
-            <p>
-              Two things make that safe. First, <strong>identity</strong>: a user&apos;s role is trusted only
-              from the server-set JWT <span className="g-code">app_metadata</span>{' '}
-              (<span className="g-code">calsaws_role</span>, <span className="g-code">calsaws_county</span>) —
-              never from anything the browser can edit — and is mirrored into a{' '}
-              <span className="g-code">profiles</span> row the database reads. Second, money-moving steps never
-              run as loose statements: accepting a determination or authorizing a case is one atomic{' '}
-              <span className="g-code">SECURITY DEFINER</span> function that writes notices, issues benefits,
-              updates status, closes tasks, and journals in a single transaction. Program rules live as data in{' '}
-              <span className="g-code">rule_params</span>, so a policy change is a row update, not a deployment.
+              The stack is deliberately thin: React server components render the UI,{' '}
+              <strong>server actions</strong> run the ported <strong>EDBC engine</strong>, and every read and
+              write hits <strong>Postgres</strong> as the signed-in user — where row-level security, not app
+              code, decides access. Roles come only from the server-set JWT (never the browser), money-moving
+              steps are single atomic <span className="g-code">SECURITY DEFINER</span> transactions, and rules
+              live as data in <span className="g-code">rule_params</span> — so a policy change is a row update,
+              not a deploy.
             </p>
           </div>
 
           <dl className="g-kv" style={{ marginTop: 16 }}>
             <dt>Presentation</dt>
-            <dd>Next.js 16 App Router · React server components · one shared URL</dd>
-            <dt>Actions</dt>
-            <dd>Server actions — run EDBC, accept, authorize, resolve, submit</dd>
-            <dt>Engine</dt>
-            <dd>Ported EDBC rules · 6 programs · math shown line by line</dd>
+            <dd>Next.js 16 App Router · React server components</dd>
+            <dt>Logic</dt>
+            <dd>Server actions run the ported EDBC engine — 6 programs, math traced line by line</dd>
             <dt>Data</dt>
-            <dd>Postgres · row-level security enabled on every table</dd>
-            <dt>Atomicity</dt>
-            <dd><span className="g-code">SECURITY DEFINER</span> functions for accept / authorize / resolve / submit</dd>
+            <dd>Postgres · RLS on every table · <span className="g-code">SECURITY DEFINER</span> for atomic accept / authorize / submit</dd>
             <dt>Identity</dt>
-            <dd>Role + county from server-set JWT <span className="g-code">app_metadata</span> → <span className="g-code">profiles</span></dd>
+            <dd>Role + county from the server-set JWT <span className="g-code">app_metadata</span> → <span className="g-code">profiles</span></dd>
             <dt>Rules</dt>
             <dd><span className="g-code">rule_params</span> — data, not code · change without a release</dd>
           </dl>
@@ -542,19 +528,23 @@ export default function Page() {
         </div>
         <div className="g-card-bd">
           <pre style={{ margin: 0, padding: '14px 16px', background: 'var(--sunken)', border: '1px solid var(--line)', borderRadius: 'var(--r)', fontSize: 12.5, lineHeight: 1.7, overflowX: 'auto', fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace', color: 'var(--ink)' }}>{`calsaws-reimagined/
-├─ supabase/migrations/     0001_schema.sql · 0002_rls.sql (schema, RLS, atomic fns)
+├─ supabase/migrations/     0001_schema · 0002_rls · 0003_county_rls · 0004_workflow_fixes
+│                           (schema · base RLS + atomic fns · county-scoped RLS · workflow fixes)
 ├─ src/lib/
 │   ├─ engine.ts            EDBC engine — pure, traced, node-testable
 │   ├─ params.ts            rule defaults + admin registry (seeds rule_params)
-│   ├─ seed-core.ts         deterministic caseload: 5 golden households + 45 generated
+│   ├─ seed-core.ts         deterministic caseload: 37 accounts · 12 counties · 81 cases
+│   ├─ domain.ts            shared types + SLA / status helpers
 │   └─ supabase/server.ts   cookie client (RLS) + admin client (service role)
+├─ scripts/                 seed.ts · apply-sql.ts (DDL) · verify-0004 · smoke-000x
 ├─ src/proxy.ts             Next 16 proxy — session refresh + role gates
 ├─ src/app/
 │   ├─ portal/              applicant: apply wizard · prescreener · my benefits · NOAs
-│   └─ (staff)/             worker queue · case tabs + EDBC · supervisor · admin · reports
+│   ├─ (staff)/             worker queue · case tabs + EDBC · supervisor · admin · reports
+│   └─ guide/               this public guide — intro · demo · accounts · reference · architecture
 ├─ tests/engine.test.ts     25 golden assertions (Vitest)
-├─ e2e/scenarios.spec.ts    8 end-to-end scenarios (Playwright)
-└─ DEPLOY.md · README.md`}</pre>
+├─ e2e/                     scenarios.spec.ts + county-isolation.spec.ts — 13 scenarios (Playwright)
+└─ README.md · DEPLOY.md`}</pre>
           <p style={{ marginTop: 14, fontSize: 14, color: 'var(--ink-2)' }}>
             Source is public:{' '}
             <a href="https://github.com/regardo911/calsaws-reimagined" style={{ fontWeight: 600 }}>
