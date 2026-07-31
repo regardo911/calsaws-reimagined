@@ -13,7 +13,8 @@ const DOC: Record<string, { url: string; pp?: number }> = {
   'CIT-0017-22': { url: 'https://www.calsaws.org/wp-content/uploads/2022/03/CIT-0017-22-JA-Medi-Cal-CalHEERS-MAGI-Verifications.pdf', pp: 15 },
   'CIT-0019-21': { url: 'https://www.calsaws.org/wp-content/uploads/2021/02/CIT-0019-21-Medi-Cal-CalHEERS-Dispositions.pdf', pp: 7 },
   'CIT-0030-22': { url: 'https://www.calsaws.org/wp-content/uploads/2022/03/CIT-0030-22-Dashboards-Scheduled-Reports-Replatform-Release-Summaries.pdf', pp: 201 },
-  'CIT-0038-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/02/CIT-0038-23-01.-CalSAWS-Go-Live-Packet.pdf', pp: 7 },
+  // Appendix D of the Go-Live Packet is the actual report catalog (CF 296 / CA 237 CW / CA 255 + cadences).
+  'CIT-0038-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/02/CIT-0038-23-CalWIN-ISS_GLP_Appendix-D_CalSAWS-Reports-Overview.pdf', pp: 49 },
   'CIT-0039-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/02/CIT-0039-23-CalWIN-County-Prep-Phase-Packet-February-2023.pdf', pp: 73 },
   'CIT-0071-20': { url: 'https://www.calsaws.org/wp-content/uploads/2020/05/CIT-0071-20-Job-Aid-Family-Stabilization_.pdf', pp: 5 },
   'CIT-0074-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0074-23-Wave-3-Yellow-Banner-Case-Review-Guide-and-Scenarios-Revised_Redacted.pdf', pp: 5 },
@@ -169,10 +170,16 @@ const CITATION_GROUPS: { domain: string; rows: Row[] }[] = [
     domain: 'Reporting & compliance',
     rows: [
       {
-        source: 'CalSAWS Reports Overview · Reports Navigation',
-        id: <>{CODE('CIT-0038-23')} · {CODE('CIT-0006-25')}</>,
+        source: 'CalSAWS Reports Overview (Appendix D)',
+        id: <>{CODE('CIT-0038-23')}</>,
         proves:
-          'The real report catalog: CF 296 / CA 237 CW / CA 255 structures, business-day cadences, and Scheduled vs. On-Request delivery.',
+          'The real report catalog: CF 296 / CA 237 CW / CA 255 structures and the business-day cadence each one is due on.',
+      },
+      {
+        source: 'CalSAWS Reports Navigation',
+        id: <>{CODE('CIT-0006-25')}</>,
+        proves:
+          'How a report reaches a worker: On Request vs. Scheduled vs. Business Intelligence, the DPSSTATS timeliness dashboard, and preloaded-daily vs. real-time data.',
       },
       {
         source: 'DHCS county performance standards',
@@ -238,7 +245,7 @@ const CORRECTIONS: { what: ReactNode; source: ReactNode; impact: ReactNode }[] =
         claiming, not error rates).
       </>
     ),
-    source: <>Reports Overview ({CODE('CIT-0038-23')}) · Reports Navigation ({CODE('CIT-0006-25')})</>,
+    source: <>Reports Overview ({CODE('CIT-0038-23')}) · {CODE('ACL 16-39E')}</>,
     impact: <>The Reports tab now carries the statutory names counties recognize — <strong>CF 296 · CA 237 CW · CA 255</strong>.</>,
   },
 ];
@@ -282,7 +289,7 @@ export default function Page() {
           <div className="g-stat-d">35 CalSAWS CITs · 7 ACINs · 14 ACLs · 2 Medi-Cal letters · 2 federal regs · 3 MPP divisions</div>
         </div>
         <div className="g-stat">
-          <div className="g-stat-v">1,118</div>
+          <div className="g-stat-v">1,160</div>
           <div className="g-stat-l">pages of source material</div>
           <div className="g-stat-d">measured — every PDF downloaded and page-counted (58 paginated documents; the CFR sections &amp; MPP divisions are web regulations)</div>
         </div>
@@ -372,17 +379,17 @@ export default function Page() {
       <section className="g-card">
         <div className="g-card-hd">
           <h3 className="g-card-title">Full source inventory</h3>
-          <span className="g-card-meta">every document · 63 total · 1,118 measured pages · all linked</span>
+          <span className="g-card-meta">every document · 63 total · 1,160 measured pages · all linked</span>
         </div>
         <div className="g-card-bd">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div className="g-callout info">
               Every ID below links to the <strong>actual document</strong>. Page counts were measured by
-              downloading each PDF and counting — the 58 paginated documents total <strong>1,118 pages</strong>;
+              downloading each PDF and counting — the 58 paginated documents total <strong>1,160 pages</strong>;
               the 2 federal CFR sections and 3 MPP divisions are web regulations without a single page count.
             </div>
             <div>
-              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CalSAWS County Information Transmittals — 35 · 915 pp</div>
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CalSAWS County Information Transmittals — 35 · 957 pp</div>
               <Chips ids={CIT_IDS} />
             </div>
             <div>
