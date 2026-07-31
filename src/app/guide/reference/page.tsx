@@ -18,6 +18,7 @@ const DOC: Record<string, { url: string; pp?: number }> = {
   'CIT-0039-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/02/CIT-0039-23-CalWIN-County-Prep-Phase-Packet-February-2023.pdf', pp: 73 },
   'CIT-0071-20': { url: 'https://www.calsaws.org/wp-content/uploads/2020/05/CIT-0071-20-Job-Aid-Family-Stabilization_.pdf', pp: 5 },
   'CIT-0074-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0074-23-Wave-3-Yellow-Banner-Case-Review-Guide-and-Scenarios-Revised_Redacted.pdf', pp: 5 },
+  'CIT-0076-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf', pp: 4 },
   'CIT-0089-20': { url: 'https://www.calsaws.org/wp-content/uploads/2020/07/CIT-0089-20-ACL-20-45.01.pdf', pp: 7 },
   'CIT-0099-24': { url: 'https://www.calsaws.org/wp-content/uploads/2024/06/CIT-0099-24-JA-EDBC-Overriding-Program-Configuration_.pdf', pp: 8 },
   'CIT-0103-22': { url: 'https://www.calsaws.org/wp-content/uploads/2022/04/CIT-0103-22-Wave-1-and-2-CalSAWS-Infographics-1_Redacted.pdf', pp: 2 },
@@ -105,23 +106,17 @@ const CITATION_GROUPS: { domain: string; rows: Row[] }[] = [
         proves:
           'CalWORKs need + payment standards: applicant test vs. MBSAC; grant = MAP − countable income ($600 + 50% earned-income disregards).',
       },
-      {
-        source: 'DHCS MAGI & ABD-FPL standards',
-        id: <>{CODE('ACWDL 25-18')} · 2025</>,
-        proves:
-          'Medi-Cal income thresholds: 138% adult / 266% children / 213% pregnant; $1,801 aged & disabled standard.',
-      },
-      {
+            {
         source: 'CAPI / SSI-SSP payment standards',
-        id: <>{CODE('CIT-0010-25')} · 2025 → 2026</>,
+        id: <>{CODE('CIT-0008-26')} · 2025 → 2026</>,
         proves:
           'SSI-linked cash aid: $1,233.94 individual standard, $20 / $65-plus-half disregards, $2,000 resource limit.',
       },
       {
-        source: 'RCA policy change',
-        id: 'Arrivals on/after 2025-05-05',
+        source: 'Refugee Cash Assistance limit',
+        id: <>{CODE('ACIN I-15-26')}</>,
         proves:
-          'Refugee Cash Assistance eligibility window cut 12 → 4 months — caught by research, encoded and unit-tested.',
+          'RCA/ECA is limited to four months of aid for anyone whose eligibility begins on or after 2025-05-05.',
       },
       {
         source: 'LA County DPSS ePolicy / GR handbook',
@@ -151,13 +146,7 @@ const CITATION_GROUPS: { domain: string; rows: Row[] }[] = [
         proves:
           'EDBC data-mismatch procedure and the verbatim banner “Full Case Review is required before EDBC is run and authorized,” with block-until-resolved behavior.',
       },
-      {
-        source: 'CalSAWS e-Application · Migration Training Guide',
-        id: <>{CODE('CIT-0240-21')} · {CODE('CIT-0136-21')}</>,
-        proves:
-          'Intake and worker training: Regular Intake vs. Add-a-Program, person clearance, application registration — and the 28-week training anchor.',
-      },
-      {
+            {
         source: <><a href={BENEFITSCAL} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'none' }}>benefitscal.com</a></>,
         id: 'Live production walkthrough · 94 recorded actions',
         proves:
@@ -180,17 +169,11 @@ const CITATION_GROUPS: { domain: string; rows: Row[] }[] = [
         proves:
           'How a report reaches a worker: On Request vs. Scheduled vs. Business Intelligence, the DPSSTATS timeliness dashboard, and preloaded-daily vs. real-time data.',
       },
-      {
-        source: 'DHCS county performance standards',
-        id: <>Article 25 · {CODE('ACWDL 23-14E')}</>,
+                  {
+        source: 'CalFresh processing standards',
+        id: <>{CODE('MPP 63')}</>,
         proves:
-          'Medi-Cal timeliness: the 90%-within-45/90-day standards behind the Timeliness dashboard.',
-      },
-      {
-        source: 'USDA FNS SNAP standards',
-        id: <>{CODE('7 CFR 275.16')} · APT guidance</>,
-        proves:
-          'Federal CalFresh accountability: 30-day / 3-day expedited SLAs and the 90% timeliness target.',
+          'The 30-day normal processing standard and the 3-day expedited clock, both anchored to the application date.',
       },
     ],
   },
@@ -229,16 +212,6 @@ const CORRECTIONS: { what: ReactNode; source: ReactNode; impact: ReactNode }[] =
   {
     what: (
       <>
-        The Refugee Cash Assistance window was modeled at <strong>12 months</strong>; policy had already
-        changed for arrivals on/after 2025-05-05.
-      </>
-    ),
-    source: <>RCA policy change (2025-05-05)</>,
-    impact: <>Window corrected to <strong>4 months</strong>, encoded in the engine and pinned by a unit test.</>,
-  },
-  {
-    what: (
-      <>
         Report names used pre-2016 legacy labels; research aligned them to the current CalSAWS catalog
         (DFA 296 → <strong>CF 296</strong>; CA 237 CW = caseload movement, not applications; CA 800 = fiscal
         claiming, not error rates).
@@ -250,23 +223,23 @@ const CORRECTIONS: { what: ReactNode; source: ReactNode; impact: ReactNode }[] =
 ];
 
 // ---- Full source inventory (each chip links to the official document) ----
-const CIT_IDS = [
-  'CIT-0006-25', 'CIT-0008-26', 'CIT-0010-25', 'CIT-0017-22', 'CIT-0019-21', 'CIT-0030-22', 'CIT-0038-23',
-  'CIT-0039-23', 'CIT-0071-20', 'CIT-0074-23', 'CIT-0089-20', 'CIT-0099-24', 'CIT-0103-22',
-  'CIT-0135-21', 'CIT-0136-21', 'CIT-0148-20', 'CIT-0148-24', 'CIT-0150-22', 'CIT-0169-23', 'CIT-0173-22',
-  'CIT-0179-23', 'CIT-0198-23', 'CIT-0206-23', 'CIT-0229-21', 'CIT-0239-22', 'CIT-0240-21', 'CIT-0248-23',
-  'CIT-0287-22', 'CIT-0290-23', 'CIT-0294-22', 'CIT-0313-23', 'CIT-0340-23', 'CIT-0354-22', 'CIT-0355-22',
-];
-const ACIN_IDS = ['ACIN I-15-26', 'ACIN I-19-16', 'ACIN I-33-21', 'ACIN I-45-24', 'ACIN I-46-25', 'ACIN I-48-23', 'ACIN I-61-24'];
-const ACL_IDS = ['ACL 08-30', 'ACL 16-39E', 'ACL 17-98', 'ACL 18-117', 'ACL 21-130', 'ACL 21-130E', 'ACL 23-83', 'ACL 24-55', 'ACL 24-63', 'ACL 25-36', 'ACL 25-50', 'ACL 25-65', 'ACL 25-68', 'ACL 25-78'];
-const OTHER_IDS = ['ACWDL 23-14E', 'ACWDL 25-18', '7 CFR 273.9', '7 CFR 275.16', 'MPP 42', 'MPP 44', 'MPP 63'];
+const SOURCE_IDS = ['CIT-0006-25', 'CIT-0008-26', 'CIT-0038-23', 'CIT-0074-23', 'CIT-0103-22', 'CIT-0169-23', 
+  'CIT-0248-23', 'CIT-0287-22', 'CIT-0354-22', 'CIT-0355-22', 'ACIN I-15-26', 'ACIN I-46-25', 'ACL 16-39E', 
+  'ACL 21-130', 'ACL 24-55', 'ACL 25-36', 'ACL 25-65', '7 CFR 273.9', 'MPP 44', 'MPP 63'];
+const REVIEWED_IDS = ['CIT-0010-25', 'CIT-0017-22', 'CIT-0019-21', 'CIT-0030-22', 'CIT-0039-23', 'CIT-0071-20', 
+  'CIT-0076-23', 'CIT-0089-20', 'CIT-0099-24', 'CIT-0135-21', 'CIT-0136-21', 'CIT-0148-20', 'CIT-0148-24', 
+  'CIT-0150-22', 'CIT-0173-22', 'CIT-0179-23', 'CIT-0198-23', 'CIT-0206-23', 'CIT-0229-21', 'CIT-0239-22', 
+  'CIT-0240-21', 'CIT-0290-23', 'CIT-0294-22', 'CIT-0313-23', 'CIT-0340-23', 'ACIN I-19-16', 'ACIN I-33-21', 
+  'ACIN I-45-24', 'ACIN I-48-23', 'ACIN I-61-24', 'ACL 08-30', 'ACL 17-98', 'ACL 18-117', 'ACL 21-130E', 
+  'ACL 23-83', 'ACL 24-63', 'ACL 25-50', 'ACL 25-68', 'ACL 25-78', 'ACWDL 23-14E', 'ACWDL 25-18', '7 CFR 275.16', 
+  'MPP 42'];
 
-const Chips = ({ ids }: { ids: string[] }) => (
+const Chips = ({ ids, trace = false }: { ids: string[]; trace?: boolean }) => (
   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
     {ids.map((id) => (
       <span key={id} style={{ display: 'inline-flex', alignItems: 'center', gap: 2 }}>
         {CODE(id)}
-        <a
+        {trace && <a
           href={`/traceability.html#${encodeURIComponent(id)}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -275,7 +248,7 @@ const Chips = ({ ids }: { ids: string[] }) => (
           style={{ color: 'var(--primary)', textDecoration: 'none', fontSize: 12, lineHeight: 1, padding: '0 3px', opacity: 0.75 }}
         >
           &#8599;
-        </a>
+        </a>}
       </span>
     ))}
   </div>
@@ -299,14 +272,14 @@ export default function Page() {
       {/* ---------- WOW: documents + pages ---------- */}
       <div className="g-grid g-grid-3">
         <div className="g-stat">
-          <div className="g-stat-v">62</div>
+          <div className="g-stat-v">63</div>
           <div className="g-stat-l">primary-source documents</div>
-          <div className="g-stat-d">34 CalSAWS CITs · 7 ACINs · 14 ACLs · 2 Medi-Cal letters · 2 federal regs · 3 MPP divisions</div>
+          <div className="g-stat-d">20 traced to a line of code · 43 read during research · 35 CITs · 7 ACINs · 14 ACLs · rest federal &amp; state regs</div>
         </div>
         <div className="g-stat">
-          <div className="g-stat-v">1,156</div>
+          <div className="g-stat-v">1,160</div>
           <div className="g-stat-l">pages of source material</div>
-          <div className="g-stat-d">measured — every PDF downloaded and page-counted (57 paginated documents; the CFR sections &amp; MPP divisions are web regulations)</div>
+          <div className="g-stat-d">measured — every PDF downloaded and page-counted (58 paginated documents; the CFR sections &amp; MPP divisions are web regulations)</div>
         </div>
         <div className="g-stat">
           <div className="g-stat-v" style={{ fontSize: 22 }}>851,506</div>
@@ -391,34 +364,28 @@ export default function Page() {
       <section className="g-card">
         <div className="g-card-hd">
           <h3 className="g-card-title">Full source inventory</h3>
-          <span className="g-card-meta">every document · 62 total · 1,156 measured pages · all linked</span>
+          <span className="g-card-meta">63 documents reviewed · 20 traced to code · all linked</span>
         </div>
         <div className="g-card-bd">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
             <div className="g-callout info">
-              Every ID below links to the <strong>actual document</strong>. Page counts were measured by
-              downloading each PDF and counting — the 57 paginated documents total <strong>1,156 pages</strong>;
-              the 2 federal CFR sections and 3 MPP divisions are web regulations without a single page count. Each &#8599; opens the traceability report for that document — what it changed in the software, with the code.
+              Every ID links to the <strong>actual document</strong>. Page counts were measured by downloading
+              each PDF and counting; the 2 federal CFR sections and 3 MPP divisions are web regulations without
+              a single page count. The list is split by what each document did: the first group changed the
+              software and each &#8599; opens the line of code it changed; the second was read during research
+              but produced no code.
             </div>
             <div>
-              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CalSAWS County Information Transmittals — 34 · 953 pp</div>
-              <Chips ids={CIT_IDS} />
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>
+                Sources that shaped the build — 20 · 307 pp
+              </div>
+              <Chips ids={SOURCE_IDS} trace />
             </div>
             <div>
-              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CDSS All-County Information Notices (ACIN) — 7 · 50 pp</div>
-              <Chips ids={ACIN_IDS} />
-            </div>
-            <div>
-              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CDSS All-County Letters (ACL) — 14 · 127 pp</div>
-              <Chips ids={ACL_IDS} />
-            </div>
-            <div>
-              <div className="g-eyebrow" style={{ marginBottom: 8 }}>Medi-Cal letters · federal regulations · MPP — 7 · 26 pp (2 ACWDL; CFR &amp; MPP are web regs)</div>
-              <Chips ids={OTHER_IDS} />
-            </div>
-            <div>
-              <div className="g-eyebrow" style={{ marginBottom: 8 }}>Live production reference</div>
-              <a href={BENEFITSCAL} target="_blank" rel="noopener noreferrer" className="g-code" style={{ color: 'var(--primary)', textDecoration: 'none' }}>benefitscal.com — 94 recorded actions</a>
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>
+                Also reviewed — 43 · 853 pp
+              </div>
+              <Chips ids={REVIEWED_IDS} />
             </div>
           </div>
         </div>

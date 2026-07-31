@@ -109,19 +109,28 @@
     <div class="picker">
       <label for="pick">Source document</label>
       <select id="pick" aria-label="Select a source document">
-        <optgroup label="Analyzed">
-          <option value="CIT-0006-25">CIT-0006-25 — Reports Navigation</option>
-          <option value="ACIN I-46-25">ACIN I-46-25 — FFY2026 CalFresh COLA</option>
-          <option value="CIT-0355-22">CIT-0355-22 — CalSAWS Configuration Guide</option>
-          <option value="CIT-0074-23">CIT-0074-23 — Yellow Banner case review</option>
-          <option value="ACL 25-36">ACL 25-36 — CalWORKs policy letter</option>
-          <option value="CIT-0076-23">CIT-0076-23 — Wave 2 training FAQs</option>
-          <option value="7 CFR 273.9">7 CFR 273.9 — SNAP income & deductions</option>
+        <optgroup label="Sources that shaped the build">
+        <option value="7 CFR 273.9">7 CFR 273.9 — Income and deductions (SNAP)</option>
+        <option value="ACIN I-15-26">ACIN I-15-26 — Benefits Eligibility When a Parole Term Ends</option>
+        <option value="ACIN I-46-25">ACIN I-46-25 — CalFresh FFY2026 Cost-of-Living Adjustments</option>
+        <option value="ACL 16-39E">ACL 16-39E — The CF 296 CalFresh Caseload Movement Report</option>
+        <option value="ACL 21-130">ACL 21-130 — CalWORKs Income Disregards ($450 applicant · $600 recipient)</option>
+        <option value="ACL 24-55">ACL 24-55 — CalWORKs Maximum Aid Payment Increase</option>
+        <option value="ACL 25-36">ACL 25-36 — CalWORKs MBSAC &amp; Income In-Kind COLA</option>
+        <option value="ACL 25-65">ACL 25-65 — CalWORKs Maximum Resource Limit Increase</option>
+        <option value="CIT-0006-25">CIT-0006-25 — Reports Navigation</option>
+        <option value="CIT-0008-26">CIT-0008-26 — CAPI Payment Standards, January 2026</option>
+        <option value="CIT-0038-23">CIT-0038-23 — CalSAWS Reports Overview</option>
+        <option value="CIT-0074-23">CIT-0074-23 — Wave 3 Yellow Banner Case Review</option>
+        <option value="CIT-0103-22">CIT-0103-22 — Wave 1 &amp; 2 CalSAWS Infographics</option>
+        <option value="CIT-0169-23">CIT-0169-23 — Wave 4 Yellow Banner Case Review</option>
+        <option value="CIT-0248-23">CIT-0248-23 — Wave 5 Yellow Banner Case Review Process</option>
+        <option value="CIT-0287-22">CIT-0287-22 — Wave 1 Yellow Banner Case Review</option>
+        <option value="CIT-0354-22">CIT-0354-22 — Yellow Banner Mismatch Reasons &amp; Scenario Overview</option>
+        <option value="CIT-0355-22">CIT-0355-22 — CalSAWS Configuration Guide</option>
+        <option value="MPP 44">MPP 44 — MPP 44</option>
+        <option value="MPP 63">MPP 63 — MPP 63</option>
         </optgroup>
-        <optgroup label="County Information Transmittals — not yet analyzed" id="g-cit"></optgroup>
-        <optgroup label="All-County Information Notices — not yet analyzed" id="g-acin"></optgroup>
-        <optgroup label="All-County Letters — not yet analyzed" id="g-acl"></optgroup>
-        <optgroup label="Regulations &amp; other — not yet analyzed" id="g-other"></optgroup>
       </select>
       <span class="count" id="count"></span>
     </div>
@@ -860,99 +869,6 @@ pdftotext -layout 25-36.pdf - | grep -niE "3.42|MBSAC|Income In-Kind|Region 1|93
 
 </section>
 
-<section id="p-CIT-0076-23" class="doc hide">
-
-  <h2 style="margin-top:12px">CIT-0076-23 — Wave 2 Instructor-Led Training FAQs <span class="chip crit">Not used</span></h2>
-
-  <div class="headline">
-    <span class="tag">The 30-second version</span>
-    <p>
-      A 4-page training handout answering the questions county workers asked during Wave 2 CalSAWS training —
-      which page to open, which button does what, what changes when a case converts from CalWIN. Nothing in the
-      demo traces to it. It is a screen-level guide to the legacy interface, and the rebuild did not carry that
-      interface over.
-    </p>
-    <p class="action"><strong>Where to see it:</strong> nowhere. This document is in the source inventory and is
-      cited as evidence for nothing.</p>
-  </div>
-
-  <div class="meta">
-    <span><strong>Type:</strong> CalSAWS County Information Transmittal — training FAQ handout</span>
-    <span><strong>Dated:</strong> 03.01.2023</span>
-    <span><strong>Pages:</strong> 4</span>
-    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
-  </div>
-  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf</a></p>
-
-  <h2>What this document is</h2>
-  <p>
-    Four poster-size pages of questions and answers from instructor-led training, in four sections: General
-    Eligibility, Clerical, CalFresh/CalWORKs/Medi-Cal, and Employment Services. It is a
-    <strong>how-to for operating the legacy screens</strong> — Case Flags versus Alerts, where the Re-evaluate
-    button lives, how long an issuance-method change takes to appear. It sets no policy and defines no calculation.
-  </p>
-
-  <h2>What the document actually says</h2>
-  <p>Verbatim, with page numbers — representative of the whole:</p>
-
-  <blockquote>“No, Case Flags do not replace Alerts. Case Flags are County-specific and added to indicate some key
-    information, or that an action should be taken… known as Special Indicators. CalSAWS mainly communicates about
-    changes by task assignment, either automated or manual. The only ‘alerts’ in CalSAWS are from
-    MEDS.”<cite>Page 1</cite></blockquote>
-
-  <blockquote>“The Person Number is a two-digit code, so no more than 99 individual person records can be added to a
-    single CalSAWS case.”<cite>Page 1</cite></blockquote>
-
-  <blockquote>“Use the Application Registration Summary page to register an application and generate the SAWS 1. Or
-    on the Case Summary page, in the context of a case, select the Application Questions link, answer the questions,
-    then save and generate the SAWS 1 on the following page.”<cite>Page 2</cite></blockquote>
-
-  <blockquote>“The Re-evaluate button only clears the Root Questions; it has no other functionality. Both CalFresh
-    and CalWORKs can be processed for any RE at the same time, depending on the Customer Reporting List
-    page.”<cite>Page 3</cite></blockquote>
-
-  <blockquote>“The 90-day Universal Engagement begins the date the CalWORKs program became
-    active.”<cite>Page 4</cite></blockquote>
-
-  <h2>How it was used — nothing traces to this document</h2>
-  <p>
-    Every distinctive, checkable item in the FAQ was searched for across the application, the database schema and
-    the seed scripts. All of them return nothing: Case Flags, Special Indicators (teen parent, convicted drug felon,
-    outstanding overpayment), the two-digit Person Number and its 99-record cap, hidden case members and the Hide
-    Person page, inter-county transfer disposition timing, the Reception Log and its Yellow Message escalation,
-    Distributed Document retention, the Inter-Agency Transfer Summary page and linked CalHEERS ID, Medicare and
-    medical-expense premiums, the Re-evaluate button and Root Questions, PR/RE cycle alignment, and the wait time
-    when switching a household from EBT to direct deposit.
-  </p>
-  <p>
-    The document’s entire fourth section is Employment Services — the 90-day Universal Engagement clock, the
-    180-hour Job Readiness rule, WTW 2 activity agreements, In Conciliation and Non-Compliance status. The demo has
-    no Welfare-to-Work module; it is on the roadmap, not in the build. There is nothing for that section to
-    have shaped.
-  </p>
-  <p>
-    Two terms overlap and neither is a link. <strong>SAWS 1</strong> appears in the demo, but as an application form
-    name already in the build glossary — the FAQ’s actual content here is a navigation instruction, and the demo
-    implements no such navigation. <strong>Journal entries</strong> appear, but the FAQ says only that CalWIN case
-    comments become CalSAWS journal entries, a conversion note; the demo’s journal has its own dedicated source
-    document.
-  </p>
-
-  <h2>Where this document did not reach</h2>
-  <p>
-    All of it. That is a defensible result, not a gap: this is a county-worker manual for a user interface the
-    rebuild deliberately did not reproduce. Nothing in it was contradicted — the screens it explains simply do not
-    exist in the demo, and the policy and calculation sources that shaped the build are elsewhere in the inventory.
-  </p>
-
-  <h2>Verify it yourself</h2>
-  <p>Two commands reproduce the quotes above from the official PDF:</p>
-<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf
-pdftotext -layout CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf - | grep -niE "Case Flags|Person Number|SAWS 1|Re-evaluate|Universal Engagement"</code></pre>
-  <p class="src">Then search the codebase for the same terms — <code>rg -ni "case flag|special indicator|person number|universal engagement|WTW" platform/src platform/supabase</code> returns nothing.</p>
-
-</section>
-
 <section id="p-7 CFR 273.9" class="doc hide">
 
   <h2 style="margin-top:12px">7 CFR 273.9 — Income and deductions (SNAP) <span class="chip info">Partially used</span></h2>
@@ -1150,13 +1066,2249 @@ sed -e 's/&lt;[^&gt;]*&gt;//g' cfr2739.xml | grep -niE "Twenty percent of gross 
 
 </section>
 
-<!-- ============================= placeholder ============================= -->
-<section id="p-none" class="hide">
-  <div class="placeholder">
-    <p class="big" id="ph-title">Not yet analyzed</p>
-    <p>This document is in the source inventory but has not been traced yet.<br>
-       <code>CIT-0006-25</code> is the reviewed sample — approve it and the same treatment gets applied to all 63.</p>
+<section id="p-ACIN I-15-26" class="doc hide">
+
+  <h2 style="margin-top:12px">ACIN I-15-26 — Benefits Eligibility When a Parole Term Ends <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      An 8-page CDSS notice from April 2026 telling counties what happens to CalWORKs, CalFresh, Refugee Cash
+      Assistance and Refugee Support Services when a person’s federal parole term expires or is terminated. Its
+      contribution to the demo is a single number: the <strong>four-month</strong> limit on Refugee Cash Assistance
+      for eligibility beginning on or after 5 May 2025, which is the window the RCA rule runs on. That one
+      parameter is the whole footprint — the notice’s actual subject, immigration-status categories and what to do
+      when parole ends, is not modelled at all.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> Admin → Rules → RCA — “RCA eligibility window (months since
+      arrival)” is a live, editable row. Change it and re-run a refugee case; the determination flips.</p>
   </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS All County Information Notice</span>
+    <span><strong>Dated:</strong> 04.24.2026</span>
+    <span><strong>Pages:</strong> 8</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACINs/2026/I-15_26.pdf" target="_blank" rel="noopener">cdss.ca.gov/…/ACINs/2026/I-15_26.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    Federal parole is a temporary immigration status with an end date. This notice answers the operational question
+    that follows: when that date passes, which benefits stop, which continue, and what a county must check first.
+    It walks program by program — CalWORKs, CalFresh and the California Food Assistance Program, RCA and Entrant
+    Cash Assistance, Refugee Support Services — and treats Cuban and Haitian Entrants separately. Almost all of it
+    is <strong>immigration-status adjudication</strong>, which the demo does not attempt. One paragraph on RCA
+    duration is the part that reached code.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with locations:</p>
+
+  <blockquote>“CWDs should note that per ACWDL dated May 2, 2025, any parolee whose eligibility for RCA/ECA begins
+    on or after May 5, 2025, is only eligible for <strong>up to four months of aid</strong> and is not required to
+    complete a SAR 7 report.”<cite>Letter page Five (PDF p. 6 of 8)</cite></blockquote>
+
+  <blockquote>“Per MPP 69-201.4 and MPP 69-214, the RCA/ECA program generally follows CalWORKs program regulations
+    relating to financial eligibility and payments as well as to the discontinuance of aid
+    payments.”<cite>Letter page Five (PDF p. 6 of 8)</cite></blockquote>
+
+  <blockquote>“If a CalWORKs household member’s parole status expires or is terminated, and they are not eligible
+    under a different qualifying noncitizen category, they are no longer eligible for CalWORKs and must be
+    discontinued at the next SAR 7 or annual redetermination. Additionally, CWDs must complete a Systematic Alien
+    Verification for Entitlements (SAVE) verification before discontinuing individuals…”<cite>Letter page Four (PDF p. 5 of 8)</cite></blockquote>
+
+  <blockquote>“Federally Funded TANF: The Personal Responsibility and Work Opportunity Reconciliation Act of 1996
+    (PRWORA) §1641 states that individuals paroled into the U.S. under INA § 212(d)(5) must be paroled for at least
+    one year (365 days or more) to meet the definition of “Qualified Alien” and be eligible for federal TANF
+    assistance.”<cite>Letter page Three (PDF p. 4 of 8)</cite></blockquote>
+
+  <blockquote>“CWDs must not discontinue benefits and services for CHE parolees based solely on the expiration or
+    termination of their parole.”<cite>Letter page Six (PDF p. 7 of 8)</cite></blockquote>
+
+  <h2>How it was used — one traceable decision</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The four-month Refugee Cash Assistance window</h3>
+    <p><strong>The business point.</strong> RCA is short-term cash aid for newly arrived refugees. How short is a
+      policy decision, and this notice is the only document in the source inventory that states the current answer —
+      four months, for eligibility beginning on or after 5 May 2025. The demo’s first draft carried a placeholder
+      the build brief itself labelled “illustrative 12-month post-arrival”; the sourced figure replaced it.</p>
+    <p><strong>Example you can click.</strong> Run the refugee scenario — an applicant who arrived 3 months ago
+      clears the window and is approved. The unit test pins that case at <strong>$434/month</strong>
+      (MAP for one, $734, less $300 income). Open Admin → Rules, set the window to 2 months, re-run: ineligible,
+      with reason code RCA-C02.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:62 — the only RCA rule parameter in the system</p>
+<pre><code>rca: { monthsEligible: 4 },</code></pre>
+    <p class="src">platform/src/lib/engine.ts:299–301 — the gate it drives</p>
+<pre><code>const within = (p.arrivalMonthsAgo ?? 999) &lt;= C.monthsEligible;
+trace.push({ step: 'C2', label: `Within ${C.monthsEligible} months of U.S. arrival`, … });
+if (!within) { reasons.push({ code: 'RCA-C02',
+  text: `Arrival ${p.arrivalMonthsAgo} months ago is outside the ${C.monthsEligible}-month RCA window.` }); … }</code></pre>
+    <p class="src">platform/tests/engine.test.ts:151–159 — pinned both ways</p>
+<pre><code>it('RCA eligible within 4-month window ($434)', …);   // MAP(1) 734 − 300
+it('RCA param change flips determination', …);        // window → 2 ⇒ Ineligible</code></pre>
+    <div class="callout warn" style="margin-top:14px">
+      <p class="hd">The demo measures a different clock</p>
+      <p>The notice caps <em>months of aid received</em>, starting from the month eligibility begins. The demo
+        measures <em>months since arrival in the U.S.</em> The number 4 is the source’s; the thing being counted is
+        an approximation, and for a refugee who applies immediately the two coincide.</p>
+    </div>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>Stated plainly so the trace is complete. The great majority of this notice has no counterpart in the demo:</p>
+  <ul>
+    <li><strong>Immigration-status adjudication.</strong> Parole under INA § 212(d)(5), the PRWORA § 1641 one-year
+      qualified-alien test, and the twenty-plus parole categories the notice enumerates. The demo carries a single
+      boolean for refugee status and no immigration logic whatsoever.</li>
+    <li><strong>What happens when parole ends</strong> — the notice’s entire subject. There is no parole expiration
+      or termination event anywhere in the system, and therefore no discontinuance flowing from one.</li>
+    <li><strong>SAVE verification</strong> before discontinuance. No verification interface exists.</li>
+    <li><strong>The SAR 7 and annual redetermination cycle</strong> that carries the discontinuance, including the
+      notice’s exemption of these RCA/ECA cases from SAR 7 reporting.</li>
+    <li><strong>Cuban and Haitian Entrants</strong> and their special handling — the rule that CHE benefits must
+      <em>not</em> be stopped on parole expiry alone.</li>
+    <li><strong>Entrant Cash Assistance, Refugee Support Services, ORR benefits</strong>, and the “refugee impacted”
+      county designation. The demo’s programs are CalFresh, CalWORKs, Medi-Cal, General Assistance, CAPI and RCA.</li>
+    <li><strong>The California Food Assistance Program</strong> and its five-year-bar interaction, and
+      parole-based employment authorisation and employment-services enrolment.</li>
+  </ul>
+  <p>Nothing in the notice was contradicted. Everything above was out of scope for the demo.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACINs/2026/I-15_26.pdf
+pdftotext -layout I-15_26.pdf - | grep -niE "four months|May 5, 2025|SAVE|Cuban and Haitian|212\(d\)\(5\)"</code></pre>
+  <p class="src">Then open Admin → Rules → RCA beside it — the window is the same number, and editable.</p>
+
+</section>
+
+<section id="p-ACL 16-39E" class="doc hide">
+
+  <h2 style="margin-top:12px">ACL 16-39E — The CF 296 CalFresh Caseload Movement Report <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 16-page CDSS letter retiring the old DFA 296 report and replacing it with the CF 296 — CalFresh Monthly
+      Caseload Movement Statistical Report — with eight pages of instructions and a validation table attached. It
+      gave the demo two things: the report’s official name, which is the title on the Reports tab, and California’s
+      <strong>three-calendar-day</strong> expedited-service standard, which is the clock on every expedited case.
+      The report itself was not built — the demo’s CF 296 tab is a county summary, not the multi-part form this
+      document specifies.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> Reports → CF 296 for the name; any expedited case for the
+      clock — the SLA badge counts down from the application date, three days instead of thirty.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS All County Letter — errata, with form and instructions</span>
+    <span><strong>Dated:</strong> 10.27.2016</span>
+    <span><strong>Pages:</strong> 16</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/lettersnotices/EntRes/getinfo/acl/2016/16-39E.pdf" target="_blank" rel="noopener">cdss.ca.gov/…/acl/2016/16-39E.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    Counties report their CalFresh caseload to the state every month. This letter is the changeover: the DFA 296
+    and the separate expedited-service quarterly report are discontinued, and a single monthly CF 296 takes their
+    place from July 2016. Most of the page count is the form’s own machinery — Parts A through D, roughly ninety
+    numbered cells, and a validation grid. For the demo it served as a <strong>naming and definitions source</strong>:
+    what the report is called, and what the state means by “expedited”.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with locations:</p>
+
+  <blockquote>“DISCONTINUANCE CALFRESH MONTHLY CASELOAD MOVEMENT STATISTICAL REPORT (DFA 296 [1/12]) … NEW CALFRESH
+    MONTHLY CASELOAD MOVEMENT STATISTICAL REPORT (CF 296 [7/16])”<cite>PDF p.1, SUBJECT block</cite></blockquote>
+
+  <blockquote>“Expedited Service: CWD approval of applicant access to CalFresh benefits within an expedited
+    timeframe… <strong>California’s standard for ES is three calendar days</strong> due to provision of the Welfare
+    Rights League v. McMahon settlement; federal standard for ES is seven days, per 7 CFR
+    273.2(i)(3)(i).”<cite>PDF p.6 — CF 296 Instructions, page 2 of 8</cite></blockquote>
+
+  <blockquote>“The monthly CF 296 report contains data on the number of CalFresh applications received, approved,
+    denied and withdrawn. This includes data on the number of CalFresh applications processed under expedited
+    service (ES), processing timeframes and discontinuances…”<cite>PDF p.5 — Instructions, page 1 of 8</cite></blockquote>
+
+  <blockquote>“3a1. Benefits issued in 1-3 days… Enter the number of applications which were approved for ES and
+    benefits were issued within three days following the date of application.”<cite>PDF p.8 — Instructions, page 4 of 8</cite></blockquote>
+
+  <blockquote>“Reports are to be received on or before the 20th calendar day of the month following the report
+    month.”<cite>PDF p.5 — Instructions, page 1 of 8</cite></blockquote>
+
+  <h2>How it was used — two traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The report carries its real name and number</h3>
+    <p><strong>The business point.</strong> County staff know these reports by number. A demo that invents its own
+      report names does not read as the real thing to anyone who has filed one. The Reports tab uses the name this
+      letter establishes, and the subtitle records what it replaced and when.</p>
+    <p><strong>Example you can click.</strong> Reports → CF 296. The header reads “CF 296 — CalFresh Monthly
+      Caseload Movement Report”, with “replaced the DFA 296 (July 2016)” under it.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:185–186</p>
+<pre><code>title = 'CF 296 — CalFresh Monthly Caseload Movement Report';
+sub = 'Participation and issuance by county · replaced the DFA 296 (July 2016) · scheduled 2nd business day';</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> Three calendar days — and why it is three, not seven</h3>
+    <p><strong>The business point.</strong> Expedited service is the fastest deadline in the whole system: a
+      household with almost no income or resources must get benefits in days, not weeks. This letter states the
+      California standard and, in the same sentence, explains why it differs from the federal one — a court
+      settlement, <em>Welfare Rights League v. McMahon</em>, not a federal rule. The demo runs on the California
+      number.</p>
+    <p><strong>Example you can click.</strong> Apply with under $150 income and under $100 in the bank. The case is
+      flagged expedited at intake and the queue badge counts to the application date plus three days, not thirty.
+      Every worker task on that case inherits the same deadline.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:63 — every program clock in one row</p>
+<pre><code>sla: { CF: 30, CF_ES: 3, CW: 45, MC: 45, MC_DISABILITY: 90, GA: 30, CAPI: 30, RCA: 30 },</code></pre>
+    <p class="src">platform/src/lib/domain.ts:42 — expedited swaps the clock</p>
+<pre><code>const days = c.expedited ? P.sla.CF_ES : Math.min(...c.programs.map(pr =&gt; P.sla[pr] ?? 30));</code></pre>
+    <div class="callout info" style="margin-top:14px">
+      <p class="hd">A California figure, not a federal one</p>
+      <p>The federal expedited standard is seven days. California’s three-day standard comes from the settlement
+        named in this letter. It is the kind of detail that separates a real determination engine from a plausible
+        one — and it is why the demo’s expedited badge is tighter than the federal floor.</p>
+    </div>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>Most of the sixteen pages describe a form the demo does not produce:</p>
+  <ul>
+    <li><strong>The CF 296 itself.</strong> Parts A through D, the roughly ninety numbered cells, and the
+      cell-by-cell instructions on PDF pp.7–12 are not implemented. The demo’s CF 296 tab is a four-column county
+      summary — County, Households, Persons, Issuance — a shape the real form does not have. The real report counts
+      cases and persons and contains no issuance-dollar item at all.</li>
+    <li><strong>The 123-cell validation grid</strong> (PDF pp.13–16) — the arithmetic checks the state runs on a
+      submitted report. No validation exists in the demo.</li>
+    <li><strong>The expedited issuance buckets</strong> — 1–3 days, 4–7 days, over 7 days. The demo tracks whether a
+      case is expedited, not how long issuance actually took.</li>
+    <li><strong>The PACF/NACF assistance-classification split</strong>, inter-county transfer counts, recertification
+      and overdue-recertification counts, and the Item 4 carry-forward-and-adjustment reconciliation.</li>
+    <li><strong>The submission cadence.</strong> The instructions require the report on or before the 20th calendar
+      day of the following month; the demo’s tab shows an illustrative schedule and files nothing.</li>
+    <li><strong>The errata’s own substance</strong> — two wording fixes to Items 4b and 5, and corrected validations
+      for Item 3 and Item 6b.</li>
+    <li><strong>Transitional CalFresh, the RADR reporting site, FNS-366-B</strong>, and the federal waiver
+      references.</li>
+  </ul>
+  <p>Nothing in the letter was contradicted. The name and the definition were adopted; the report was not built.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.cdss.ca.gov/lettersnotices/EntRes/getinfo/acl/2016/16-39E.pdf
+pdftotext -layout 16-39E.pdf - | grep -niE "CF 296|three calendar days|McMahon|20th calendar day"</code></pre>
+  <p class="src">Then open Reports → CF 296, and run an expedited application to watch the three-day clock start.</p>
+
+</section>
+
+<section id="p-ACL 21-130" class="doc hide">
+
+  <h2 style="margin-top:12px">ACL 21-130 — CalWORKs Income Disregards ($450 applicant · $600 recipient) <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 12-page CDSS letter implementing two legislated increases to the money CalWORKs ignores when it counts a
+      family’s income: the applicant disregard rising from $90 to <strong>$450 per employed person</strong>, and the
+      recipient disregard rising to <strong>$600</strong> before the 50 percent step. Six separate decisions in the
+      CalWORKs engine trace to it, including the per-worker multiplication, the strict “less than MBSAC” comparison,
+      and the $10 minimum payment. The other half of the letter is a forms and notice transmittal, and none of that
+      was built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> run a CalWORKs determination and read the EDBC trace — steps
+      A1 “Applicant income test (vs MBSAC)”, G1 “Earned income disregards” and G2 “Grant computation” are this
+      letter, line by line.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS All County Letter — policy implementation (AB 135 · SB 80)</span>
+    <span><strong>Effective:</strong> 06.01.2022 (recipient) · 07.01.2022 (applicant)</span>
+    <span><strong>Pages:</strong> 12</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2021/21-130.pdf" target="_blank" rel="noopener">cdss.ca.gov/…/ACLs/2021/21-130.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    CalWORKs runs two different income tests. One decides whether a family can get on aid at all — countable income
+    against the Minimum Basic Standard of Adequate Care. The other decides how large the monthly grant is. Each has
+    its own disregard, and this letter raises both, then walks worked examples showing exactly how the arithmetic
+    changes. That makes it a <strong>method source</strong>, not just a rate source: it fixes the sequence of
+    operations, not only the numbers.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“AB 135 increases the CalWORKs EID for applicants from $90 per each employed person to <strong>$450 per
+    each employed person</strong>. Beginning July 1, 2022, the new $450 (per each employed person) EID will be used
+    to calculate if the applicant family’s total net nonexempt income is <strong>less than the MBSAC</strong> for
+    the family size.”<cite>Page Two</cite></blockquote>
+
+  <blockquote>“$1350 Total Earned Income for Both Earners · −$900 $450 Earned Income Disregard Per Working Person
+    ($450 × 2) · =$450 Total Net Nonexempt Income · $1539 MBSAC for 3 (Region 1)”<cite>Page Three, Scenario 2</cite></blockquote>
+
+  <blockquote>“Under current law, an applicant family shall not be eligible for cash aid unless the family’s income,
+    exclusive of the first ninety dollars ($90) of earned income for each employed person, is less than the Minimum
+    Basic Standard of Adequate Care (MBSAC) for the family size.”<cite>Page Two</cite></blockquote>
+
+  <blockquote>“Effective June 1, 2022, WIC section 11451.5 further increases the income disregard from $550 to
+    <strong>$600</strong>. The county must reevaluate the grants for CalWORKs recipients receiving disability-based
+    and/or earned income.”<cite>Page Three</cite></blockquote>
+
+  <blockquote>“…disregarding the first $550 of disability-based unearned income (DBI) then disregarding any unused
+    portion of the DBI to any earned income <strong>plus 50 percent of any remaining earned
+    income</strong>.”<cite>Page Three</cite></blockquote>
+
+  <blockquote>“The monthly cash aid amount figured on this notice is less than $10.00. We can’t pay aid for an
+    amount less than $10.00.”<cite>Page 12 — Attachment, NOA Message M44-315A</cite></blockquote>
+
+  <h2>How it was used — six traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> $450 — the applicant earned income disregard</h3>
+    <p><strong>The business point.</strong> This is the number that decides whether a working family gets through
+      the CalWORKs front door: income above the disregard is counted against the need standard. The letter raises it
+      from $90 to $450 per earner, and the demo stores the post-AB 135 figure.</p>
+    <p><strong>Example you can click.</strong> The golden household earns $1,600. The trace reads “Earned $1600 −
+      $450×1 worker + unearned $0 = $1150 vs MBSAC $1892 (AU 3)” — a pass. At the old $90 the same family would be
+      counted at $1,510.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:53</p>
+<pre><code>applicantEarnedDisregard: 450, disregardFlat: 600, disregardPct: 50,</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> Per employed person — not per household</h3>
+    <p><strong>The business point.</strong> “$450 per each employed person” is a multiplication, and the letter’s
+      Scenario 2 proves it: two earners, $900 disregarded. A household-level $450 would deny families the letter
+      says are eligible. The engine counts employed adults and multiplies.</p>
+    <p><strong>Example you can click.</strong> Add a second employed adult to an application. The A1 trace line
+      changes from “$450×1 worker” to “$450×2 worker(s)” and the countable figure drops by $450.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:185–186</p>
+<pre><code>const workers = snap.persons.filter(p =&gt; p.employed).length || (T.earned &gt; 0 ? 1 : 0);
+const applicantNet = money(T.earned - workers * C.applicantEarnedDisregard) + T.unearned;</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> Strictly less than MBSAC</h3>
+    <p><strong>The business point.</strong> The letter says “less than the MBSAC”, twice, and its own worked example
+      restates it: “The family passes the MBSAC test (Total Net Nonexempt Income is less than MBSAC).” A family
+      landing exactly on the standard fails. That is one character of code, and it is the difference between a
+      correct denial and an incorrect approval.</p>
+    <p><strong>Example you can click.</strong> Set an applicant’s countable income to exactly the MBSAC for the
+      assistance-unit size. The A1 step shows a fail and the case denies with reason code CW-A01.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:188</p>
+<pre><code>const appPass = applicantNet &lt; mbsac;</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> $600 — the recipient income disregard</h3>
+    <p><strong>The business point.</strong> Once a family is on aid, a different and larger disregard applies to the
+      grant calculation. This letter carries the final step of the legislated increase — $550 to $600, effective
+      1 June 2022 — and $600 is what the demo subtracts first.</p>
+    <p><strong>Example you can click.</strong> The G1 trace line reads “$1600 − $600 flat = $1000; 50% of remainder
+      disregarded”.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:53 — editable at Admin → Rules → CalWORKs</p>
+<pre><code>applicantEarnedDisregard: 450, disregardFlat: 600, disregardPct: 50,</code></pre>
+  </div>
+
+  <!-- USE 5 -->
+  <div class="use">
+    <h3><span class="n">05</span> Flat first, then 50 percent of what is left</h3>
+    <p><strong>The business point.</strong> Order matters. Take $600 off first and halve the remainder, and a family
+      earning $1,600 is counted at $500. Halve first and then subtract, and they are counted at $200. The letter
+      fixes the sequence — flat disregard, then 50 percent of any remaining earned income — and the engine follows
+      it exactly.</p>
+    <p><strong>Example you can click.</strong> Admin → Rules → CalWORKs holds both halves of the rule as separate
+      editable rows: the flat dollar figure and the percentage. Change either and the G1 trace and the grant move
+      together.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:195–198</p>
+<pre><code>const afterFlat = Math.max(0, T.earned - C.disregardFlat);
+const countableEarned = r2(afterFlat * (100 - C.disregardPct) / 100);
+const netNonexempt = r2(countableEarned + T.unearned);</code></pre>
+  </div>
+
+  <!-- USE 6 -->
+  <div class="use">
+    <h3><span class="n">06</span> The $10 minimum payment</h3>
+    <p><strong>The business point.</strong> A family can pass every test and still calculate to a grant of a few
+      dollars. The notice message attached to this letter states the rule plainly: aid below $10 is not paid. The
+      demo applies the floor and denies with a reason a worker can read aloud.</p>
+    <p><strong>Example you can click.</strong> Raise a family’s earnings until the grant computes under $10. The
+      determination flips to ineligible with code CW-G01, and the reason line names the computed amount and the $10
+      minimum together.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:54</p>
+<pre><code>resourceLimit: 12552, minGrant: 10,</code></pre>
+    <p class="src">platform/src/lib/engine.ts:202–204</p>
+<pre><code>if (grant &lt; C.minGrant) {
+  reasons.push({ code: 'CW-G01', text: `Computed grant $${Math.max(0, grant)} is below the $${C.minGrant} minimum — financially ineligible.` });</code></pre>
+  </div>
+
+  <div class="callout ok">
+    <p class="hd">The whole chain, in one number</p>
+    <p>The unit suite pins the golden CalWORKs household at <strong>$675/month</strong>, and every step of that
+      arithmetic is this letter:</p>
+<pre><code>applicant test:  1,600 − 450          = 1,150  &lt; MBSAC(3) 1,892   ✓ pass
+grant:           1,600 − 600          = 1,000
+                 50% of 1,000         =   500  countable
+                 MAP(3) 1,175 − 500   =   675</code></pre>
+    <p class="src">platform/tests/engine.test.ts:34</p>
+<pre><code>it('CW grant $675', () =&gt; expect(get(out, 'CW').amount).toBe(675));</code></pre>
+    <p>Change the $450, the $600, the 50 percent, or the strict “&lt;” and the test goes red.</p>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>The letter’s subject line has two halves. The second half was not built:</p>
+  <ul>
+    <li><strong>The forms and notice transmittal</strong> — CW 29, CW 2166, TEMP 2252, WTW 16A/16B and the full
+      NA-series notices the letter revises. None of these form numbers appear anywhere in the codebase. The demo
+      generates a notice of action, but it carries no CDSS form or message numbers.</li>
+    <li><strong>The two-way notice branch</strong> — a different message when a family fails at MBSAC than when it
+      passes MBSAC but fails on the grant. The demo issues one denial notice.</li>
+    <li><strong>The county reevaluation duty</strong> — reviewing and supplementing existing recipients’ grants when
+      the disregard increased. The demo has no mid-period recalculation.</li>
+    <li><strong>Disability-based unearned income as a distinct category.</strong> The letter’s disregard is
+      formally a DBI disregard with earned income taking the unused remainder; the demo implements the common case
+      where a household has no DBI, applying the flat amount to earnings directly.</li>
+    <li><strong>Forms management</strong> — the no-substitutes rule, overprinting, and the approval process for
+      restructuring forms in an automated system. Notable because the letter names SAWS itself as responsible.</li>
+    <li><strong>Bilingual services thresholds</strong> and the translation obligations attached to the revised forms.</li>
+  </ul>
+  <p>Nothing in the letter’s eligibility arithmetic was contradicted. The unbuilt parts are operations and
+    correspondence, not calculation.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2021/21-130.pdf
+pdftotext -layout 21-130.pdf - | grep -niE "\$450|per each employed person|less than the MBSAC|\$600|50 percent|\$10.00"</code></pre>
+  <p class="src">Then run a CalWORKs determination and read steps A1, G1 and G2 of the trace side by side with page Two and page Three.</p>
+
+</section>
+
+<section id="p-ACL 24-55" class="doc hide">
+
+  <h2 style="margin-top:12px">ACL 24-55 — CalWORKs Maximum Aid Payment Increase <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 14-page CDSS letter raising the CalWORKs Maximum Aid Payment by 0.3 percent from 1 October 2024, with the
+      full payment-standards chart and the Child MAP charts attached. It supplied the demo’s MAP table for
+      assistance units of one through four — <strong>$734 · $930 · $1,175 · $1,416</strong> — the ceiling every
+      CalWORKs grant is calculated down from, and the rules file dates the table to this letter. It reached one
+      column of one chart: the demo has no regions, no exempt/non-exempt distinction, and none of the Child MAP
+      material that fills the letter’s second half.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> run a CalWORKs determination — trace step G2 “Grant
+      computation” names the MAP for the assistance-unit size. The public Architecture page walks the same
+      arithmetic for a household of three.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS All County Letter — MAP increase, with attachments</span>
+    <span><strong>Effective:</strong> 10.01.2024</span>
+    <span><strong>Pages:</strong> 14</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2024/24-55.pdf" target="_blank" rel="noopener">cdss.ca.gov/…/ACLs/2024/24-55.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    MAP is the payment standard — the most a CalWORKs assistance unit of a given size can receive. This letter
+    carries a 0.3 percent increase enacted by AB 161 and republishes the resulting charts: four of them, split by
+    region and by whether the assistance unit is exempt, plus a separate set of Child MAP charts for families who
+    take child support in place of a CalWORKs grant. Treat it as a <strong>rate source</strong> — it changes
+    numbers, not method.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“The purpose of this All County Letter (ACL) is to inform County Welfare Departments (CWD) of a
+    <strong>0.3 percent increase</strong> to the Maximum Aid Payment (MAP) levels pursuant to the passage of
+    Assembly Bill (AB) 161… The CalWORKs MAP increase is effective October 1, 2024.”<cite>Page One</cite></blockquote>
+
+  <blockquote>“Region 1, Non-Exempt MAP — Person(s) on aid · Old MAP · New MAP · Increase<br>
+    1 $732 → <strong>$734</strong> · 2 $927 → <strong>$930</strong> · 3 $1,171 → <strong>$1,175</strong> ·
+    4 $1,412 → <strong>$1,416</strong> · 5 $1,654 → $1,659 · 6 $1,896 → $1,902 · 7 $2,139 → $2,145 ·
+    8 $2,382 → $2,389 · 9 $2,623 → $2,631 · 10 or more $2,867 → $2,876”<cite>Page Six (Attachment)</cite></blockquote>
+
+  <blockquote>“Region 1 Counties: Alameda, Contra Costa, Los Angeles, Marin, Monterey, Napa, Orange, San Diego,
+    San Francisco, San Luis Obispo, San Mateo, Santa Barbara, Santa Clara, Santa Cruz, Solano, Sonoma and
+    Ventura.”<cite>Page Seven (Attachment)</cite></blockquote>
+
+  <blockquote>“CalFresh recipients must receive notification of any negative changes to their households’ CalFresh
+    benefits as a result of the CalWORKs MAP increase no later than September 20, 2024, to meet (10-day) timely
+    noticing requirements.”<cite>Page Two</cite></blockquote>
+
+  <blockquote>“…the child resides in Region 1. The AU size would be 3 with the child included. It is a non-exempt AU
+    so the base Child MAP for the child is $245.00, adding the $200.00 child support ‘passthrough’ or ‘disregard’,
+    the total child MAP is $445.00.”<cite>Page 10 — Child MAP Chart, Single Child</cite></blockquote>
+
+  <h2>How it was used — three traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The MAP table, sizes one through four, is the Attachment verbatim</h3>
+    <p><strong>The business point.</strong> Every CalWORKs dollar the demo pays starts at MAP and subtracts
+      countable income. Four of the demo’s figures are the “New MAP” column of the Region 1 non-exempt chart, cell
+      for cell.</p>
+    <p><strong>Example you can click.</strong> Apply as a family of three and run EDBC. Trace step G2 reads
+      “MAP $1,175 (AU 3, Region 1) − net nonexempt income…” — page Six, row 3 of this letter.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:51</p>
+<pre><code>map: { 1: 734, 2: 930, 3: 1175, 4: 1416, 5: 1646, 6: 1876, 7: 2106, 8: 2336 },</code></pre>
+    <div class="callout warn" style="margin-top:14px">
+      <p class="hd">Sizes 5 and up are the demo’s own extrapolation, not this letter’s</p>
+      <p>The Attachment publishes 5 = $1,659, 6 = $1,902, 7 = $2,145, 8 = $2,389 and 10-or-more = $2,876 — a $243
+        step. The demo extends the size-4 figure at a flat $230 per person, giving 1,646 · 1,876 · 2,106 · 2,336.
+        Sizes 1 to 4 are this letter; sizes 5 and above are the demo’s straight-line extension and do not match the
+        published chart.</p>
+    </div>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> The rules file records the chart’s exact scope and date</h3>
+    <p><strong>The business point.</strong> A MAP figure means nothing without its three selectors — which region,
+      exempt or non-exempt, and effective when. The rules file names all three in its header, so anyone reading the
+      table knows which of the letter’s four charts it came from and when it expires.</p>
+    <p><strong>Example you can click.</strong> Open the rules file; the provenance sits at the top, next to the same
+      declaration for the CalFresh and MBSAC tables.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:4</p>
+<pre><code>// CalFresh; MBSAC eff. 2025-07-01; MAP Region 1 non-exempt eff. 2024-10-01;</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> The public worked example quotes the chart cell by name</h3>
+    <p><strong>The business point.</strong> The Architecture page walks a real household through a CalWORKs
+      determination line by line. The MAP row is labelled with all three selectors — region, unit size, non-exempt —
+      so a reader can find the exact cell in the letter rather than take the number on trust.</p>
+    <p><strong>Example you can click.</strong> Guide → Architecture, the “CalWORKs — MAP method” table: $1,600 gross,
+      disregards of $1,100, countable $500, MAP $1,175, grant <strong>$675</strong>.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/guide/architecture/page.tsx:405</p>
+<pre><code>&lt;tr&gt;&lt;td&gt;MAP (Region 1, AU 3, non-exempt)&lt;/td&gt;&lt;td className="r"&gt;$1,175&lt;/td&gt;&lt;/tr&gt;</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>Roughly half the letter is Child MAP material, and none of it is built:</p>
+  <ul>
+    <li><strong>The Child Support in Lieu of CalWORKs Grant Option</strong> and its six pages of Child MAP charts —
+      the base child MAP, the $200 passthrough, and the single-child and multiple-child variants.</li>
+    <li><strong>Three of the four payment charts.</strong> Region 1 Exempt, Region 2 Exempt and Region 2 Non-Exempt
+      are absent. There is no region and no exempt/non-exempt concept anywhere in the demo’s data model — the trace
+      line prints “Region 1” as a fixed label, not as a selection.</li>
+    <li><strong>The county list</strong> that defines the regions, quoted above. The demo’s counties carry no region
+      attribute.</li>
+    <li><strong>The mandatory mid-period action</strong> to apply the increase to existing cases, and the required
+      forms and notice messages that accompany it.</li>
+    <li><strong>The CalFresh knock-on and its noticing deadline</strong> — a MAP increase can reduce a household’s
+      CalFresh benefit, and the letter sets 20 September 2024 as the timely-notice cutoff. The demo does not
+      recompute CalFresh when a CalWORKs grant changes.</li>
+    <li><strong>Claiming instructions and translation requirements</strong>, and the funding mechanics behind
+      AB 161.</li>
+  </ul>
+  <p>Sizes 1 to 4 match this letter exactly. Everything else above was out of scope for the demo.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2024/24-55.pdf
+pdftotext -layout 24-55.pdf - | grep -niE "0.3 percent|Non-Exempt MAP|1,175|Region 1 Counties|Child MAP"</code></pre>
+  <p class="src">Then run a CalWORKs determination for a family of three and read step G2 of the trace.</p>
+
+</section>
+
+<section id="p-ACL 25-65" class="doc hide">
+
+  <h2 style="margin-top:12px">ACL 25-65 — CalWORKs Maximum Resource Limit Increase <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 4-page CDSS letter raising the maximum resource limit for CalWORKs, Refugee Cash Assistance, Entrant Cash
+      Assistance and the Trafficking and Crime Victims Assistance Program by 3.42 percent from 1 January 2026. One
+      figure crossed into the demo — <strong>$12,552</strong>, the CalWORKs asset ceiling — recorded as the CalWORKs
+      resource limit in the rules file. It is the lightest source on this page: the demo’s CalWORKs calculation runs
+      no resource test, so the ceiling is stored rather than applied, and the letter’s higher aged/disabled limit,
+      verification rules and notice message were not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> the rules file — <code>cw.resourceLimit</code> at
+      params.ts:54. This is the one figure here with no screen behind it yet; the demo’s live resource test is the
+      GA/GR one, trace step R1.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS All County Letter — annual resource-limit COLA</span>
+    <span><strong>Dated:</strong> 09.22.2025 · <strong>Effective:</strong> 01.01.2026</span>
+    <span><strong>Pages:</strong> 4</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-65.pdf" target="_blank" rel="noopener">cdss.ca.gov/…/ACLs/2025/25-65.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    CalWORKs has an asset test as well as an income test: a family with savings above a ceiling is ineligible
+    regardless of what it earns. CDSS raises that ceiling once a year against the California Needs Index, and this
+    letter carries the 3.42 percent increase for 2026. It also does three operational things — defines who qualifies
+    for the higher aged-or-disabled ceiling, tells counties how to verify what a family holds (including app-based
+    accounts), and names the notice message to send. Treat it as a <strong>rate source with an operations tail</strong>.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“Effective January 1, 2026, the maximum resource limit will increase by 3.42 percent, based on the CNI
+    for the most recent fiscal year. The new maximum resource limit for CalWORKs applicants and recipients will be
+    <strong>$12,552</strong>, or <strong>$18,829</strong> for families that include at least one member who is 60
+    years of age or older or disabled.”<cite>Pages 1–2, “Maximum Asset Limit Increase”</cite></blockquote>
+
+  <blockquote>“…a family qualifies for the higher resource limit if any family member receives disability-based
+    unearned income (MPP 44-101(f)) or is exempt from participating in welfare-to-work requirements due to a
+    disability pursuant to MPP Section 42-712.44.”<cite>Page 2, “Disability Definition”</cite></blockquote>
+
+  <blockquote>“The disability must be expected to last at least 30 days, and the disability must significantly limit
+    the person’s ability to work regularly or take part in welfare-to-work activities.”<cite>Page 2</cite></blockquote>
+
+  <blockquote>“Money held in a checking, savings or digital account in an individual family member’s name is
+    considered property and is counted towards the family’s maximum resource limit… Digital accounts similar to Cash
+    App or PayPal are to be treated the same as conventional banking.”<cite>Page 2, “CalWORKs Property Verifications”</cite></blockquote>
+
+  <blockquote>“County HHSAs are reminded to utilize NOA Message M44-316C to notify families of the resource
+    limits…”<cite>Page 3, “Notice of Action (NOA) Message”</cite></blockquote>
+
+  <h2>How it was used — one traceable decision</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> $12,552 — the CalWORKs maximum resource limit</h3>
+    <p><strong>The business point.</strong> The asset ceiling is one of the two gates on CalWORKs eligibility. The
+      demo records the current published figure rather than a placeholder, so the day a resource test is added it
+      starts from the right number and from a dated source.</p>
+    <p><strong>Example you can click.</strong> Nothing yet — this is the honest answer. The value sits beside the
+      $10 minimum grant in the CalWORKs rule block; the resource test that would consume it is not built. The
+      pattern it would follow already exists on GA/GR, whose trace step R1 reads “Liquid resources $X vs limit $Y”
+      and whose limit is a live editable row in Admin → Rules.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:54</p>
+<pre><code>resourceLimit: 12552, minGrant: 10,</code></pre>
+    <p class="src">platform/src/lib/engine.ts:250–251 — the shape a CalWORKs test would take, as built for GA/GR</p>
+<pre><code>const resPass = T.liquid &lt;= C.resourceLimit;
+trace.push({ step: 'R1', label: 'Resource test', detail: `Liquid resources $${T.liquid} vs limit $${C.resourceLimit}`, … });</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>Stated plainly. Almost all of this letter is unbuilt:</p>
+  <ul>
+    <li><strong>The CalWORKs resource test itself.</strong> The calculation runs a deprivation check, an applicant
+      income test and a grant computation — no asset test. The $12,552 is recorded, not applied.</li>
+    <li><strong>The $18,829 higher limit</strong> for families with a member aged 60 or older or disabled. The demo
+      carries a single ceiling.</li>
+    <li><strong>The disability definition</strong> that decides which ceiling applies — disability-based unearned
+      income, welfare-to-work exemption, the 30-day duration test, and the significant-limitation test.</li>
+    <li><strong>Property verification.</strong> The letter’s instructions on bank and digital-account statements —
+      including treating Cash App and PayPal as conventional banking — have no counterpart. The demo takes a stated
+      resource figure at intake and does not request or evaluate documentation for it.</li>
+    <li><strong>Restricted accounts</strong>, which are excluded from the count under separate rules.</li>
+    <li><strong>The parity instruction</strong> extending the same limits to RCA, ECA and TCVAP. The demo’s RCA
+      calculation has no resource test either.</li>
+    <li><strong>NOA Message M44-316C</strong> and the mid-period no-change notice it covers.</li>
+  </ul>
+  <p>Nothing in the letter was contradicted. One number was taken from it accurately; the rest is a gap, not a
+    disagreement.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-65.pdf
+pdftotext -layout 25-65.pdf - | grep -niE "12,552|18,829|3.42|Cash App|M44-316C"</code></pre>
+  <p class="src">Then open platform/src/lib/params.ts:54 — the figure is on the CalWORKs line.</p>
+
+</section>
+
+<section id="p-CIT-0008-26" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0008-26 — CAPI Payment Standards, January 2026 <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 5-page CalSAWS transmittal carrying CDSS notice I-59-25, which publishes the Cash Assistance Program for
+      Immigrants payment standards effective 1 January 2026 after the Social Security Administration’s 2.8 percent
+      cost-of-living adjustment. Its Attachment A supplied the <strong>$1,233.94</strong> Aged-or-Disabled individual
+      standard that the demo’s CAPI benefit is calculated from — the number behind the pinned golden-case award of
+      $453 a month. It reached one row of a twenty-row table: the couple standard is stored but never read, the other
+      eighteen rate categories are absent, and the notice’s deeming, sponsor-allocation and in-kind-support figures
+      were not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> open the seeded CAPI case (C-100004, Robert Okafor) and run a
+      determination — the result reads “Monthly payment $453 ($1233.94 standard − $780 countable income)”.
+      Admin → Rules → CAPI exposes the same standard for live editing.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — forwards CDSS ACIN I-59-25 + Attachment A rate table</span>
+    <span><strong>Dated:</strong> 12.16.2025 · effective 01.01.2026</span>
+    <span><strong>Pages:</strong> 5</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2026/01/CIT-0008-26-ACIN-I-59_25.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0008-26-ACIN-I-59_25.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    CAPI is California’s cash aid for aged, blind and disabled immigrants who are shut out of federal SSI on
+    immigration status alone. Its payment standards move each January with the federal SSI cost-of-living adjustment.
+    This transmittal delivers the CDSS notice announcing the January 2026 figures, together with the arithmetic for
+    the derived amounts — presumed maximum value, deeming allowances, sponsor allocation — and an Attachment A rate
+    table on page 5 listing ten individual and ten couple standards. Treat it as a <strong>rate source</strong>: it
+    changes numbers, not rules.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“This All County Information Notice (ACIN) transmits new payment standards for the Cash Assistance
+    Program for Immigrants (CAPI), which take effect on January 1, 2026. This change is the result of a
+    <strong>2.8 percent</strong> cost-of-living adjustment (COLA) for recipients of Supplemental Security Income
+    (SSI), announced by the Social Security Administration (SSA) on October 24, 2025.”<cite>Page 2</cite></blockquote>
+
+  <blockquote>“CAPI Payment Standards January 2026” — Payment Standards for Individuals, column “January 2026 CAPI
+    Grant”:<br>
+    Aged or Disabled — <strong>$1,233.94</strong><br>
+    Payment Standards for Couples, same column:<br>
+    Aged or Disabled — <strong>$2,098.83</strong><cite>Page 5 (Attachment A)</cite></blockquote>
+
+  <blockquote>“To compute the Presumed Maximum Value (PMV) start with the federal SSI amount ($994.00 for an
+    individual and $1,491.00 for a couple in 2026), then divide by 3 and add $20.00 MPP Section 49-005(p)(1). This
+    changes the PMV from $342.33 to PMV $351.33 for an individual and from $503.33 to PMV $517.00 for a
+    couple.”<cite>Page 3</cite></blockquote>
+
+  <blockquote>“To compute this allowance, determine the difference between the federal SSI benefit amount for a
+    couple and the federal SSI benefit amount for an individual (for 2026 subtract $994.00 from $1,491.00), Title 20,
+    Code of Federal Regulations CFR Section 416.1163b). This computation changes the allowance from $483.00 to
+    $497.00.”<cite>Page 3</cite></blockquote>
+
+  <blockquote>“This allocation equals the federal SSI rate for an individual (20 CFR 416.1166a). The federal SSI COLA
+    changes the allocation from $967.00 to $994.00.”<cite>Page 3</cite></blockquote>
+
+  <h2>How it was used — three traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The individual payment standard is Attachment A verbatim — and it is what every CAPI award is subtracted from</h3>
+    <p><strong>The business point.</strong> CAPI pays the gap between the payment standard and the applicant’s
+      countable income. The standard is the ceiling: move it and every award in the program moves with it. The demo
+      carries $1,233.94 — the January 2026 Aged-or-Disabled individual grant from page 5 — and the rules file header
+      dates the CAPI block to 2026.</p>
+    <p><strong>Example you can click.</strong> Run a determination on the seeded CAPI case. The trace step
+      “Countable income (SSI methodology)” shows $800 unearned less the $20 general disregard, and the result reads
+      “Eligible for CAPI. Monthly payment $453 ($1233.94 standard − $780 countable income).” Then open
+      Admin → Rules → CAPI, where the same figure is editable as “CAPI payment standard, individual ($)”, change it,
+      and re-run — the award moves with it.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:59</p>
+<pre><code>    standardInd: 1233.94, standardCouple: 2098.83, genDisregard: 20,</code></pre>
+    <p class="src">platform/src/lib/engine.ts:288 — the standard is the minuend</p>
+<pre><code>const benefit = Math.floor(C.standardInd - countable);</code></pre>
+    <p class="src">platform/src/lib/params.ts:86 — surfaced for live editing</p>
+<pre><code>{ path: 'capi.standardInd', label: 'CAPI payment standard, individual ($)', group: 'CAPI' },</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> The couple standard was transcribed from the same table</h3>
+    <p><strong>The business point.</strong> Attachment A publishes a couple rate beside every individual rate. The
+      demo transcribed both Aged-or-Disabled values so the stored parameter set matches the source table rather than
+      half of it — $2,098.83 is page 5’s couple figure, exactly.</p>
+    <p><strong>Example you can click.</strong> Nothing, and that is the honest answer: no engine path reads
+      <code>capi.standardCouple</code> and it is not in the admin registry, so it appears only in the rules file. It
+      is a faithful transcription waiting for a two-person CAPI case to exist.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:59</p>
+<pre><code>    standardInd: 1233.94, standardCouple: 2098.83, genDisregard: 20,</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> The pinned golden-case result of $453 is arithmetic on this document’s standard</h3>
+    <p><strong>The business point.</strong> The demo ships golden cases — seeded households with the expected answer
+      written down in advance, so a wrong rule breaks a visible number rather than hiding. GH4’s expected CAPI award
+      is $453, which is $1,233.94 less $780 of countable income, floored. No other rate year produces it: change the
+      standard and the pinned expectation stops matching.</p>
+    <p><strong>Example you can click.</strong> The worker queue lists case C-100004 (Robert Okafor, age 68,
+      lawful permanent resident under 5 years, $800 monthly foreign pension) with the note “Expected: CAPI $453 ·
+      MC aged eligible”; the case page shows the same as a golden-case banner. Run EDBC and compare.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/seed-core.ts:171</p>
+<pre><code>      golden_tag: 'GH4', expected_note: 'Expected: CAPI $453 · MC aged eligible',</code></pre>
+    <p class="src">platform/src/lib/engine.ts:280 — where the $780 comes from</p>
+<pre><code>const countUnearned = Math.max(0, T.unearned - C.genDisregard);</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <ul>
+    <li><strong>Eighteen of Attachment A’s twenty rates.</strong> Only the Aged-or-Disabled individual and couple rows
+      were taken. Blind ($1,318.32 individual / $2,324.35 couple), Non-Medical Out-of-Home Care ($1,626.07),
+      Aged or Disabled without cooking facilities ($1,362.81), Disabled Minor ($1,091.27), the Household-of-Another
+      and Reduced Needs variants, and the Title XIX Medical Facility standard ($62.00 individual / $124.00 couple)
+      are not stored.</li>
+    <li><strong>Blind applicants are paid at the Aged-or-Disabled rate.</strong> The engine accepts blindness as a
+      categorical qualifier and then applies the only standard it has. The blind rate exists in this document and not
+      in the build.</li>
+    <li><strong>Presumed Maximum Value for in-kind support and maintenance</strong> ($351.33 individual / $517.00
+      couple). The demo has no in-kind support concept.</li>
+    <li><strong>Deeming, in every form.</strong> The ineligible-children allowance ($483.00 → $497.00), the
+      parent-to-child allowances, and the sponsor allocation ($967.00 → $994.00) are all absent — there is no
+      deeming or sponsor-deeming logic in the engine at all.</li>
+    <li><strong>The SOC 452, SOC 452A and SOC 454 worksheet line references</strong> the notice keys its figures to.
+      The demo has no CAPI worksheets.</li>
+    <li><strong>The 2.8 percent COLA itself.</strong> The demo stores the post-COLA dollar value; it does not compute
+      a COLA, so there is nothing to re-run next January.</li>
+  </ul>
+  <p>Nothing in the notice was contradicted. One figure was taken and carries real weight; the rest was out of scope
+    for the demo.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2026/01/CIT-0008-26-ACIN-I-59_25.pdf
+pdftotext -layout CIT-0008-26-ACIN-I-59_25.pdf - | grep -niE "2.8 percent|Aged or Disabled|1,233.94|2,098.83|Presumed Maximum"</code></pre>
+  <p class="src">Then check the build: <code>rg -n "1233.94|2098.83" platform/src</code> returns the rules file, and
+    <code>rg -ni "deeming|sponsor|presumed maximum|in-kind" platform/src platform/supabase</code> returns nothing.</p>
+
+</section>
+
+<section id="p-CIT-0038-23" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0038-23 — CalSAWS Reports Overview <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 49-page alphabetical catalog of every report CalSAWS produces — 409 of them — handed to CalWIN counties
+      at go-live so staff know what each report contains, where it sits in the menus, and when it appears. The demo
+      took three of those rows and built them as real Reports tabs — <strong>CF 296</strong>,
+      <strong>CA 237 CW</strong>, <strong>CA 255</strong> — carrying the catalog’s own names, its one-line
+      description of each, and the exact business day each report publishes on. The honest boundary: three rows
+      out of 409, and only the name, the characterization and the cadence — the catalog’s navigation model,
+      per-report security groups and line-item backup reports were not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> open <strong>Reports</strong> in the staff app and click
+      the <strong>CF 296</strong>, <strong>CA 237 CW</strong> or <strong>CA 255</strong> tab — the report title and
+      its publication cadence sit at the top of each.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — CalWIN ISS Go-Live Packet, Appendix D</span>
+    <span><strong>Posted:</strong> February 2023</span>
+    <span><strong>Pages:</strong> 49</span>
+    <span><strong>Format:</strong> text layer intact — quotes extracted with <code>pdftotext -layout</code></span>
+    <span><strong>Verified:</strong> downloaded &amp; extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2023/02/CIT-0038-23-CalWIN-ISS_GLP_Appendix-D_CalSAWS-Reports-Overview.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0038-23-CalWIN-ISS_GLP_Appendix-D_CalSAWS-Reports-Overview.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    The reporting inventory of the real system. Four columns per row: the <strong>Report Title</strong>, a short
+    <strong>Description of Report</strong>, a <strong>Location of Report</strong> pointer telling the worker which
+    menu to find it under, and the <strong>Security Group(s)</strong> allowed to run it. 330 rows are scheduled
+    reports that generate on a fixed calendar; 79 run on request. Treat it as a <strong>naming and cadence
+    source</strong> — it is the fastest way to learn what a county actually calls its reports and when it expects
+    them to land.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“Note: The abbreviations in the Location of Report column are defined as follows: G - Global
+    navigation bar, L - Local navigator, T - Task navigation bar.”<cite>Page 1 — the header note above the catalog</cite></blockquote>
+
+  <blockquote>“Provides information on CalWORKs caseload movement for Two Parent Families, Zero Parent Families,
+    All Other Families, TANF Timed-Out, Safety Net, Fleeing Felon and Long Term Sanction cases. Includes
+    information on applications requested or restored, the number of cases added during the month, the number of
+    cases exiting during the month, and the number of cases transferred from other counties during the
+    month.”<cite>Page 5 — CA 237 CW, Description of Report</cite></blockquote>
+
+  <blockquote>“CA 237 CW … This report is available on the 7th business day of the month. … L: Scheduled  T: State
+     State Reports”<cite>Page 5 — CA 237 CW, cadence and location</cite></blockquote>
+
+  <blockquote>“Provides reasons for Denials and Other Non-Approvals of Applications for Cash Grant. This report is
+    available on the 7th business day of the month.”<cite>Page 6 — CA 255</cite></blockquote>
+
+  <blockquote>“Provides data on the number of CalFresh applications received, approved, denied and withdrawn. Data
+    includes the number of CalFresh applications processed under expedited service (ES), processing timeframes and
+    discontinuances due to recipients’ failure to complete the application process for ongoing CalFresh
+    benefits.”<cite>Page 10 — CF 296, Description of Report</cite></blockquote>
+
+  <blockquote>“CF 296 … This report is available on the second business day of the month. … L: Scheduled  T: State
+     State Reports”<cite>Page 10 — CF 296, cadence and location</cite></blockquote>
+
+  <h2>How it was used — six traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The three tab names are catalog names, not invented ones</h3>
+    <p><strong>The business point.</strong> CF 296, CA 237 CW and CA 255 are three distinct rows in this catalog,
+      on pages 10, 5 and 6. The demo puts them on the Reports screen under exactly those labels. The precision
+      matters: the catalog also lists CA 237 EA, CA 237 FC, CA 237 HA and CA 237 KG, so “CA 237 CW” is a specific
+      choice among siblings, not a guess.</p>
+    <p><strong>Example you can click.</strong> The Reports tab strip: three analytics views the demo invented, then
+      three tabs a county worker already knows by name.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:13</p>
+<pre><code>const TABS = [['dash', 'Live dashboard'], ['timeliness', 'Timeliness'], ['workers', 'Productivity'], ['cf296', 'CF 296'], ['ca237cw', 'CA 237 CW'], ['ca255', 'CA 255']] as const;</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> CA 237 CW is a <em>caseload movement</em> report</h3>
+    <p><strong>The business point.</strong> Page 5 defines it precisely: cases added, cases exiting, cases
+      transferred in from other counties — movement of a caseload, not a count of applications. The demo’s title
+      uses the catalog’s own characterization, and the table underneath reports cases and grant dollars per county
+      rather than application volume.</p>
+    <p><strong>Example you can click.</strong> Open the CA 237 CW tab. It reports the CalWORKs caseload by county
+      with a statewide total row; switch the county filter and the total re-labels itself.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:194</p>
+<pre><code>title = 'CA 237 CW — CalWORKs Caseload Movement Report';</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> CA 237 CW publishes on the 7th business day</h3>
+    <p><strong>The business point.</strong> The catalog states the exact day the generated report becomes
+      available. That is an operational fact staff plan around, and it is printed on the screen rather than left
+      implicit. Nobody would arrive at “7th business day” by reasoning about the domain — it came from page 5.</p>
+    <p><strong>Example you can click.</strong> The subtitle line under the CA 237 CW report title.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:195</p>
+<pre><code>sub = 'Cash grant caseload movement by county · scheduled 7th business day';</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> CA 255 is the “Denials and Other Non-Approvals” report</h3>
+    <p><strong>The business point.</strong> Page 6 gives both the subject and the phrasing: reasons for denials and
+      other non-approvals of applications for cash grant. The demo uses that phrase as the report title, so the
+      screen reads the way the catalog reads.</p>
+    <p><strong>Example you can click.</strong> The CA 255 tab, which breaks application dispositions out by program
+      — received, approved, denied, pending, renewal due.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:203</p>
+<pre><code>title = 'CA 255 — Denials and Other Non-Approvals Report';</code></pre>
+  </div>
+
+  <!-- USE 5 -->
+  <div class="use">
+    <h3><span class="n">05</span> CA 255 lands the same day as CA 237 — that is why they read as a pair</h3>
+    <p><strong>The business point.</strong> Both cash-grant reports carry the same 7th-business-day cadence in the
+      catalog. That shared slot is why the demo describes CA 255 as the companion to CA 237: two views of the same
+      month’s cash-grant activity, published together.</p>
+    <p><strong>Example you can click.</strong> Flip between the CA 237 CW and CA 255 tabs — same cadence line, two
+      different cuts of the month.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:204</p>
+<pre><code>sub = 'Application dispositions by program · companion to CA 237 · scheduled 7th business day';</code></pre>
+  </div>
+
+  <!-- USE 6 -->
+  <div class="use">
+    <h3><span class="n">06</span> CF 296 is faster — 2nd business day, not 7th</h3>
+    <p><strong>The business point.</strong> The CalFresh report is on a different clock from the cash-grant
+      reports, and the demo says so. This is the kind of detail that separates a real report screen from a
+      plausible one: the contrast between “second business day” and “7th business day” exists in the source and
+      nowhere else.</p>
+    <p><strong>Example you can click.</strong> The CF 296 tab — CalFresh participation and issuance by county,
+      with its cadence in the subtitle.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:186</p>
+<pre><code>sub = 'Participation and issuance by county · replaced the DFA 296 (July 2016) · scheduled 2nd business day';</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <div class="callout warn">
+    <p class="hd">Three rows out of 409</p>
+    <p>The catalog holds 330 scheduled reports and 79 on-request reports. The demo implements three of them, and
+      from each row it takes three things: the name, a one-phrase description, and the publication day. The other
+      406 reports do not exist in the demo.</p>
+  </div>
+  <p>Also not built:</p>
+  <ul>
+    <li><strong>The navigation model.</strong> Every row carries a Location of Report pointer — <code>G:</code>
+      global navigation bar, <code>L:</code> local navigator, <code>T:</code> task navigation bar — which is how a
+      worker finds a report in the real system. The demo has a flat tab strip instead.</li>
+    <li><strong>The security-group mapping.</strong> Each row names the group(s) permitted to run that report
+      (“State Reports”, “Fiscal Reports”, and so on). The demo does not gate individual reports by group.</li>
+    <li><strong>Line-item structure.</strong> The catalog lists <em>CA 237 CW Line 8 Backup Report</em> and
+      <em>CF 296 Line 6 Backup Report</em> as separate reports, which implies the parent reports are
+      line-numbered. The demo uses no line numbering and has no backup reports.</li>
+    <li><strong>Column layouts.</strong> The catalog describes what each report is <em>about</em>; it carries no
+      field list or column schema for any report. The columns in the demo’s three tables are the demo’s own.</li>
+    <li><strong>The DFA 296 → CF 296 rename.</strong> That history comes from ACL 16-39E — the string “DFA 296”
+      appears nowhere in these 49 pages, which are the post-rename catalog only.</li>
+  </ul>
+
+  <h2>Verify it yourself</h2>
+  <p>The PDF has a clean text layer. Pull it and read the three rows on their own pages:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2023/02/CIT-0038-23-CalWIN-ISS_GLP_Appendix-D_CalSAWS-Reports-Overview.pdf
+F=CIT-0038-23-CalWIN-ISS_GLP_Appendix-D_CalSAWS-Reports-Overview.pdf
+pdftotext -layout -f  5 -l  5 "$F" -   # CA 237 CW — 7th business day
+pdftotext -layout -f  6 -l  6 "$F" -   # CA 255    — 7th business day
+pdftotext -layout -f 10 -l 10 "$F" -   # CF 296    — second business day</code></pre>
+  <p>And count the catalog yourself:</p>
+<pre><code>pdftotext -layout "$F" - | grep -c 'L: Scheduled'    # 330
+pdftotext -layout "$F" - | grep -c 'L: On Request'   # 79</code></pre>
+  <p class="src">Then open the Reports tab in the demo and compare the three titles and cadence lines word for word.</p>
+
+</section>
+
+<section id="p-CIT-0103-22" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0103-22 — Wave 1 &amp; 2 CalSAWS Infographics <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A transmittal that pushed two one-page CalSAWS infographics out to Wave 1 and Wave 2 counties — one on
+      registering an application, one on running EDBC — the single-sheet summaries a county prints and pins above
+      a desk. Two of their rules are built literally: a worker picks which programs to run eligibility on
+      <em>before</em> clicking Run EDBC, and applications arriving electronically are registered automatically
+      with no manual keying. The honest boundary: most of both sheets is unbuilt — the six-month EDBC window and
+      come-up-month defaulting, the soft-versus-hard validation split, and the entire signed-paper path from SAWS 1
+      generation through CIN search to imaging upload.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> open any case → <strong>EDBC</strong> tab — the program
+      chips above the Run EDBC button are the multi-program selection. For the other rule, submit an application
+      from the public portal and watch it land in the worker queue already registered, with an intake task
+      attached.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — infographic distribution (CalWIN migration)</span>
+    <span><strong>Distributed:</strong> 04.12.2022</span>
+    <span><strong>Pages:</strong> 2 cover sheet · attachments: Application Registration 2 pp, EDBC in CalSAWS 1 p</span>
+    <span><strong>Format:</strong> cover sheet is scanned images with no text layer; both attachments extract cleanly</span>
+    <span><strong>Verified:</strong> cover page-rendered, attachments downloaded &amp; extracted 2026-07-31</span>
+  </div>
+  <p class="src">
+    <a href="https://www.calsaws.org/wp-content/uploads/2022/04/CIT-0103-22-Wave-1-and-2-CalSAWS-Infographics-1_Redacted.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0103-22-Wave-1-and-2-CalSAWS-Infographics-1_Redacted.pdf</a> — the transmittal<br>
+    <a href="https://www.calsaws.org/wp-content/uploads/2022/04/CIT-0103-22-Application-Registration.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0103-22-Application-Registration.pdf</a> — attachment 1<br>
+    <a href="https://www.calsaws.org/wp-content/uploads/2022/04/CIT-0103-22-EDBC-in-CalSAWS.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0103-22-EDBC-in-CalSAWS.pdf</a> — attachment 2
+  </p>
+
+  <h2>What this document is</h2>
+  <p>
+    The transmittal itself is a routing slip: it tells counties to distribute the infographics to every anticipated
+    CalSAWS user and to print them for the walls. The substance is in the two attachments it names —
+    <strong>Application Registration</strong> and <strong>EDBC in CalSAWS</strong>. Treat it as a
+    <strong>workflow source</strong>: change-management material written for a worker who has never seen the
+    screen, which makes it unusually direct about what the system does and in what order.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with the attachment and page each line came from:</p>
+
+  <blockquote>“Counties are encouraged to distribute the infographic(s) to all anticipated CalSAWS users. … Print
+    the infographics and attach to bulletin boards or other areas staff
+    congregate.”<cite>Transmittal, page 2 — County Action</cite></blockquote>
+
+  <blockquote>“CalSAWS provides users the option to run eligibility on a single program or multiple programs at the
+    same time. On the Run EDBC page users select which program(s) they want to run before clicking Run
+    EDBC.”<cite>EDBC in CalSAWS, page 1 — “Running EDBC for Multiple Programs”</cite></blockquote>
+
+  <blockquote>“Applications received electronically from outside systems (e.g., BenefitsCal, e-Applications) have
+    an application automatically registered when they are submitted to CalSAWS. Therefore, they do not need to
+    have an application manually registered for them. E-Applications can be found on the e-Tools
+    page.”<cite>Application Registration, page 1 — Note</cite></blockquote>
+
+  <blockquote>“Users must conduct a person search to verify that there are no existing records for the applicant in
+    CalSAWS.”<cite>Application Registration, page 2 — step 2, New Person Search</cite></blockquote>
+
+  <blockquote>“In CalSAWS, EDBC can be run for up to six months at a time. If EDBC needs to be run for more than
+    six months, it must be run multiple times. Users have the option to change the months EDBC is run
+    for.”<cite>EDBC in CalSAWS, page 1</cite></blockquote>
+
+  <blockquote>“Soft Validation: CalSAWS will still allow the worker to run and accept EDBC, however it may impact
+    EDBC results. … Hard Validation: CalSAWS will NOT allow the worker to run and accept the EDBC
+    results.”<cite>EDBC in CalSAWS, page 1</cite></blockquote>
+
+  <h2>How it was used — two traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The worker chooses which programs to run before running</h3>
+    <p><strong>The business point.</strong> Eligibility is not one switch. A household can have CalFresh, Medi-Cal
+      and General Assistance on the same case, and a worker often wants to re-run just one of them. The demo
+      renders one toggle chip per program on the case, pre-selected, and refuses to run with nothing chosen —
+      exactly the interaction the infographic describes.</p>
+    <p><strong>Example you can click.</strong> Open a multi-program case, go to the EDBC tab, deselect everything
+      but one program, and run. Only that program is recalculated; the others are untouched. The automated test
+      suite drives this same path — it deselects CalFresh and Medi-Cal to run General Assistance alone.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/case/[id]/EdbcPanel.tsx:17, 54, 60 — seeded with every program on the case, toggled per chip, guarded at the button</p>
+<pre><code>const [selected, setSelected] = useState&lt;Program[]&gt;(programs);
+…
+onClick={() =&gt; setSelected(cur =&gt; cur.includes(p) ? cur.filter(x =&gt; x !== p) : [...cur, p])}&gt;{NAMES[p]}&lt;/button&gt;
+…
+&lt;button className="btn big" onClick={run} disabled={busy || selected.length === 0} data-testid="run-edbc"&gt;</code></pre>
+    <p class="src">platform/e2e/scenarios.spec.ts:248–249 — the selection is a tested behaviour, not just a control</p>
+<pre><code>await w.getByTestId('edbc-prog-CF').click(); // deselect CF
+await w.getByTestId('edbc-prog-MC').click(); // deselect MC</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> An online application registers itself — no worker keys it in</h3>
+    <p><strong>The business point.</strong> The infographic draws a hard line: paper gets registered by a worker;
+      anything arriving electronically is already registered on submission. The demo implements that split in one
+      place — the registration routine checks whether the caller is staff or an applicant, stamps the case source
+      accordingly, and creates the intake task either way. There is no separate manual step for a portal
+      submission, and the staff registration screen says so on the page.</p>
+    <p><strong>Example you can click.</strong> Apply from the public side. The case appears in the worker queue
+      with a case number, a source of “BenefitsCal e-Application”, and a Process Application task already
+      assigned — Expedited Intake, due in 3 days, if the household screens as expedited.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/supabase/migrations/0003_county_rls.sql:331 — one branch decides the channel</p>
+<pre><code>case when v_staff then coalesce(p-&gt;&gt;'source', 'County office (SAWS 1)') else 'BenefitsCal e-Application' end,</code></pre>
+    <p class="src">platform/supabase/migrations/0003_county_rls.sql:359–364 — the same routine raises the intake task, so a portal application arrives work-ready</p>
+<pre><code>insert into tasks (case_id, type, priority, due_date, assigned_to)
+values (v_case,
+        case when v_exp then 'Expedited Intake' else 'Process Application' end,
+        case when v_exp then 'Critical' else 'Normal' end,
+        current_date + case when v_exp then 3 else 30 end,
+        v_worker);</code></pre>
+    <p class="src">platform/src/app/(staff)/worker/register/page.tsx:59 — the rule stated to the worker in the UI</p>
+<pre><code>&lt;p className="muted small" …&gt;Paper SAWS 1 keyed by staff. e-Applications from the portal arrive in the queue automatically.&lt;/p&gt;</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <div class="callout warn">
+    <p class="hd">One rule per sheet landed</p>
+    <p>Each infographic carries several distinct rules. From the EDBC sheet, one of its four sections was built.
+      From the Application Registration sheet, only the electronic-submission note — its four numbered steps are
+      absent end to end.</p>
+  </div>
+  <p>Not built, from the EDBC sheet:</p>
+  <ul>
+    <li><strong>The six-month run window.</strong> “EDBC can be run for up to six months at a time… it must be run
+      multiple times.” The demo has a single benefit-month picker
+      (<code>EdbcPanel.tsx:57–58</code>, a single <code>&lt;input type="month"&gt;</code>) and runs one month per
+      click.</li>
+    <li><strong>Begin/End month defaulting and the come-up month.</strong> The sheet spells out how CalSAWS
+      suggests a begin month — earliest recorded data change, pending program, otherwise the come-up month — and
+      forbids running past it. None of that logic exists in the demo.</li>
+    <li><strong>Soft versus Hard Validation.</strong> The sheet’s central distinction: soft warnings let the worker
+      run and accept anyway; hard validations block. The demo blocks on an unresolved data discrepancy but has no
+      graded validation model, and no warning a worker can acknowledge and proceed past.</li>
+  </ul>
+  <p>Not built, from the Application Registration sheet:</p>
+  <ul>
+    <li><strong>The signed-paper flow.</strong> Generating a SAWS 1 from the registration page, the Print and Edit
+      buttons, the Application Signed checkbox, and the Application Number field. The demo labels the paper channel
+      “County office (SAWS 1)” but produces no form and issues no application number — cases get a case number
+      instead.</li>
+    <li><strong>CIN search and the Case Member List.</strong> Searching for a Client Index Number on the New Person
+      Detail page, then confirming household members before continuing. The demo has neither.</li>
+    <li><strong>Imaging.</strong> Uploading the signed application into the CalSAWS Imaging Solution by scan
+      mode.</li>
+    <li><strong>The navigation path itself</strong> — Case Info → New Application → Application Registration across
+      the global, local and task navigation bars. The demo uses a flat worker queue.</li>
+  </ul>
+
+  <h2>Verify it yourself</h2>
+  <p>The two attachments hold the content and extract cleanly:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2022/04/CIT-0103-22-EDBC-in-CalSAWS.pdf
+curl -sSLO https://www.calsaws.org/wp-content/uploads/2022/04/CIT-0103-22-Application-Registration.pdf
+pdftotext -layout CIT-0103-22-EDBC-in-CalSAWS.pdf -            # multi-program, 6 months, soft vs hard
+pdftotext -layout CIT-0103-22-Application-Registration.pdf -   # the e-Application note, steps 1-4</code></pre>
+  <p>The transmittal cover is scanned — <code>pdftotext</code> returns 2 bytes — so render it instead:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2022/04/CIT-0103-22-Wave-1-and-2-CalSAWS-Infographics-1_Redacted.pdf
+pdftoppm -r 150 -png CIT-0103-22-Wave-1-and-2-CalSAWS-Infographics-1_Redacted.pdf pg   # then open pg-2.png</code></pre>
+  <p class="src">Put the EDBC sheet beside the demo’s EDBC tab and compare the program selection, then submit a
+    portal application and watch it register itself.</p>
+
+</section>
+
+<section id="p-CIT-0169-23" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0169-23 — Wave 4 Yellow Banner Case Review <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      Five pages sent to the Wave 4 counties — San Mateo, San Diego, Santa Cruz and Solano — telling them what
+      happens when a case converted from CalWIN produces a benefit CalSAWS disagrees with: the case gets a yellow
+      banner, and the system refuses to save the result until a worker reviews it. The demo took two things from it
+      — the banner’s on-screen wording, and the block-until-reviewed gate — and built them into the product as a
+      first-class <code>yellow_banner</code> case status with an end-to-end test holding the behaviour in place.
+      The honest boundary: this is the Wave 4 reissue of an instruction already in the source set, and everything
+      that makes it a conversion document — the CalWIN comparison, the ten-reason mismatch taxonomy with its
+      priority-1/2/3 clearing order, the COLA batch interaction — was not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> open case <code>C-100005</code> (Tanya Brooks, Los Angeles).
+      The banner sits at the top of the Case Summary; the EDBC tab will not produce a saved result until the
+      discrepancy is resolved.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — CalWIN migration guidance</span>
+    <span><strong>Distributed:</strong> 05.04.2023 (Wave 4 counties)</span>
+    <span><strong>Pages:</strong> 5</span>
+    <span><strong>Format:</strong> scanned images, no text layer — quotes read from rendered pages</span>
+    <span><strong>Verified:</strong> downloaded &amp; page-rendered 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2023/05/CIT-0169-23-Wave-4-Yellow-Banner-Case-Review-Guide-and-Scenarios_Redacted.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0169-23-Wave-4-Yellow-Banner-Case-Review-Guide-and-Scenarios_Redacted.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    A go-live memo for the fourth wave of counties moving off CalWIN. At cutover CalSAWS re-ran every active case
+    and compared its own answer against the last answer CalWIN had saved. Agreement saved silently; disagreement
+    raised a yellow banner and forced a manual review. Pages 3–4 then hand counties a triage table — eleven
+    mismatch reasons, each ranked priority 1, 2 or 3 — and pages 4–5 cover meeting logistics and the attachment
+    list.
+  </p>
+  <p>
+    Treat it as a <strong>process source</strong>. It is one of a family of near-identical transmittals reissued
+    per migration wave, so its value here is confirmation of a rule, not a new rule: the same background
+    paragraphs, the same banner screenshot and the same blocking sentence appear in the Wave 3 version already
+    read for this build. What it defines is a quality gate — when the system is not confident in a number, it
+    stops and puts a human in front of the case before any money moves.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“If the CalSAWS Batch EDBC results match the last saved CalWIN EDBC result, the system considers the
+    benefits a match and saves the EDBC. If the EDBCs do not match, the case will be flagged with a yellow banner
+    and the Batch EDBC is not saved.”<cite>Page 1 — Description › Background</cite></blockquote>
+
+  <blockquote>“Full Case Review is required, before EDBC is run and authorized. Please refer to the Manual Case
+    Review Job Aid for instructions on how to proceed. <strong>Programs Affected: CalFresh.</strong>”<cite>Page 2 — the banner itself, in a screenshot of the Case Summary</cite></blockquote>
+
+  <blockquote>“Batch EDBC will not be run on these cases until the User performs the case review, takes appropriate
+    action, and accepts and saves the EDBC. These cases will be identified via exception reports after each batch
+    job.”<cite>Page 2 — bold and underlined in the original</cite></blockquote>
+
+  <blockquote>“These flagged cases will require further case review by a Case Worker to determine the difference in
+    the EDBC results and make appropriate case updates to resolve the issue.”<cite>Page 1</cite></blockquote>
+
+  <blockquote>“After Go-Live, a list will be provided to counties identifying cases with an EDBC Mismatch that will
+    need to be reviewed and authorized to clear the yellow banner from the Case Summary page. This will allow
+    upcoming automated actions, batch processes, and COLA runs to apply to cases on schedule.”<cite>Page 4 — County Action</cite></blockquote>
+
+  <blockquote>“Each Mismatch Reason is assigned a priority of 1, 2, or 3. Cases labeled with a priority of 1 being
+    the highest priority.”<cite>Page 3</cite></blockquote>
+
+  <h2>How it was used — four traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The banner on screen is the CalSAWS banner, close to word for word</h3>
+    <p><strong>The business point.</strong> Page 2 is a screenshot of the real banner on a real Case Summary page.
+      The demo reproduces its sentence and its “Programs Affected:” clause, filled from the case’s own enrolled
+      programs. A county worker who has cleared a yellow banner in production recognises the demo’s banner as the
+      same object rather than an approximation of one.</p>
+    <p><strong>Example you can click.</strong> Open <code>C-100005</code>. The banner names the affected programs,
+      then states the discrepancy in plain money — IEVS (EDD wages) reports $2,400/mo of earned income where the
+      case records $1,600/mo — with a Resolve control directly underneath.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/case/[id]/page.tsx:72–73</p>
+<pre><code>&lt;strong&gt;Full Case Review is required before EDBC is run and authorized.&lt;/strong&gt;{' '}
+Programs Affected: {(cse.programs as Program[]).map(p =&gt; PROG[p].name).join(', ')}.{' '}</code></pre>
+    <p class="src">Near-verbatim, not verbatim: the demo drops the comma after “required” and replaces the
+      document’s second sentence — “Please refer to the Manual Case Review Job Aid” — with the resolve control.
+      There is no Job Aid in this build to refer to.</p>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> No determination is produced while the discrepancy is open</h3>
+    <p><strong>The business point.</strong> The document’s hardest rule, and the demo enforces it in the rules
+      engine rather than in the screen. Before any program calculation runs, the engine checks for an unresolved
+      discrepancy; if one exists it returns <code>blocked</code> with an <em>empty</em> results array. There is no
+      number to accept, authorize or pay until a human has looked.</p>
+    <p><strong>Example you can click.</strong> On <code>C-100005</code>, open the EDBC tab and press Run EDBC. You
+      get a blocked notice restating the banner and the discrepancy — no CalFresh allotment, no CalWORKs grant,
+      nothing to authorize.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:318–330 — the gate sits above every program calculation</p>
+<pre><code>export function runEDBC(P: Params, snap: CaseSnapshot, programs: Program[]): EdbcOutput {
+  const banner = yellowBanner(P, snap);
+  if (banner) {
+    return {
+      blocked: true,
+      yellowBanner: banner.map(m =&gt; ({ … })),
+      results: [],
+    };
+  }</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> Worker review clears the banner and returns the case to the queue</h3>
+    <p><strong>The business point.</strong> Page 1 asks the worker to determine the difference and make the case
+      update; page 4 says the banner is cleared so downstream automation can resume. The demo makes that one
+      database operation: resolving the match records the decision, optionally corrects the income record to the
+      matched amount, moves the case off <code>yellow_banner</code> back to <code>pending</code>, and writes a
+      journal entry naming the worker.</p>
+    <p><strong>Example you can click.</strong> On <code>C-100005</code>, click Resolve and accept the matched
+      amount. The banner disappears, the case rejoins the normal pending flow, and re-running EDBC now computes on
+      the corrected $2,400/mo.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/supabase/migrations/0003_county_rls.sql:247–280 — <code>resolve_data_match</code>, server-side and county-gated</p>
+<pre><code>update data_matches set resolved = true,
+  reported = case when p_use_matched then matched else reported end,
+  resolution_note = coalesce(p_note, resolution_note)
+ where id = p_match_id;
+
+update cases set status = 'pending' where id = m.case_id and status = 'yellow_banner';</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> The rule is pinned by an end-to-end test</h3>
+    <p><strong>The business point.</strong> The behaviour this transmittal prescribes is not left to code review —
+      it is asserted in the automated browser suite, so a future change that silently lets a flagged case through
+      fails the build. The test walks the whole loop: banner visible, run blocked, resolve, run succeeds.</p>
+    <p><strong>Example you can click.</strong> Scenario 3 of the golden suite drives the same case a worker would:
+      search “Brooks”, open <code>C-100005</code>, confirm the banner, attempt EDBC, resolve, re-run.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/e2e/scenarios.spec.ts:165–176 — “3. yellow banner blocks EDBC until resolved”</p>
+<pre><code>await expect(w.getByTestId('yellow-banner')).toContainText('Full Case Review is required');
+// EDBC blocked
+await w.getByTestId('tab-edbc').click();
+await w.getByTestId('run-edbc').click();
+await expect(w.getByTestId('edbc-blocked')).toBeVisible({ timeout: 20_000 });
+// resolve with matched amount
+await w.getByTestId('resolve-open').first().click();
+await w.getByTestId('resolve-matched').click();
+await expect(w.getByTestId('yellow-banner')).not.toBeVisible({ timeout: 20_000 });</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <div class="callout warn">
+    <p class="hd">The trigger is different</p>
+    <p>In CIT-0169-23 the banner fires on exactly one condition: a CalWIN-to-CalSAWS conversion mismatch, the
+      CalSAWS batch result against the last saved CalWIN result. The demo has no legacy system to compare against,
+      so the banner was re-pointed at an unresolved third-party income discrepancy of $100/mo or more
+      (<code>yellowBannerThreshold</code>, params.ts:64), seeded as <em>IEVS (EDD wages)</em>, <em>SSA SSN
+      validation</em> and <em>SAVE (immigration)</em>. The wording and the gate came from this document; the
+      conversion capability it describes is not built.</p>
+  </div>
+  <p>Also not built:</p>
+  <ul>
+    <li><strong>The eleven-row mismatch taxonomy on pages 3–4</strong> and its priority-1/2/3 clearing order —
+      Program Discontinued, Recoupment Mismatch, Program Person Status Mismatch, Cash Program not Authorized,
+      Program Person Role Mismatch, Benefit Amount Mismatch, Aid-Code Mismatch, Prior or Current EDBC Not Found,
+      MAGI Determination Pending, Full Case Review. The demo’s <code>data_matches</code> table
+      (0001_schema.sql:130–139) records source, field, reported, matched, resolved and a resolution note — no
+      reason code, no priority column, no prescribed clearing order.</li>
+    <li><strong>The COLA batch interaction</strong> on page 2 — an unreviewed banner blocking the automatic
+      cost-of-living increase and forcing the worker to apply it by hand. The demo runs no COLA batch.</li>
+    <li><strong>Exception reports after each batch job</strong> and the Negative Action batch carve-out. The demo
+      has no batch layer at all; EDBC is real-time and server-side.</li>
+    <li><strong>The Converted Case Review Dashboard</strong> on page 2, with its production case counts. That is
+      CalWIN-conversion telemetry with no analogue here.</li>
+    <li><strong>Wave 4 logistics</strong> — the 05/10/2023 IPOC/TOSS meeting, distribution instructions, and the
+      attachment list of eleven per-reason review guides. Nothing to build.</li>
+  </ul>
+
+  <h2>Verify it yourself</h2>
+  <p>This PDF is five scanned images with no text layer — <code>pdftotext</code> returns 5 bytes. Render the pages
+    instead; the banner is on page 2:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2023/05/CIT-0169-23-Wave-4-Yellow-Banner-Case-Review-Guide-and-Scenarios_Redacted.pdf
+pdftoppm -r 150 -png CIT-0169-23-Wave-4-Yellow-Banner-Case-Review-Guide-and-Scenarios_Redacted.pdf pg   # then open pg-2.png</code></pre>
+  <p class="src">Put pg-2.png beside case C-100005 in the demo and compare the banner sentence. Then run
+    <code>npm run test:e2e</code> and watch scenario 3 drive the same loop.</p>
+
+</section>
+
+<section id="p-CIT-0248-23" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0248-23 — Wave 5 Yellow Banner Case Review Process <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      Six pages issued to the Wave 5 counties — Alameda, Fresno and Solano — setting the rule for converted cases
+      whose benefit CalSAWS calculates differently from CalWIN: flag the case, do not save the result, and make a
+      county worker review it before anything is authorized. The demo implements that rule end to end — the engine
+      returns no determination while a discrepancy is open, the server writes no result rows and flips the case to
+      <code>yellow_banner</code>, and a single database function lets the worker resolve it and put the case back
+      in the queue. The honest boundary: the trigger is different here (an external wage match, not a CalWIN
+      comparison), and the document’s ten-reason mismatch taxonomy, batch layer, exception reports and COLA
+      interaction were not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> case <code>C-100005</code> → EDBC tab → Run EDBC. You get a
+      blocked notice and zero saved results until the discrepancy on the Data Matches tab is resolved.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — CalWIN migration</span>
+    <span><strong>Distributed:</strong> 07.06.2023 (Wave 5 counties)</span>
+    <span><strong>Pages:</strong> 6</span>
+    <span><strong>Format:</strong> scanned images, no text layer — quotes read from rendered pages</span>
+    <span><strong>Verified:</strong> downloaded &amp; page-rendered 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2023/07/CIT-0248-23-Wave-5-Yellow-Banner-Case-Review-Process__Redacted.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0248-23-Wave-5-Yellow-Banner-Case-Review-Process__Redacted.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    The Wave 5 instalment of the CalSAWS yellow-banner instruction. At conversion cutover CalSAWS re-ran batch
+    EDBC for every active CalWIN case and compared its own answer to the last one CalWIN saved. Where the two
+    agreed, the result saved and nobody was involved. Where they disagreed, the case was flagged and the result was
+    thrown away pending human review.
+  </p>
+  <p>
+    This is a <strong>process source</strong>, not a policy source — it contains no eligibility rules. What it
+    contributes is a stance on automation: a benefits system is allowed to compute, but it is not allowed to commit
+    a number it cannot reconcile. Pages 3–4 then give counties a triage table for working the resulting queue, and
+    pages 4–5 cover exclusions, attachments and meeting logistics.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“During the conversion cutover from CalWIN to CalSAWS, CalSAWS will run Batch EDBC for all active
+    CalWIN cases. If the CalSAWS Batch EDBC results match the last saved CalWIN EDBC result, the system considers
+    the benefits a match and saves the EDBC. If the EDBCs do not match, the case will be flagged with a yellow
+    banner and the Batch EDBC is not saved.”<cite>Page 1 — Description › Background</cite></blockquote>
+
+  <blockquote>“These flagged cases will require further case review by a County Worker to determine the difference
+    in the EDBC results and make appropriate case updates to resolve the issue.”<cite>Page 1</cite></blockquote>
+
+  <blockquote>“Full Case Review is required, before EDBC is run and authorized. Please refer to the Manual Case
+    Review Job Aid for instructions on how to proceed. <strong>Programs Affected: CalFresh.</strong>”<cite>Page 2 — the banner screenshot</cite></blockquote>
+
+  <blockquote>“Batch EDBC will not be run on these cases until the User performs the case review, takes appropriate
+    action, and accepts and saves the EDBC. These cases will be identified via exception reports after each batch
+    job.”<cite>Page 2 — bold and underlined in the original</cite></blockquote>
+
+  <blockquote>“A review of cases with Yellow Banners should be performed before the next COLA run. If the review is
+    not complete prior to the COLA run, CalSAWS will not automatically apply the COLA increase. The worker will
+    have to apply the COLA increase manually.”<cite>Page 2</cite></blockquote>
+
+  <blockquote>“Each Mismatch Reason is assigned a priority of 1, 2, or 3. Cases labeled with a priority of 1 being
+    the highest priority.”<cite>Page 3</cite></blockquote>
+
+  <h2>How it was used — three traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The engine refuses to produce a determination while a discrepancy is open</h3>
+    <p><strong>The business point.</strong> “Batch EDBC will not be run on these cases until the User performs the
+      case review.” In the demo that is not a screen message with a computed answer hiding behind it — the rules
+      engine checks for an unresolved discrepancy before any program calculation runs and returns an
+      <em>empty</em> results array. There is no benefit amount in existence to be accepted, authorized or paid.</p>
+    <p><strong>Example you can click.</strong> Open <code>C-100005</code>, go to the EDBC tab, press Run EDBC. The
+      panel shows the blocked state and restates the discrepancy; no CalFresh or CalWORKs result appears.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:318–330 — the gate is the first statement in the entry point</p>
+<pre><code>export function runEDBC(P: Params, snap: CaseSnapshot, programs: Program[]): EdbcOutput {
+  const banner = yellowBanner(P, snap);
+  if (banner) {
+    return {
+      blocked: true,
+      yellowBanner: banner.map(m =&gt; ({ … })),
+      results: [],
+    };
+  }</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> On a mismatch the case is flagged and nothing is written</h3>
+    <p><strong>The business point.</strong> Page 1 states two obligations in one sentence — flag the case, and do
+      not save the EDBC. The demo honours both in the same server action: result rows are inserted only when the
+      run is not blocked, and a blocked run moves a pending case to <code>yellow_banner</code>. The audit record of
+      the attempt is still written, so the blocked run is visible in history rather than silently discarded.</p>
+    <p><strong>Example you can click.</strong> After a blocked run, the case status pill reads Yellow Banner and the
+      case’s results history has no new determination for that month.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/actions/case-actions.ts:66–76</p>
+<pre><code>if (!output.blocked) {
+  const { error: rErr } = await admin.from('edbc_results').insert(output.results.map(res =&gt; ({ … })));
+  if (rErr) throw new Error(rErr.message);
+} else {
+  // an unresolved discrepancy also flips the case to yellow_banner if still pending
+  await admin.from('cases').update({ status: 'yellow_banner' }).eq('id', caseId).eq('status', 'pending');
+}</code></pre>
+    <p class="src">platform/supabase/migrations/0001_schema.sql:9 — the document’s term is a value in the schema</p>
+<pre><code>create type case_status as enum ('pending','yellow_banner','pending_authorization','approved','denied','renewal_due');</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> The worker determines the difference and updates the case</h3>
+    <p><strong>The business point.</strong> The document does not just say “review” — it says determine the
+      difference and make appropriate case updates. The demo’s resolve function does exactly that in one
+      transaction: record the decision and its note, optionally correct the income record to the matched amount,
+      return the case to <code>pending</code>, and journal who did it. The reviewing worker, not the system, owns
+      the correction.</p>
+    <p><strong>Example you can click.</strong> On <code>C-100005</code>, Resolve → accept the matched amount. The
+      earned-income record moves from $1,600/mo to $2,400/mo, the banner clears, and the journal gains a
+      Verification entry naming the worker. Re-run EDBC and the determination computes on the corrected figure.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/supabase/migrations/0003_county_rls.sql:247–280 — <code>resolve_data_match</code>, staff-only and county-gated</p>
+<pre><code>if p_use_matched then
+  update income_records set amount = m.matched
+   where case_id = m.case_id and kind = 'earned' …
+end if;
+
+update cases set status = 'pending' where id = m.case_id and status = 'yellow_banner';</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <div class="callout warn">
+    <p class="hd">Same gate, different trigger</p>
+    <p>The document’s banner fires when a CalSAWS batch result disagrees with the last saved CalWIN result during
+      migration. The demo has no legacy system and no batch layer — the EDBC panel says so on screen: “Real-time
+      rules engine, server-side against the live database — no overnight batch.” The banner was re-pointed at an
+      external wage match differing from reported income by $100/mo or more. The rule was lifted; the mechanism
+      described in the document was not built.</p>
+  </div>
+  <p>Also not built:</p>
+  <ul>
+    <li><strong>The mismatch reason taxonomy and its 1/2/3 priorities</strong> (pages 3–4). The demo’s
+      <code>data_matches</code> table (0001_schema.sql:130–139) has columns for source, field, reported, matched,
+      resolved and a note — no reason column, no priority column.</li>
+    <li><strong>The Exclusion/Exception sub-list</strong> on page 4 — 38 and 4M aid codes, foster youth aged 26+,
+      Kin-GAP dates, GA county arrival date, soft pause, overdue periodic report or RE packet. None of these
+      conditions exist in the engine.</li>
+    <li><strong>The Foster Care / Kin-GAP / AAP appendix pointer.</strong> The demo implements CalFresh, CalWORKs,
+      Medi-Cal, General Assistance, CAPI and RCA only.</li>
+    <li><strong>Exception reports after each batch job</strong> and the Negative Action batch carve-out — both
+      require a batch layer the demo does not have.</li>
+    <li><strong>The COLA interaction</strong> on page 2, and the Wave 5 go-live logistics on page 4 (the 07/11/2023
+      CNC meeting, PPOC/IPOC attendance, the recording link) plus the attachment titles and Web Portal retrieval
+      steps on page 5. Nothing to build.</li>
+  </ul>
+
+  <h2>Verify it yourself</h2>
+  <p>Six scanned pages with no text layer — <code>pdftotext</code> returns 6 bytes. Render them; the banner and the
+    blocking sentence are both on page 2:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2023/07/CIT-0248-23-Wave-5-Yellow-Banner-Case-Review-Process__Redacted.pdf
+pdftoppm -r 400 -png -f 2 -l 2 CIT-0248-23-Wave-5-Yellow-Banner-Case-Review-Process__Redacted.pdf pg</code></pre>
+  <p class="src">Then compare against the app: <code>rg -n "blocked" platform/src/lib/engine.ts</code> and
+    <code>rg -n "yellow_banner" platform/supabase/migrations/</code>.</p>
+
+</section>
+
+<section id="p-CIT-0287-22" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0287-22 — Wave 1 Yellow Banner Case Review <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      The first of the CalSAWS yellow-banner transmittals, sent to the Wave 1 counties in October 2022: when a
+      converted case produces a benefit CalSAWS disagrees with, flag it, throw the result away, and put a case
+      worker in front of it before anything is authorized. Four things in the demo trace to it — the banner
+      sentence on the Case Summary, the “Programs Affected:” label filled from the case’s own programs, the
+      server-side block that returns zero program results, and the same sentence repeated as the blocked state
+      inside the EDBC panel. The honest boundary: this is one of a family of near-identical wave reissues, so it
+      corroborates rather than originates, and the bulk of the document — the ten-reason mismatch taxonomy with
+      priorities, the COLA interaction, the batch exception reports, the conversion dashboard — was not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> case <code>C-100005</code> — the banner at the top of the
+      Case Summary, and the matching blocked notice on the EDBC tab after pressing Run EDBC.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — CalWIN migration</span>
+    <span><strong>Distributed:</strong> 10.04.2022 (Wave 1 counties)</span>
+    <span><strong>Pages:</strong> 5</span>
+    <span><strong>Format:</strong> scanned images, no text layer — quotes read from rendered pages</span>
+    <span><strong>Verified:</strong> downloaded &amp; page-rendered 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2022/10/CIT-0287-22-Wave-1-Yellow-Banner-Case-Review-Guide-and-Scenarios__Redacted.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0287-22-Wave-1-Yellow-Banner-Case-Review-Guide-and-Scenarios__Redacted.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    Go-live guidance for the first wave of counties migrating off CalWIN. CalSAWS re-ran every active case at
+    cutover and compared its answer to CalWIN’s last saved answer. Agreement saved silently; disagreement raised a
+    yellow banner on the Case Summary and suspended the case until a worker reviewed it. Pages 3–4 give counties a
+    triage table of mismatch reasons ranked priority 1 to 3; page 2 shows the operational scale with a Reporting
+    Dashboard screenshot — 248.9k cases reviewed against 227.5k — and pages 4–5 list thirteen separate scenario
+    guides issued as attachments.
+  </p>
+  <p>
+    Read it as the <strong>origin point of a rule that was reissued per wave</strong>. Its page 1 background
+    paragraph, its page 2 banner screenshot and its bold blocking sentence are word for word identical to the
+    Wave 3 transmittal also read for this build. So its role here is confirmation: the same instruction, unchanged
+    across a year of migrations, is a rule worth building.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“If the CalSAWS Batch EDBC results match the last saved CalWIN EDBC result, the system considers the
+    benefits a match and saves EDBC. If the EDBC’s do not match, the case will be flagged with a yellow banner and
+    the Batch EDBC is not saved.”<cite>Page 1 — Description › Background</cite></blockquote>
+
+  <blockquote>“Full Case Review is required, before EDBC is run and authorized. Please refer to the Manual Case
+    Review Job Aid for instructions on how to proceed. <strong>Programs Affected: CalFresh.</strong>”<cite>Page 2 — the banner itself, in a screenshot of the Case Summary</cite></blockquote>
+
+  <blockquote>“Batch EDBC will not be run on these cases until the User performs the case review, takes appropriate
+    action, accepts, and saves EDBC. These cases will be identified via exception reports after each batch
+    job.”<cite>Page 2 — bold and underlined in the original</cite></blockquote>
+
+  <blockquote>“These flagged cases will require further case review by a Case Worker to determine the difference in
+    the EDBC results and make appropriate case updates to resolve the issue.”<cite>Page 1</cite></blockquote>
+
+  <blockquote>“Each Mismatch Reason is assigned a priority of 1, 2, or 3. Cases labeled with a priority of 1 being
+    the highest priority.”<cite>Page 3 — Additional Information</cite></blockquote>
+
+  <blockquote>“If the review is not complete prior to the COLA run, CalSAWS will not automatically apply the COLA
+    increase. The worker will have to apply the COLA increase manually.”<cite>Page 2</cite></blockquote>
+
+  <h2>How it was used — four traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The banner sentence on the Case Summary</h3>
+    <p><strong>The business point.</strong> The most distinctive lift in the document is a screenshot, not a
+      paragraph. Page 2 shows the real banner as a worker sees it, and the demo renders that sentence at the top of
+      its own Case Summary, in the same yellow alert position, announced to screen readers as an alert.</p>
+    <p><strong>Example you can click.</strong> Open <code>C-100005</code>. The banner is above the tab strip,
+      before any case detail — you cannot work the case without reading it first.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/case/[id]/page.tsx:72</p>
+<pre><code>&lt;strong&gt;Full Case Review is required before EDBC is run and authorized.&lt;/strong&gt;{' '}</code></pre>
+    <p class="src">Near-verbatim: the demo drops the comma after “required” and does not carry the document’s
+      second sentence — there is no Manual Case Review Job Aid in this build to refer the worker to. A resolve
+      control takes its place.</p>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> “Programs Affected:”, filled from the case</h3>
+    <p><strong>The business point.</strong> The source screenshot ends with a label naming which programs the
+      review holds up — in that example, CalFresh. The demo reproduces the label and computes its contents from the
+      case’s own enrolled programs, so a household on CalFresh and CalWORKs sees both named. Small detail, large
+      effect: the worker knows immediately what is frozen.</p>
+    <p><strong>Example you can click.</strong> <code>C-100005</code> is enrolled in CalFresh and CalWORKs; the
+      banner names both, then states the discrepancy in plain money — IEVS (EDD wages) reports $2,400/mo where the
+      case records $1,600/mo.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/case/[id]/page.tsx:73</p>
+<pre><code>Programs Affected: {(cse.programs as Program[]).map(p =&gt; PROG[p].name).join(', ')}.{' '}</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> The determination does not run at all</h3>
+    <p><strong>The business point.</strong> “Batch EDBC will not be run on these cases until the User performs the
+      case review.” The demo enforces that in the rules engine, not in the interface: the discrepancy check runs
+      before any program calculation, and a flagged case returns <code>blocked</code> with no results. Nothing
+      exists to accept, authorize, or pay.</p>
+    <p><strong>Example you can click.</strong> Press Run EDBC on <code>C-100005</code>. No CalFresh allotment, no
+      CalWORKs grant, no authorize button — just the blocked notice.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:318–330</p>
+<pre><code>export function runEDBC(P: Params, snap: CaseSnapshot, programs: Program[]): EdbcOutput {
+  const banner = yellowBanner(P, snap);
+  if (banner) {
+    return {
+      blocked: true,
+      …
+      results: [],
+    };
+  }</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> The same sentence answers the blocked run</h3>
+    <p><strong>The business point.</strong> A worker who ignores the header banner and runs the determination
+      anyway gets the identical wording back at the point of action, plus the specific numbers in dispute and where
+      to fix them. One rule, stated the same way in both places — no second vocabulary for the same condition.</p>
+    <p><strong>Example you can click.</strong> The EDBC tab’s blocked notice reads “EDBC blocked — Full Case Review
+      is required before EDBC is run and authorized,” followed by the discrepancy and a pointer to the Data Matches
+      tab.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/case/[id]/EdbcPanel.tsx:72</p>
+<pre><code>&lt;div&gt;&lt;strong&gt;EDBC blocked — Full Case Review is required before EDBC is run and authorized.&lt;/strong&gt;{' '}
+  {out.output.yellowBanner?.map(y =&gt; y.text).join(' ')} Resolve it from the Data Matches tab.&lt;/div&gt;</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <div class="callout warn">
+    <p class="hd">A conversion document, and there is no conversion</p>
+    <p>Every rule in CIT-0287-22 hangs off one event: the CalWIN-to-CalSAWS cutover comparison. The demo has no
+      legacy system to compare against, so the banner was re-pointed at an unresolved external income match
+      differing from the reported figure by $100/mo or more. The gate and the wording are genuine lifts; the
+      conversion machinery around them is absent.</p>
+  </div>
+  <p>Also not built:</p>
+  <ul>
+    <li><strong>The ten-reason mismatch taxonomy</strong> (pages 3–4) — Program Discontinued, Recoupment Mismatch,
+      Program Person Status Mismatch, Cash Program not Authorized, Program Person Role Mismatch, Benefit Amount
+      Mismatch, Aid-Code Mismatch, Prior or Current EDBC Not Found, MAGI Determination Pending, Full Case Review —
+      with priorities 1/2/3 and a priority-ordered clearing sequence. The demo records the discrepancy itself, not
+      a reason code, and clears banners in no particular order.</li>
+    <li><strong>The COLA interaction</strong> and the COLA Run Listing on page 2. The demo runs no COLA batch, so
+      there is nothing for an unreviewed banner to block.</li>
+    <li><strong>Negative Action batch jobs and post-batch exception reports</strong> — both presuppose a batch
+      layer the demo does not have.</li>
+    <li><strong>The Yellow Banner Reporting Dashboard</strong> on page 2 with its 248.9k / 227.5k case counts.
+      Those are real production conversion volumes, not modelled here.</li>
+    <li><strong>The thirteen attached scenario guides</strong> named on pages 4–5, the Wave 1 Check-In Meeting on
+      10/12/22, the PPOC/IPOC distribution instructions and Web Portal retrieval steps, and the Foster Care /
+      Kin-GAP / AAP appendix. Nothing to build.</li>
+  </ul>
+
+  <h2>Verify it yourself</h2>
+  <p>Five scanned pages with no text layer — <code>pdftotext</code> returns 5 bytes. Render page 2 and read the
+    banner off the screenshot:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2022/10/CIT-0287-22-Wave-1-Yellow-Banner-Case-Review-Guide-and-Scenarios__Redacted.pdf
+pdftoppm -r 400 -png -f 2 -l 2 CIT-0287-22-Wave-1-Yellow-Banner-Case-Review-Guide-and-Scenarios__Redacted.pdf pg</code></pre>
+  <p class="src">Then in the repo: <code>rg -n "Full Case Review" platform/src</code> returns the two places the
+    sentence appears — the Case Summary banner and the EDBC blocked state.</p>
+
+</section>
+
+<section id="p-CIT-0354-22" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0354-22 — Yellow Banner Mismatch Reasons &amp; Scenario Overview <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      Seven pages defining what a Yellow Banner <em>is</em> and how counties should work the queue of them: when
+      CalSAWS recalculates a converted case and disagrees with CalWIN, the case is flagged, the result is not
+      saved, and a case worker must reconcile it — then nine reason codes, ranked priority 1 to 3, for triaging the
+      backlog. Two things from it are in the product: <code>yellow_banner</code> exists as a first-class value in
+      the case-status enum, so the flag is a state of the case rather than a message on a page, and the rules
+      engine refuses to produce a determination while the flag stands. The honest boundary: roughly five of the
+      seven pages — the reason taxonomy, the negative-action batch carve-outs, the dated COLA release calendar —
+      have no representation in the codebase, and the banner wording the demo ships was taken from a sibling
+      transmittal, so this document is corroborating rather than load-bearing.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> the status pill on case <code>C-100005</code> reads Yellow
+      Banner — that is a database enum value, filterable in the worker queue, not a UI flag.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — CalWIN conversion reference</span>
+    <span><strong>Distributed:</strong> December 2022</span>
+    <span><strong>Pages:</strong> 7</span>
+    <span><strong>Format:</strong> real text layer — 10,716 bytes extract with <code>pdftotext</code></span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2022/12/CIT-0354-22-Yellow-Banner-Case-Review-Report-Mismatch-Scenario-Overview.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0354-22-Yellow-Banner-Case-Review-Report-Mismatch-Scenario-Overview.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    The reference companion to the per-wave yellow-banner transmittals. Where those tell a specific set of counties
+    what to do at their cutover, this one defines the object itself: what raises a banner, what the system does and
+    does not save, who is responsible for clearing it, and how a county should order the work. Pages 3–4 are the
+    reason table. Pages 4–5 cover the Negative Action batch jobs that keep running on flagged cases, with per-county
+    Opt In / Opt Out under DDID 1110. Pages 5–7 are a dated 2022–2023 COLA release calendar.
+  </p>
+  <p>
+    Useful here for one idea, stated more plainly than anywhere else in the corpus: <strong>a case can be in a
+    state where the system knows enough to compute but not enough to commit.</strong> That is the concept the demo
+    borrowed.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“If the CalSAWS Batch EDBC does not match the existing saved CalWIN EDBC, the case will be flagged
+    with a Yellow Banner and the Batch EDBC is not saved.”<cite>Page 1 — Background</cite></blockquote>
+
+  <blockquote>“However, the flagged cases will require further case review by a Case Worker to determine the
+    difference in the EDBC results and make appropriate case updates to resolve the issue.”<cite>Page 1 — Background</cite></blockquote>
+
+  <blockquote>“Batch EDBC will not be run on these cases until the User performs the case review, takes appropriate
+    action, accepts, and saves EDBC.”<cite>Page 2</cite></blockquote>
+
+  <blockquote>“Program Discontinued — When EDBC is run in CalSAWS, active Programs in the CalWIN System are
+    resulting in a Program Discontinuance in CalSAWS. — Priority 1”<cite>Page 3 — Mismatch Reasons and Priorities, row 1</cite></blockquote>
+
+  <blockquote>“Full Case Review — EDBC run in CalSAWS is resulting in an uncategorized mismatch reason. —
+    Priority 3”<cite>Page 4 — Mismatch Reasons and Priorities, continued</cite></blockquote>
+
+  <blockquote>“A review of cases with Yellow Banners should be performed before the next COLA run. If users review
+    the Yellow Banner cases and run EDBC on-line prior to the next COLA run, the system will apply the COLA run
+    values automatically. If the review is not completed prior to the COLA run, users will have to apply the COLA
+    increase manually.”<cite>Page 5</cite></blockquote>
+
+  <h2>How it was used — two traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The banner is a state of the case, not a message on a page</h3>
+    <p><strong>The business point.</strong> Page 1 treats the banner as something the case <em>is</em> — flagged,
+      with the determination withheld. The demo models it the same way: <code>yellow_banner</code> is a value in
+      the <code>case_status</code> enum, alongside pending, pending authorization, approved, denied and renewal
+      due. That single decision is what makes the flag countable, filterable and reportable — a supervisor can ask
+      how many cases are stuck, because “stuck” is a column, not a rendering condition.</p>
+    <p><strong>Example you can click.</strong> The status pill on <code>C-100005</code> reads Yellow Banner, and the
+      same value drives the worker queue and the reports view. Postgres, not the browser, is the source of truth.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/supabase/migrations/0001_schema.sql:9</p>
+<pre><code>create type case_status as enum ('pending','yellow_banner','pending_authorization','approved','denied','renewal_due');</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> Compute is allowed; committing is not</h3>
+    <p><strong>The business point.</strong> The document’s operative rule — EDBC will not be run until the worker
+      reviews, acts, accepts and saves. The demo enforces it at the entry point of the rules engine: check for an
+      unresolved discrepancy first, and if one exists return <code>blocked</code> with an empty results array. No
+      benefit amount is produced, so none can be accepted or authorized, and none can be paid by accident.</p>
+    <p><strong>Example you can click.</strong> Run EDBC on <code>C-100005</code>. You get the blocked notice and
+      the specific numbers in dispute; resolve the discrepancy from the Data Matches tab and the same run produces
+      a full determination with its calculation trace.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:318–330 — the check precedes every program calculation</p>
+<pre><code>export function runEDBC(P: Params, snap: CaseSnapshot, programs: Program[]): EdbcOutput {
+  const banner = yellowBanner(P, snap);
+  if (banner) {
+    return {
+      blocked: true,
+      …
+      results: [],
+    };
+  }
+  const results = programs.filter(p =&gt; CALCS[p]).map(p =&gt; CALCS[p](P, snap));</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <div class="callout warn">
+    <p class="hd">Most of the document is conversion logistics</p>
+    <p>Pages 3–7 exist to run the 2023 CalWIN wave migrations. The demo has no legacy-conversion path, no batch
+      EDBC and no reason-code taxonomy, so none of it is in scope. Searching the platform source for
+      <code>CalWIN</code> and <code>Batch EDBC</code> returns nothing outside document links.</p>
+  </div>
+  <p>Specifically not built:</p>
+  <ul>
+    <li><strong>The nine-reason mismatch taxonomy with priorities 1/2/3</strong> (pages 3–4). The demo’s
+      <code>data_matches</code> table (0001_schema.sql:130–139) records source, field, reported, matched, resolved
+      and a resolution note — there is no reason column and no priority column, and none of the nine reason labels
+      appear anywhere in the source, tests or seed data.</li>
+    <li><strong>The conversion-cutover premise itself</strong> — comparing a fresh determination against a legacy
+      system’s last saved result. The demo has one system.</li>
+    <li><strong>The Negative Action batch jobs</strong> and their per-county Opt In / Opt Out under DDID 1110
+      (pages 4–5). No batch layer exists.</li>
+    <li><strong>The thirteen-release COLA calendar</strong> with dates and change-ticket numbers (pages 5–7), and
+      the rule that an unreviewed banner forces the worker to apply a COLA increase by hand.</li>
+  </ul>
+  <p>
+    One more honest note: the banner sentence the demo displays was taken from the per-wave transmittal that
+    reproduces the on-screen banner as a screenshot. This document supplied the definition and the blocking
+    semantics, not the wording.
+  </p>
+
+  <h2>Verify it yourself</h2>
+  <p>Unusually for this corpus, the PDF has a real text layer — no rendering needed:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2022/12/CIT-0354-22-Yellow-Banner-Case-Review-Report-Mismatch-Scenario-Overview.pdf
+pdftotext CIT-0354-22-Yellow-Banner-Case-Review-Report-Mismatch-Scenario-Overview.pdf - | grep -n "not saved\|Priority\|case review"</code></pre>
+  <p class="src">Then in the repo: <code>rg -n "yellow_banner" platform/supabase/migrations/0001_schema.sql</code>
+    for the enum, and <code>rg -n "blocked: true" platform/src/lib/engine.ts</code> for the gate.</p>
+
+</section>
+
+<section id="p-MPP 44" class="doc hide">
+
+  <h2 style="margin-top:12px">MPP Division 44 — CalWORKs Income, Need and Aid Payments <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      Division 44 of the state Eligibility and Assistance Standards manual — the standing CalWORKs regulation
+      covering income, assistance-unit need, and how an aid payment is computed. The entire CalWORKs financial spine
+      follows it step for step — from the applicant test against MBSAC through the disregards to the grant and the
+      $10 floor — with the engine’s variable names mirroring the regulation’s terms of art. It is a division, not a
+      letter — chapters 44-100 through 44-500 run to
+      roughly <strong>460 KB</strong> of text, and only the income and grant-computation sections are built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> run any CalWORKs determination and read the trace top to
+      bottom — steps A1, G1 and G2 are Division 44 in order.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS Manual of Policies and Procedures — Eligibility and Assistance Standards</span>
+    <span><strong>Cited by:</strong> section, not page</span>
+    <span><strong>Extract:</strong> 460 KB across four chapter files</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/inforesources/letters-regulations/legislation-and-regulations/calworks-calfresh-regulations/eligibility-and-assistance-standards" target="_blank" rel="noopener">cdss.ca.gov/…/eligibility-and-assistance-standards</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    All-county letters announce changes; the manual is the standing rule those changes are written into. Division 44
+    is where CalWORKs income counting and grant computation actually live, and it is published as a web index
+    serving four Word documents rather than a single PDF — chapters 43-200 through 44-100, 44-200, 44-300, and
+    44-300 continued through 44-500. It is a <strong>method source</strong>: it fixes the order of operations, the
+    comparison operators, and the vocabulary. Where a letter and the manual say the same thing, the manual is why
+    the code is shaped the way it is.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, by section:</p>
+
+  <blockquote>“An applicant family shall not be eligible for cash aid unless the family’s income, exclusive of the
+    first ninety dollars ($90) of earned income <strong>for each employed person</strong>, is <strong>less
+    than</strong> the Minimum Basic Standard of Adequate Care (MBSAC) for the family.”<cite>MPP § 44-207.11</cite></blockquote>
+
+  <blockquote>“Applicant Eligibility Determination — $975 Earned Income · −450 <strong>$450 Earned Income
+    Disregard</strong> · $525 Total Net Nonexempt Income · $1,242 MBSAC for two · Family passes the MBSAC test (MBSAC
+    is greater than Net Nonexempt Income)”<cite>MPP § 44-207.11, handbook example</cite></blockquote>
+
+  <blockquote>“A family shall have a set amount of disability-based unearned income (DBI) specified below and up to
+    that set amount of any unused amount of the DBI disregard plus 50% of any remaining earned income disregarded as
+    income… (c) Effective June 1, 2022, the DBI disregard is <strong>$600</strong>.”<cite>MPP § 44-111.231, .231(c)</cite></blockquote>
+
+  <blockquote>“.216 Apply the 50% disregard to any remaining earned income for the family. .217 Add to the amount in
+    Section 44-113.216 any excess nonexempt disability-based unearned income and/or any nonexempt unearned income.
+    This total is the <strong>net nonexempt income</strong> available to the family.”<cite>MPP §§ 44-113.216, .217</cite></blockquote>
+
+  <blockquote>“Potential Grant — Subtract the net nonexempt income amount from the MAP plus special need for the
+    family. This is the potential grant amount.”<cite>MPP § 44-315.35</cite></blockquote>
+
+  <blockquote>“If the amount determined in Section 44-315.38 is less than ten dollars ($10), no payment shall be
+    paid for that month.”<cite>MPP § 44-315.5</cite></blockquote>
+
+  <h2>How it was used — six traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The applicant test, structure and operator</h3>
+    <p><strong>The business point.</strong> One sentence of regulation dictates three things the code has to get
+      right: the disregard is subtracted <em>per employed person</em>, unearned income is added back with no
+      disregard, and the comparison is strictly <em>less than</em> — a family landing exactly on MBSAC fails. The
+      engine does all three in three lines.</p>
+    <p><strong>Example you can click.</strong> Trace step A1 reads “Earned $1600 − $450×1 worker(s) + unearned $0 =
+      $1150 vs MBSAC $1892 (AU 3)”. Add a second employed adult and the multiplier changes with it.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:185–188</p>
+<pre><code>const workers = snap.persons.filter(p =&gt; p.employed).length || (T.earned &gt; 0 ? 1 : 0);
+const applicantNet = money(T.earned - workers * C.applicantEarnedDisregard) + T.unearned;
+const mbsac = scaled(C.mbsac, C.mbsacExtra, au);
+const appPass = applicantNet &lt; mbsac;</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> $450 — carried in the regulation’s own worked example</h3>
+    <p><strong>The business point.</strong> The body of 44-207.11 still prints the superseded $90; the handbook
+      example in the same section works the current $450 through a full determination. Reading both together is how
+      you know the code’s figure is the live one, and it is a good illustration of why a rules engine needs a dated
+      parameter rather than a number typed into a formula.</p>
+    <p><strong>Example you can click.</strong> Admin → Rules → CalWORKs, “Applicant test disregard per worker ($)”.
+      Change it and the A1 trace line moves.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:53</p>
+<pre><code>applicantEarnedDisregard: 450, disregardFlat: 600, disregardPct: 50,</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> $600 — the flat disregard, fixed by the manual</h3>
+    <p><strong>The business point.</strong> The grant-side disregard is formally a disability-based-income
+      disregard whose unused portion falls through to earnings. For a household with no disability income — the
+      common case — that reduces to subtracting $600 from earnings first, exactly as the manual’s own worked example
+      does it.</p>
+    <p><strong>Example you can click.</strong> Trace step G1: “$1600 − $600 flat = $1000; 50% of remainder
+      disregarded”.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:53</p>
+<pre><code>applicantEarnedDisregard: 450, disregardFlat: 600, disregardPct: 50,</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> Fifty percent of the remainder, then add unearned</h3>
+    <p><strong>The business point.</strong> Two numbered subsections, two lines of code, in that order. The 50
+      percent applies only to earned income that survived the flat disregard; unearned income is added afterwards
+      and is not halved. Reversing the two would overstate or understate every grant in the system.</p>
+    <p><strong>Example you can click.</strong> Add $200 of unearned income to a case. Countable income rises by the
+      full $200, not $100 — the trace shows the halving applied before the addition.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:195–198</p>
+<pre><code>const afterFlat = Math.max(0, T.earned - C.disregardFlat);
+const countableEarned = r2(afterFlat * (100 - C.disregardPct) / 100);
+const netNonexempt = r2(countableEarned + T.unearned);</code></pre>
+  </div>
+
+  <!-- USE 5 -->
+  <div class="use">
+    <h3><span class="n">05</span> Grant = MAP − net nonexempt income</h3>
+    <p><strong>The business point.</strong> The payment formula itself. The engine’s term for the intermediate
+      figure — “net nonexempt income” — is the manual’s term, which is what lets a county worker read the trace
+      without translation.</p>
+    <p><strong>Example you can click.</strong> Trace step G2: “MAP $1,175 (AU 3, Region 1) − net nonexempt income
+      $500” → grant $675.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:199–200</p>
+<pre><code>const map = scaled(C.map, C.mapExtra, au);
+const grant = Math.floor(map - netNonexempt);</code></pre>
+  </div>
+
+  <!-- USE 6 -->
+  <div class="use">
+    <h3><span class="n">06</span> The $10 payment floor</h3>
+    <p><strong>The business point.</strong> A computed grant under ten dollars is not paid for that month. The demo
+      applies the floor as a financial-ineligibility outcome with its own reason code, so the notice explains
+      itself.</p>
+    <p><strong>Example you can click.</strong> Push earnings until the grant computes under $10 — the case returns
+      ineligible with code CW-G01.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:54, consumed at engine.ts:202–204</p>
+<pre><code>resourceLimit: 12552, minGrant: 10,
+
+if (grant &lt; C.minGrant) {
+  reasons.push({ code: 'CW-G01', text: `Computed grant $${Math.max(0, grant)} is below the $${C.minGrant} minimum — financially ineligible.` });</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>The income and grant-computation spine is built. The rest of the division is not:</p>
+  <ul>
+    <li><strong>Budgeting periods.</strong> Semi-annual and annual reporting, prospective budgeting, and the payment
+      period concept (44-313, 44-315.31, 44-316). The demo computes a determination, not a budget cycle.</li>
+    <li><strong>The Income Reporting Threshold</strong> and mid-period reporting duties (44-316).</li>
+    <li><strong>Special needs</strong> (44-211) — the manual’s grant formula is “MAP plus special need”; the demo
+      implements MAP alone.</li>
+    <li><strong>The lesser-of step</strong> (44-315.36 to .38), which caps the potential grant against the
+      assistance unit’s own MAP before payment, and the round-down of net nonexempt income (44-315.34).</li>
+    <li><strong>Proration</strong> for a partial first month (44-315.7) and beginning-date-of-aid rules
+      (44-317 to 44-319).</li>
+    <li><strong>Disability-based unearned income as its own category</strong> (44-111.231(d)) — the demo implements
+      the branch where a household has none.</li>
+    <li><strong>Overpayments, underpayments and recoupment</strong> (44-340, 44-350 through 44-355), the Maximum
+      Family Grant (44-314), payment delivery and payee rules (44-304 through 44-310), and lump-sum income
+      (44-207.3). None of these appear anywhere in the codebase.</li>
+  </ul>
+  <p>Nothing in the division was contradicted. The build followed it precisely where it went, and stopped early.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>The division is published as Word documents, not a PDF. These commands reproduce the quotes above:</p>
+<pre><code>for f in 10EAS 11EAS 12EAS 12EASa; do curl -sSLO https://www.cdss.ca.gov/Portals/9/Regs/Man/EAS/$f.docx; done
+for f in *.docx; do unzip -p "$f" word/document.xml | sed 's/&lt;[^&gt;]*&gt;/ /g' &gt; "${f%.docx}.txt"; done
+grep -niE "44-207.11|44-111.231|44-113.216|44-315.35|ten dollars" *.txt</code></pre>
+  <p class="src">Then run a CalWORKs determination and read steps A1, G1 and G2 against the sections above.</p>
+
+</section>
+
+<section id="p-MPP 63" class="doc hide">
+
+  <h2 style="margin-top:12px">MPP Division 63 — CalFresh Regulations <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      Division 63 of the state manual — the standing CalFresh regulation, published as a set of chapter documents
+      and cited by section rather than page. It drove three things in the demo: the expedited-service screen and its
+      two tests, the 30-day and 3-day processing clocks that every case badge counts down, and the deduction
+      sequence inside the CalFresh calculation, down to the age-60 definition of an elderly household. It is the
+      whole CalFresh division — roughly <strong>783 KB</strong> across the chapters pulled — and work registration,
+      certification periods, overissuance claims and fair hearings are untouched.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> apply with under $150 income and under $100 in the bank —
+      the case comes back flagged expedited at intake, and the queue badge switches from a 30-day clock to a 3-day
+      one.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS Manual of Policies and Procedures — Division 63, CalFresh</span>
+    <span><strong>Cited by:</strong> section, not page</span>
+    <span><strong>Extract:</strong> 783 KB across six chapter files</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/inforesources/letters-regulations/legislation-and-regulations/calworks-calfresh-regulations/calfresh-regulations" target="_blank" rel="noopener">cdss.ca.gov/…/calfresh-regulations</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    Federal law sets the outer bounds of SNAP; Division 63 is how California actually runs CalFresh, and it is what
+    a county worker is trained on. It is a <strong>method source</strong>, and an unusually exacting one — it states
+    not just thresholds but the operators between them, which is why several of its sentences are visible in the
+    code almost word for word. The index page serves the division as Word chapters; the build used the application
+    processing chapter (63-300) and the income and deductions chapter (63-500), plus the definitions in 63-100.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, by section:</p>
+
+  <blockquote>“Households with <strong>less than $150</strong> in monthly gross income… provided their liquid
+    resources… <strong>do not exceed $100</strong>”<cite>MPP § 63-301.511</cite></blockquote>
+
+  <blockquote>“Households whose combined monthly gross income and liquid resources are <strong>less than the
+    household’s monthly rent or mortgage, and utilities</strong>.”<cite>MPP § 63-301.513</cite></blockquote>
+
+  <blockquote>“The CWD shall provide eligible households that complete the initial application process an
+    opportunity to participate as soon as possible, but <strong>not later than 30 calendar days following the date
+    the application was filed</strong>.”<cite>MPP § 63-301.1, Normal Processing Standard</cite></blockquote>
+
+  <blockquote>“For households entitled to expedited service at initial application, the CWD shall make the
+    authorization document, access device or coupons available… <strong>no later than the third calendar day
+    following the date the application was filed</strong>.”<cite>MPP § 63-301.531(a)</cite></blockquote>
+
+  <blockquote>“Total the allowable shelter expenses to determine shelter costs… Subtract from the total shelter
+    costs <strong>50 percent of the household’s monthly income after all the above deductions have been
+    subtracted</strong>. The remaining amount, if any, is the excess shelter cost.”<cite>MPP § 63-503.311(g)</cite></blockquote>
+
+  <blockquote>“‘Elderly or disabled member’ means a member of a household who: (A) is <strong>60 years of age or
+    older</strong>;”<cite>MPP § 63-102(e)(1)(A)</cite></blockquote>
+
+  <h2>How it was used — six traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The expedited ceilings — $150 income, $100 resources</h3>
+    <p><strong>The business point.</strong> Expedited service is the demo’s highest-stakes branch: it decides
+      whether a household waits three days or thirty. The regulation’s first test is a pair of thresholds with
+      deliberately different operators — income strictly <em>less than</em> $150, resources <em>not exceeding</em>
+      $100 — and both are reproduced as written.</p>
+    <p><strong>Example you can click.</strong> Apply with $140 income and $100 in the bank: the first test passes
+      and the case is expedited. Raise the bank balance to $101 and that test fails. The EDBC trace prints the whole
+      screen with the household’s own numbers in it.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:46 — both ceilings, editable at Admin → Rules</p>
+<pre><code>allotExtra: 218, benefitReductionPct: 30, esIncomeMax: 150, esResourceMax: 100,</code></pre>
+    <p class="src">platform/src/lib/engine.ts:103</p>
+<pre><code>const expedited = (T.gross &lt; C.esIncomeMax &amp;&amp; T.liquid &lt;= C.esResourceMax)</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> The second expedited test — shelter above income plus resources</h3>
+    <p><strong>The business point.</strong> A household can be over the income ceiling and still qualify, if rent
+      and utilities exceed everything it has. Missing this prong would quietly deny fast service to exactly the
+      households the rule exists for.</p>
+    <p><strong>Example you can click.</strong> Apply with $900 income, $50 in the bank and $1,200 rent — expedited,
+      on the shelter prong. The trace spells out both tests and which one fired.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:104</p>
+<pre><code>|| (shelterTotal &gt; T.gross + T.liquid)</code></pre>
+    <p class="src">platform/supabase/migrations/0003_county_rls.sql:303–304 — the same rule enforced in the database</p>
+<pre><code>v_exp := (p-&gt;'programs') ? 'CF' and (
+  (v_income &lt; coalesce(v_es_income, 150) and v_liquid &lt;= coalesce(v_es_res, 100))
+  or (v_rent + v_util &gt; v_income + v_liquid)
+);</code></pre>
+    <div class="callout info" style="margin-top:14px">
+      <p class="hd">Enforced twice, on purpose</p>
+      <p>The screen runs in the rules engine and again inside the submit-application routine in Postgres, which
+        reads the live threshold rows and falls back to the regulation’s own figures. An application arriving
+        straight at the API gets the same expedited determination as one keyed through the portal.</p>
+    </div>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> Thirty days, counted from the filing date</h3>
+    <p><strong>The business point.</strong> The regulation sets both the length of the clock and where it starts —
+      the date the application was filed, not the date a worker picked it up. That second half is the part systems
+      get wrong. Every SLA in the demo is computed from the application date for that reason.</p>
+    <p><strong>Example you can click.</strong> The worker queue shows days remaining on every case and counts two
+      tiles off the same clock — “SLA at risk (≤5 days)” and “Overdue”. Reassigning a case does not reset it.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:63</p>
+<pre><code>sla: { CF: 30, CF_ES: 3, CW: 45, MC: 45, MC_DISABILITY: 90, GA: 30, CAPI: 30, RCA: 30 },</code></pre>
+    <p class="src">platform/src/lib/domain.ts:41–42 — the clock starts at the filing date</p>
+<pre><code>const applied = new Date(c.application_date + 'T12:00:00');
+const days = c.expedited ? P.sla.CF_ES : Math.min(...c.programs.map(pr =&gt; P.sla[pr] ?? 30));</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> Three days — and a migration written to protect it</h3>
+    <p><strong>The business point.</strong> The expedited deadline is a regulatory obligation attached to the
+      household, not to whoever is holding the file. When a supervisor returns a case to a worker, the demo re-opens
+      the task against the <em>original</em> filing date plus three days, rather than issuing a fresh courtesy
+      deadline. That behaviour was a shipped fix, and this section is the reason it exists.</p>
+    <p><strong>Example you can click.</strong> Take an expedited case through to supervisor authorisation, return
+      it, and watch the re-opened task keep its original due date instead of resetting. Expedited cases come back at
+      Critical priority as “Expedited Intake”.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/supabase/migrations/0004_workflow_fixes.sql:131 — the returned case keeps its filing-date clock</p>
+<pre><code>-- 0004 (BUG-002): close the now-moot authorization task before re-opening
+-- worker follow-up on the case's ORIGINAL SLA clock (esp. the expedited 3-day
+-- deadline) — NOT a fresh current_date + 5. Expedited =&gt; Critical priority.
+v_appdate + case when v_exp then 3 else 30 end,</code></pre>
+    <p class="src">platform/supabase/migrations/0004_workflow_fixes.sql:74 — the supervisor’s authorization task runs on the same clock</p>
+<pre><code>v_appdate + case when v_exp then 3 else 30 end,</code></pre>
+  </div>
+
+  <!-- USE 5 -->
+  <div class="use">
+    <h3><span class="n">05</span> The excess shelter deduction, and the order it sits in</h3>
+    <p><strong>The business point.</strong> Shelter is the largest deduction in a CalFresh budget, and it is
+      computed against income <em>after</em> every other deduction — earned income, standard, dependent care,
+      medical — so the sequence is load-bearing. The engine applies them in the regulation’s order and then takes
+      half of what is left.</p>
+    <p><strong>Example you can click.</strong> The golden household’s trace shows the chain: earned deduction, then
+      standard deduction, then “Shelter $1,400 rent + $663 SUA = $2,063; minus half of adjusted income $535.50;
+      capped at $744”.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:141 — half of the running net, not of gross</p>
+<pre><code>const half = r2(Math.max(0, net) / 2);</code></pre>
+  </div>
+
+  <!-- USE 6 -->
+  <div class="use">
+    <h3><span class="n">06</span> Age 60 — one definition, three consequences</h3>
+    <p><strong>The business point.</strong> Whether a household counts as elderly or disabled changes three separate
+      outcomes: the gross income test is waived entirely, medical expenses become deductible, and the shelter
+      deduction loses its cap. All three hang off the manual’s definition, and 60 is the number in it.</p>
+    <p><strong>Example you can click.</strong> Set an applicant’s age to 60. The trace’s G1 step changes from a test
+      to “Waived — elderly (60+)/disabled household; net test only,” and the shelter deduction stops capping.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:79</p>
+<pre><code>const hasElderlyDisabled = (snap: CaseSnapshot) =&gt; snap.persons.some(p =&gt; p.aged || p.age &gt;= 60 || p.disabled);</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>Two chapters are heavily used; the rest of the division is not. None of the following appears anywhere in the
+    codebase:</p>
+  <ul>
+    <li><strong>Work registration and ABAWD time limits</strong> (63-407) — a substantial chapter with real
+      caseload consequences, entirely absent.</li>
+    <li><strong>Categorical eligibility</strong> (63-301.6), the route by which many households qualify without a
+      separate resource test.</li>
+    <li><strong>Certification periods and change reporting</strong> (63-504). The demo determines eligibility once;
+      it does not certify for a period or process mid-period changes.</li>
+    <li><strong>Overissuance claims and recovery</strong> (63-801).</li>
+    <li><strong>Fair hearings and intentional program violations</strong> — the entire due-process side of the
+      program.</li>
+    <li><strong>Issuance mechanics</strong> (63-600 and 63-700) beyond a benefit amount, and quality control
+      (63-1200).</li>
+    <li><strong>The handbook standards tables</strong> (63-1101), which hold the dollar figures the regulation
+      defers to. The demo’s CalFresh amounts come from the annual cost-of-living notice instead.</li>
+  </ul>
+  <p>Nothing in the division was contradicted. The build followed it closely in application processing and income
+    accounting, and did not go further.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>The division is published as Word chapters, not a PDF. These commands reproduce the quotes above:</p>
+<pre><code>for f in fsman02 fsman03 fsman06; do curl -sSLO https://www.cdss.ca.gov/Portals/9/Regs/Man/Fsman/$f.docx; done
+for f in fsman*.docx; do unzip -p "$f" word/document.xml | sed 's/&lt;[^&gt;]*&gt;/ /g' &gt; "${f%.docx}.txt"; done
+grep -niE "\$150|do not exceed \$100|30 calendar days|third calendar day|50 percent of the household|60 years of age" fsman*.txt</code></pre>
+  <p class="src">Then submit an application under the expedited thresholds and watch the three-day clock start on the queue.</p>
+
 </section>
 
 </main>
@@ -1166,49 +3318,22 @@ sed -e 's/&lt;[^&gt;]*&gt;//g' cfr2739.xml | grep -niE "Twenty percent of gross 
   to text, and searched for the specific claims the demo makes. Claims are then traced to a file and line number in
   the repository. Nothing here is asserted from memory — where a source could not be confirmed, the report says so
   rather than filling the gap.</p>
-  <p>Generated 2026-07-31 · CalSAWS Reimagined · 7 of 63 inventory documents analyzed.</p>
+  <p>Generated 2026-07-31 · CalSAWS Reimagined · 20 sources traced to code · 63 documents reviewed.</p>
 </footer>
 
 <script>
-  var CIT = ['CIT-0008-26','CIT-0010-25','CIT-0017-22','CIT-0019-21','CIT-0030-22','CIT-0038-23','CIT-0039-23',
-    'CIT-0071-20','CIT-0089-20','CIT-0099-24','CIT-0103-22','CIT-0135-21','CIT-0136-21',
-    'CIT-0148-20','CIT-0148-24','CIT-0150-22','CIT-0169-23','CIT-0173-22','CIT-0179-23','CIT-0198-23','CIT-0206-23',
-    'CIT-0229-21','CIT-0239-22','CIT-0240-21','CIT-0248-23','CIT-0287-22','CIT-0290-23','CIT-0294-22','CIT-0313-23',
-    'CIT-0340-23','CIT-0354-22'];
-  var ACIN = ['ACIN I-15-26','ACIN I-19-16','ACIN I-33-21','ACIN I-45-24','ACIN I-48-23','ACIN I-61-24'];
-  var ACL = ['ACL 08-30','ACL 16-39E','ACL 17-98','ACL 18-117','ACL 21-130','ACL 21-130E','ACL 23-83','ACL 24-55',
-    'ACL 24-63','ACL 25-50','ACL 25-65','ACL 25-68','ACL 25-78'];
-  var OTHER = ['ACWDL 23-14E','ACWDL 25-18','7 CFR 275.16','MPP 42','MPP 44','MPP 63'];
-
-  function fill(id, arr){
-    var g = document.getElementById(id);
-    arr.forEach(function(v){
-      var o = document.createElement('option'); o.value = v; o.textContent = v; g.appendChild(o);
-    });
-  }
-  fill('g-cit', CIT); fill('g-acin', ACIN); fill('g-acl', ACL); fill('g-other', OTHER);
-
   var sel = document.getElementById('pick');
-  var none = document.getElementById('p-none');
-  var phTitle = document.getElementById('ph-title');
   var DONE = {};
   document.querySelectorAll('section.doc').forEach(function (el) { DONE[el.id.slice(2)] = el; });
-
-  document.getElementById('count').textContent = Object.keys(DONE).length + ' of ' + (Object.keys(DONE).length + CIT.length + ACIN.length + ACL.length + OTHER.length) + ' analyzed';
-
-
+  document.getElementById('count').textContent = Object.keys(DONE).length + ' sources, each traced to code';
   function show(v){
     Object.keys(DONE).forEach(function (k) { DONE[k].classList.toggle('hide', k !== v); });
-    var known = !!DONE[v];
-    none.classList.toggle('hide', known);
-    if (!known) phTitle.textContent = v + ' — not yet analyzed';
     if (decodeURIComponent(location.hash.slice(1)) !== v) history.replaceState(null, '', '#' + encodeURIComponent(v));
     window.scrollTo(0, 0);
   }
   sel.addEventListener('change', function(){ show(sel.value); });
-
   var h = decodeURIComponent(location.hash.slice(1));
-  if (h) { sel.value = h; if (sel.value === h) show(h); }
+  if (h && DONE[h]) { sel.value = h; show(h); }
 </script>
 </body>
 </html>
