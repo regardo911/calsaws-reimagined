@@ -79,12 +79,38 @@ const DOC: Record<string, { url: string; pp?: number }> = {
 const BENEFITSCAL = 'https://benefitscal.com';
 
 // CODE(): renders an inline id chip; auto-links it to the official source when known.
+// The 20 documents that changed the software; each has a page in the traceability report.
+const TRACED = new Set([
+  'CIT-0006-25', 'CIT-0008-26', 'CIT-0038-23', 'CIT-0074-23', 'CIT-0103-22', 'CIT-0169-23',
+  'CIT-0248-23', 'CIT-0287-22', 'CIT-0354-22', 'CIT-0355-22', 'ACIN I-15-26', 'ACIN I-46-25',
+  'ACL 16-39E', 'ACL 21-130', 'ACL 24-55', 'ACL 25-36', 'ACL 25-65', '7 CFR 273.9', 'MPP 44', 'MPP 63',
+]);
+
+const TRACE = (s: string): ReactNode =>
+  TRACED.has(s) ? (
+    <a
+      href={`/traceability.html#${encodeURIComponent(s)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={`How ${s} was used — the traceability report`}
+      aria-label={`How ${s} was used — the traceability report`}
+      style={{ color: 'var(--primary)', textDecoration: 'none', fontSize: 12, lineHeight: 1, padding: '0 3px', opacity: 0.8 }}
+    >
+      &#8599;
+    </a>
+  ) : null;
+
 const CODE = (s: string): ReactNode => {
   const d = DOC[s];
-  return d ? (
-    <a href={d.url} target="_blank" rel="noopener noreferrer" className="g-code" style={{ color: 'var(--primary)', textDecoration: 'none' }}>{s}</a>
-  ) : (
-    <span className="g-code">{s}</span>
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 1, whiteSpace: 'nowrap' }}>
+      {d ? (
+        <a href={d.url} target="_blank" rel="noopener noreferrer" className="g-code" style={{ color: 'var(--primary)', textDecoration: 'none' }}>{s}</a>
+      ) : (
+        <span className="g-code">{s}</span>
+      )}
+      {TRACE(s)}
+    </span>
   );
 };
 
@@ -203,23 +229,9 @@ const REVIEWED_IDS = ['CIT-0010-25', 'CIT-0017-22', 'CIT-0019-21', 'CIT-0030-22'
   'ACL 23-83', 'ACL 24-63', 'ACL 25-50', 'ACL 25-68', 'ACL 25-78', 'ACWDL 23-14E', 'ACWDL 25-18', '7 CFR 275.16', 
   'MPP 42'];
 
-const Chips = ({ ids, trace = false }: { ids: string[]; trace?: boolean }) => (
+const Chips = ({ ids }: { ids: string[] }) => (
   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-    {ids.map((id) => (
-      <span key={id} style={{ display: 'inline-flex', alignItems: 'center', gap: 2 }}>
-        {CODE(id)}
-        {trace && <a
-          href={`/traceability.html#${encodeURIComponent(id)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          title={`How ${id} was used in the build`}
-          aria-label={`How ${id} was used in the build`}
-          style={{ color: 'var(--primary)', textDecoration: 'none', fontSize: 12, lineHeight: 1, padding: '0 3px', opacity: 0.75 }}
-        >
-          &#8599;
-        </a>}
-      </span>
-    ))}
+    {ids.map((id) => <span key={id}>{CODE(id)}</span>)}
   </div>
 );
 
@@ -255,6 +267,16 @@ export default function Page() {
           <div className="g-stat-l">research tokens</div>
           <div className="g-stat-d">the 7-agent research fleet&rsquo;s metered reading &amp; extraction</div>
         </div>
+      </div>
+
+      <div className="g-callout gold" style={{ marginBottom: 18 }}>
+        <span className="g-callout-title">See how any source was used &#8599;</span>
+        Twenty of these documents changed the software. Every one of their IDs on this page carries a
+        &#8599; that opens{' '}
+        <a href="/traceability.html" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)' }}>
+          the traceability report
+        </a>{' '}
+        &mdash; what that document changed, in business terms, with the line of code.
       </div>
 
       {/* ---------- Cornerstone ---------- */}
@@ -348,7 +370,7 @@ export default function Page() {
               <div className="g-eyebrow" style={{ marginBottom: 8 }}>
                 Sources that shaped the build — 20 · 307 pp
               </div>
-              <Chips ids={SOURCE_IDS} trace />
+              <Chips ids={SOURCE_IDS} />
             </div>
             <div>
               <div className="g-eyebrow" style={{ marginBottom: 8 }}>
