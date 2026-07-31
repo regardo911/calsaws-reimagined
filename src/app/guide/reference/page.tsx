@@ -18,7 +18,6 @@ const DOC: Record<string, { url: string; pp?: number }> = {
   'CIT-0039-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/02/CIT-0039-23-CalWIN-County-Prep-Phase-Packet-February-2023.pdf', pp: 73 },
   'CIT-0071-20': { url: 'https://www.calsaws.org/wp-content/uploads/2020/05/CIT-0071-20-Job-Aid-Family-Stabilization_.pdf', pp: 5 },
   'CIT-0074-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0074-23-Wave-3-Yellow-Banner-Case-Review-Guide-and-Scenarios-Revised_Redacted.pdf', pp: 5 },
-  'CIT-0076-23': { url: 'https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf', pp: 4 },
   'CIT-0089-20': { url: 'https://www.calsaws.org/wp-content/uploads/2020/07/CIT-0089-20-ACL-20-45.01.pdf', pp: 7 },
   'CIT-0099-24': { url: 'https://www.calsaws.org/wp-content/uploads/2024/06/CIT-0099-24-JA-EDBC-Overriding-Program-Configuration_.pdf', pp: 8 },
   'CIT-0103-22': { url: 'https://www.calsaws.org/wp-content/uploads/2022/04/CIT-0103-22-Wave-1-and-2-CalSAWS-Infographics-1_Redacted.pdf', pp: 2 },
@@ -253,7 +252,7 @@ const CORRECTIONS: { what: ReactNode; source: ReactNode; impact: ReactNode }[] =
 // ---- Full source inventory (each chip links to the official document) ----
 const CIT_IDS = [
   'CIT-0006-25', 'CIT-0008-26', 'CIT-0010-25', 'CIT-0017-22', 'CIT-0019-21', 'CIT-0030-22', 'CIT-0038-23',
-  'CIT-0039-23', 'CIT-0071-20', 'CIT-0074-23', 'CIT-0076-23', 'CIT-0089-20', 'CIT-0099-24', 'CIT-0103-22',
+  'CIT-0039-23', 'CIT-0071-20', 'CIT-0074-23', 'CIT-0089-20', 'CIT-0099-24', 'CIT-0103-22',
   'CIT-0135-21', 'CIT-0136-21', 'CIT-0148-20', 'CIT-0148-24', 'CIT-0150-22', 'CIT-0169-23', 'CIT-0173-22',
   'CIT-0179-23', 'CIT-0198-23', 'CIT-0206-23', 'CIT-0229-21', 'CIT-0239-22', 'CIT-0240-21', 'CIT-0248-23',
   'CIT-0287-22', 'CIT-0290-23', 'CIT-0294-22', 'CIT-0313-23', 'CIT-0340-23', 'CIT-0354-22', 'CIT-0355-22',
@@ -263,7 +262,23 @@ const ACL_IDS = ['ACL 08-30', 'ACL 16-39E', 'ACL 17-98', 'ACL 18-117', 'ACL 21-1
 const OTHER_IDS = ['ACWDL 23-14E', 'ACWDL 25-18', '7 CFR 273.9', '7 CFR 275.16', 'MPP 42', 'MPP 44', 'MPP 63'];
 
 const Chips = ({ ids }: { ids: string[] }) => (
-  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>{ids.map((id) => <span key={id}>{CODE(id)}</span>)}</div>
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+    {ids.map((id) => (
+      <span key={id} style={{ display: 'inline-flex', alignItems: 'center', gap: 2 }}>
+        {CODE(id)}
+        <a
+          href={`/traceability.html#${encodeURIComponent(id)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={`How ${id} was used in the build`}
+          aria-label={`How ${id} was used in the build`}
+          style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: 11, lineHeight: 1, padding: '0 2px' }}
+        >
+          &#9656;
+        </a>
+      </span>
+    ))}
+  </div>
 );
 
 export default function Page() {
@@ -284,14 +299,14 @@ export default function Page() {
       {/* ---------- WOW: documents + pages ---------- */}
       <div className="g-grid g-grid-3">
         <div className="g-stat">
-          <div className="g-stat-v">63</div>
+          <div className="g-stat-v">62</div>
           <div className="g-stat-l">primary-source documents</div>
-          <div className="g-stat-d">35 CalSAWS CITs · 7 ACINs · 14 ACLs · 2 Medi-Cal letters · 2 federal regs · 3 MPP divisions</div>
+          <div className="g-stat-d">34 CalSAWS CITs · 7 ACINs · 14 ACLs · 2 Medi-Cal letters · 2 federal regs · 3 MPP divisions</div>
         </div>
         <div className="g-stat">
-          <div className="g-stat-v">1,160</div>
+          <div className="g-stat-v">1,156</div>
           <div className="g-stat-l">pages of source material</div>
-          <div className="g-stat-d">measured — every PDF downloaded and page-counted (58 paginated documents; the CFR sections &amp; MPP divisions are web regulations)</div>
+          <div className="g-stat-d">measured — every PDF downloaded and page-counted (57 paginated documents; the CFR sections &amp; MPP divisions are web regulations)</div>
         </div>
         <div className="g-stat">
           <div className="g-stat-v" style={{ fontSize: 22 }}>851,506</div>
@@ -312,12 +327,12 @@ export default function Page() {
               <span className="g-callout-title">
                 CalSAWS Configuration Guide — {CODE('CIT-0355-22')} (Nov 2022, 146 pages)
               </span>
-              The structural DNA of the platform. The research team extracted it end to end and built the org
-              model, navigation, and authorization design directly from it.
+              The structural DNA of the platform, extracted end to end at kickoff. What it specifies — and
+              what the platform carried over — is below.
             </div>
             <dl className="g-kv">
               <dt>Org hierarchy</dt>
-              <dd>County → Office → Section → Unit → Position → Staff</dd>
+              <dd>County → Office → Section → Unit → Position → Staff — carried into the Worker ID</dd>
               <dt>Worker-ID format</dt>
               <dd>
                 2-digit county code + section / unit / position — e.g. Dana Whitfield&rsquo;s{' '}
@@ -329,10 +344,7 @@ export default function Page() {
               <dt>Security model</dt>
               <dd>29 roles · 1,498 security groups</dd>
               <dt>Authorization</dt>
-              <dd>
-                County-configurable 1st / 2nd-level authorization and benefit-issuance thresholds — the
-                supervisor-authorization flow.
-              </dd>
+              <dd>Supervisor authorization before a CalWORKs grant is issued.</dd>
             </dl>
           </div>
         </div>
@@ -379,17 +391,17 @@ export default function Page() {
       <section className="g-card">
         <div className="g-card-hd">
           <h3 className="g-card-title">Full source inventory</h3>
-          <span className="g-card-meta">every document · 63 total · 1,160 measured pages · all linked</span>
+          <span className="g-card-meta">every document · 62 total · 1,156 measured pages · all linked</span>
         </div>
         <div className="g-card-bd">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div className="g-callout info">
               Every ID below links to the <strong>actual document</strong>. Page counts were measured by
-              downloading each PDF and counting — the 58 paginated documents total <strong>1,160 pages</strong>;
-              the 2 federal CFR sections and 3 MPP divisions are web regulations without a single page count.
+              downloading each PDF and counting — the 57 paginated documents total <strong>1,156 pages</strong>;
+              the 2 federal CFR sections and 3 MPP divisions are web regulations without a single page count. Each &#9656; opens the traceability report for that document — what it changed in the software, with the code.
             </div>
             <div>
-              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CalSAWS County Information Transmittals — 35 · 957 pp</div>
+              <div className="g-eyebrow" style={{ marginBottom: 8 }}>CalSAWS County Information Transmittals — 34 · 953 pp</div>
               <Chips ids={CIT_IDS} />
             </div>
             <div>

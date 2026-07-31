@@ -77,8 +77,8 @@ export default function Page() {
           </div>
           <div className="g-grid g-grid-3" style={{ marginTop: 12 }}>
             <div className="g-stat">
-              <div className="g-stat-v">1,160</div>
-              <div className="g-stat-l">pages across 63 documents</div>
+              <div className="g-stat-v">1,156</div>
+              <div className="g-stat-l">pages across 62 documents</div>
               <div className="g-stat-d">the primary-source corpus — 35 CITs · 7 ACINs · 14 ACLs · Medi-Cal &amp; federal regs — every PDF measured, and all linked on the Reference tab.</div>
             </div>
             <div className="g-stat">

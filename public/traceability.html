@@ -1,0 +1,1214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CalSAWS Reimagined — Source Traceability</title>
+<style>
+  :root {
+    --navy:#12395f; --navy-2:#1d4e7d; --gold:#f2a541;
+    --bg:#fff; --bg-alt:#f6f7f9; --card:#fff;
+    --fg:#1c2530; --fg-dim:#5c6b7a; --border:#dde2e8;
+    --ok:#17683a; --ok-bg:#e8f6ec; --warn:#8a5a00; --warn-bg:#fdf3e0;
+    --crit:#8f1d1d; --crit-bg:#fdecec; --info:#134d6b; --info-bg:#e6f2f8;
+    --code-bg:#f4f6f8; --code-fg:#1c2530; --quote-bg:#f9f7f1;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --navy:#7fb2e5; --navy-2:#a9cdf0; --gold:#f2a541;
+      --bg:#0f1419; --bg-alt:#161c23; --card:#141a21;
+      --fg:#dfe6ee; --fg-dim:#93a1b0; --border:#262f3a;
+      --ok:#86e0a4; --ok-bg:#12291c; --warn:#f0c27b; --warn-bg:#2b2214;
+      --crit:#ff9a9a; --crit-bg:#35191b; --info:#8fd0ee; --info-bg:#11262f;
+      --code-bg:#11161c; --code-fg:#dfe6ee; --quote-bg:#1a1710;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  header{background:var(--bg-alt);border-bottom:3px solid var(--gold);padding:30px 0 24px;margin-bottom:0}
+  .eyebrow{font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:10px}
+  h1{margin:0 0 8px;font-size:27px;letter-spacing:-.02em;color:var(--navy)}
+  .lede{margin:0;color:var(--fg-dim);font-size:15px;max-width:70ch}
+  .picker{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .picker label{font:600 13px/1 var(--mono);color:var(--fg-dim)}
+  select{font:14px/1.3 var(--mono);padding:9px 12px;border-radius:6px;border:1px solid var(--border);
+    background:var(--card);color:var(--fg);min-width:340px;max-width:100%}
+  select:focus{outline:2px solid var(--gold);outline-offset:1px}
+  .count{font:12px/1 var(--mono);color:var(--fg-dim)}
+  main{padding:28px 0 60px}
+  h2{font-size:20px;margin:34px 0 12px;color:var(--navy);letter-spacing:-.01em;
+     padding-bottom:7px;border-bottom:1px solid var(--border)}
+  h3{font-size:16px;margin:24px 0 8px}
+  p{margin:0 0 14px}
+  a{color:var(--navy-2)}
+  .chip{display:inline-block;font:700 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+    padding:6px 10px;border-radius:20px;vertical-align:middle}
+  .chip.ok{background:var(--ok-bg);color:var(--ok)}
+  .chip.warn{background:var(--warn-bg);color:var(--warn)}
+  .chip.crit{background:var(--crit-bg);color:var(--crit)}
+  .chip.info{background:var(--info-bg);color:var(--info)}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font:13px/1.5 var(--mono);color:var(--fg-dim);
+    margin:0 0 20px;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .headline{background:var(--card);border:1px solid var(--border);border-left:6px solid var(--gold);
+    border-radius:8px;padding:22px 26px;margin:18px 0 22px}
+  .headline .tag{font:700 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gold);display:block;margin-bottom:11px}
+  .headline p{font-size:18px;line-height:1.55;margin:0;color:var(--fg)}
+  .headline .action{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);
+    font-size:14px;color:var(--fg-dim)}
+  .headline .action strong{color:var(--fg)}
+  blockquote{margin:0 0 14px;padding:13px 17px;background:var(--quote-bg);border-left:4px solid var(--gold);
+    border-radius:0 5px 5px 0;font:14px/1.6 var(--mono);color:var(--fg)}
+  blockquote cite{display:block;margin-top:8px;font:600 11px/1 var(--mono);font-style:normal;
+    letter-spacing:.05em;text-transform:uppercase;color:var(--fg-dim)}
+  .use{background:var(--card);border:1px solid var(--border);border-radius:8px;
+    padding:20px 22px;margin:0 0 18px}
+  .use > h3{margin-top:0;display:flex;gap:10px;align-items:baseline}
+  .use .n{font:700 12px/1 var(--mono);color:var(--gold);flex:none}
+  .lbl{font:700 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-dim);
+    margin:16px 0 6px}
+  pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--border);border-radius:6px;
+    padding:13px 15px;overflow-x:auto;margin:0 0 8px;font:12.5px/1.55 var(--mono)}
+  pre .cm{color:var(--fg-dim)}
+  code{font:.9em var(--mono);background:var(--code-bg);padding:1px 5px;border-radius:4px}
+  pre code{background:none;padding:0}
+  .src{font:11px/1.4 var(--mono);color:var(--fg-dim);margin:0 0 4px}
+  table{border-collapse:collapse;width:100%;margin:0 0 16px;font-size:14px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--border);vertical-align:top}
+  th{font:600 11px/1.3 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--fg-dim);
+     background:var(--bg-alt)}
+  td.mono{font:12.5px/1.5 var(--mono)}
+  ul{margin:0 0 14px;padding-left:22px}
+  li{margin-bottom:7px}
+  .callout{border-radius:8px;padding:17px 20px;margin:0 0 18px;border:1px solid transparent}
+  .callout.warn{background:var(--warn-bg);border-color:var(--warn)}
+  .callout.ok{background:var(--ok-bg);border-color:var(--ok)}
+  .callout.info{background:var(--info-bg);border-color:var(--info)}
+  .callout p:last-child{margin-bottom:0}
+  .callout .hd{font-weight:700;margin-bottom:7px}
+  .placeholder{text-align:center;padding:70px 24px;color:var(--fg-dim)}
+  .placeholder .big{font-size:19px;color:var(--fg);margin-bottom:10px;font-weight:600}
+  footer{border-top:1px solid var(--border);padding:22px 0 50px;color:var(--fg-dim);font-size:13px}
+  .hide{display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">CalSAWS Reimagined · Build evidence</div>
+    <h1>Source traceability — how each document shaped the demo</h1>
+    <p class="lede">
+      One page per document in the Reference tab’s source inventory, each answering one question:
+      <strong>what did this document actually change in the software?</strong> Every claim is traced to a file and
+      line number in the codebase. Where a document was not used, this report says so.
+    </p>
+    <div class="picker">
+      <label for="pick">Source document</label>
+      <select id="pick" aria-label="Select a source document">
+        <optgroup label="Analyzed">
+          <option value="CIT-0006-25">CIT-0006-25 — Reports Navigation</option>
+          <option value="ACIN I-46-25">ACIN I-46-25 — FFY2026 CalFresh COLA</option>
+          <option value="CIT-0355-22">CIT-0355-22 — CalSAWS Configuration Guide</option>
+          <option value="CIT-0074-23">CIT-0074-23 — Yellow Banner case review</option>
+          <option value="ACL 25-36">ACL 25-36 — CalWORKs policy letter</option>
+          <option value="CIT-0076-23">CIT-0076-23 — Wave 2 training FAQs</option>
+          <option value="7 CFR 273.9">7 CFR 273.9 — SNAP income & deductions</option>
+        </optgroup>
+        <optgroup label="County Information Transmittals — not yet analyzed" id="g-cit"></optgroup>
+        <optgroup label="All-County Information Notices — not yet analyzed" id="g-acin"></optgroup>
+        <optgroup label="All-County Letters — not yet analyzed" id="g-acl"></optgroup>
+        <optgroup label="Regulations &amp; other — not yet analyzed" id="g-other"></optgroup>
+      </select>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============================= CIT-0006-25 ============================= -->
+<section id="p-CIT-0006-25" class="doc">
+
+  <h2 style="margin-top:12px">CIT-0006-25 — Reports Navigation <span class="chip ok">Used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      An 11-page CalSAWS guide describing how county workers find and run reports. It drove four things in the
+      demo’s Reports module: how the screen is organised, the live Timeliness dashboard, the decision to compute
+      every number in real time instead of overnight, and the county and worker filters. It is a
+      user-interface source — it changed how reporting <em>works</em>, never a benefit calculation.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> Reports → all six tabs, and the Timeliness tab in
+      particular.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS Quick Guide</span>
+    <span><strong>Dated:</strong> 11.15.2024</span>
+    <span><strong>Pages:</strong> 11</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2025/01/CIT-0006-25-Reports-Navigation.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0006-25-Reports-Navigation.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    CalSAWS publishes it for county staff. It sets no policy and defines no benefit calculation — it explains how
+    a worker finds and runs a report. Treat it as a <strong>user-interface source, not a rules source</strong>:
+    it shaped how reporting feels. It never touched a dollar figure.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“In CalSAWS users with the appropriate security rights can view information for various System
+    reports. This guide provides information on the following report types: On Request · Scheduled ·
+    Business Intelligence”<cite>Page 1</cite></blockquote>
+
+  <blockquote>“There are two types of On Request Reports: <strong>Curated</strong> – Data is preloaded daily ·
+    <strong>Dynamic View</strong> – Data is loaded in real time”<cite>Page 1</cite></blockquote>
+
+  <blockquote>“Scheduled reports are generated by specific CalSAWS batch runs and vary based on the report’s
+    date… A new window will open for the user to download the report as an Excel document.”<cite>Page 6</cite></blockquote>
+
+  <blockquote>“<strong>DPSSTATS – Application Processing Timeliness Dashboard CalFresh:</strong> Data refreshes
+    daily as part of the nightly batch. Filters include Month, Division, Office, Unit, Worker, Language, and
+    CF Type.”<cite>Page 8</cite></blockquote>
+
+  <blockquote>“<strong>Statistical Summary Analysis</strong> – The data refreshes monthly for all Active Cases,
+    Persons, and Expenditures and is available on the 2nd business day.”<cite>Page 10</cite></blockquote>
+
+  <h2>How it was used — four traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The reporting screen is organised the way CalSAWS organises reports</h3>
+    <p><strong>The business point.</strong> Workers already split reports two ways: statutory ones due on a fixed
+      calendar day (“Scheduled”), and dashboards they open for a live read (“Business Intelligence”). The demo’s
+      Reports screen splits on the same line, so it reads as familiar on first sight.</p>
+    <p><strong>Example you can click.</strong> Six tabs. The first three recompute the moment you open them; the
+      last three are each captioned with the day they are due.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:13</p>
+<pre><code>const TABS = [['dash', 'Live dashboard'], ['timeliness', 'Timeliness'], ['workers', 'Productivity'],
+              ['cf296', 'CF 296'], ['ca237cw', 'CA 237 CW'], ['ca255', 'CA 255']] as const;</code></pre>
+    <p class="src">…:186, 195, 204 — the <b>Scheduled</b> label on the statutory tabs is this document’s vocabulary</p>
+<pre><code>sub = 'Participation and issuance by county · replaced the DFA 296 (July 2016) · <b>scheduled</b> 2nd business day';
+sub = 'Cash grant caseload movement by county · <b>scheduled</b> 7th business day';
+sub = 'Application dispositions by program · companion to CA 237 · <b>scheduled</b> 7th business day';</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> The Timeliness tab is a rebuild of a dashboard that really exists</h3>
+    <p><strong>The business point.</strong> The strongest trace in the document. Page 8 names a live production
+      dashboard — <em>DPSSTATS Application Processing Timeliness Dashboard CalFresh</em> — refreshed “daily as part
+      of the nightly batch.” The demo rebuilds it and drops the wait.</p>
+    <p><strong>Example you can click.</strong> <strong>Reports → Timeliness</strong>: % of applications inside the
+      legal clock, per program, against the 90% target — green ≥90, amber 75–89, red below 75. Run a
+      determination, come back, the bar has already moved. Same metric, no nightly batch.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:116–125</p>
+<pre><code>const rows = (['CF', 'CW', 'MC', 'GA'] as Program[]).map(p =&gt; {
+  const done = cases.filter(c =&gt; (c.programs as Program[]).includes(p) &amp;&amp; runsByCase.has(c.id));
+  if (!done.length) return null;
+  const within = done.filter(c =&gt; {
+    const days = (new Date(runsByCase.get(c.id)!).getTime()
+                - new Date(c.application_date).getTime()) / 86400000;
+    return days &lt;= (P.sla[p] ?? 30);        <span class="cm">// legal processing clock per program</span>
+  });
+  const pct = Math.round(100 * within.length / done.length);
+  return { label: `${PROG[p].name} (${P.sla[p]}d)`, value: pct,
+           color: pct &gt;= 90 ? 'var(--ok)' : pct &gt;= 75 ? 'var(--warn)' : 'var(--crit)' };
+}).filter(Boolean)</code></pre>
+    <p class="src">The clocks themselves are policy, not from this document — platform/src/lib/params.ts:63</p>
+<pre><code>sla: { CF: 30, CF_ES: 3, CW: 45, MC: 45, MC_DISABILITY: 90, GA: 30, CAPI: 30, RCA: 30 },</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> “Curated vs Dynamic” became the demo’s central design choice</h3>
+    <p><strong>The business point.</strong> Page 1 splits reports into <em>Curated</em> — “data is preloaded
+      daily” — and <em>Dynamic View</em> — “data is loaded in real time.” Most statutory reporting sits on the
+      preloaded side, which is why numbers run a day behind. The demo put <strong>everything</strong> on the
+      dynamic side.</p>
+    <p><strong>Example you can click.</strong> The line under the Reports heading is that argument in the
+      customer’s own vocabulary: “Computed live from the database — every determination anyone runs moves these
+      numbers. Legacy equivalent: overnight batch + month-end print reports.”</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:11 — one line that switches off all caching</p>
+<pre><code>export const dynamic = 'force-dynamic';   <span class="cm">// every load re-queries Postgres; nothing is preloaded</span></code></pre>
+    <p class="src">…:58–61 — the claim we make on screen</p>
+<pre><code>&lt;p className="muted small"&gt;
+  Computed live from the database — every determination anyone runs moves these numbers.
+  Legacy equivalent: overnight batch + month-end print reports.
+&lt;/p&gt;</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> The filters and the export match what counties already do</h3>
+    <p><strong>The business point.</strong> Page 4 shows a worker confirming a <em>County</em> before generating;
+      page 8 lists seven dashboard filters; page 6 says Scheduled reports download as a spreadsheet. The demo
+      carries the two that matter for a multi-county story, plus the export.</p>
+    <p><strong>Example you can click.</strong> Admin gets a county dropdown on every report. County staff get it
+      locked and greyed out — they cannot request another county’s data. Every tab exports CSV.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/reports/page.tsx:42–56</p>
+<pre><code>{isAdmin ? (
+  <span class="cm">/* admin: free choice of county */</span>
+  &lt;select className="in" name="county" defaultValue={county}&gt;
+    {counties.map(c =&gt; &lt;option key={c}&gt;{c}&lt;/option&gt;)}
+  &lt;/select&gt;
+) : (
+  <span class="cm">/* county staff: locked to their own county, disabled */</span>
+  &lt;select className="in" defaultValue={county} disabled&gt;&lt;option&gt;{county}&lt;/option&gt;&lt;/select&gt;
+)}
+&lt;a className="btn ghost sm" href={`/reports/csv?tab=${tab}&amp;county=${encodeURIComponent(county)}`}&gt;⬇ Export CSV&lt;/a&gt;</code></pre>
+    <p class="src">…:159–163 — the Worker breakdown the document's filter list implies</p>
+<pre><code>const rows = (workers ?? []).filter(w =&gt; county === 'All' || w.county === county).map(w =&gt; ({
+  w,
+  open: tasksAll.filter(t =&gt; t.status === 'open' &amp;&amp; t.assigned_to === w.id).length,
+  dets: runsAll.filter(r =&gt; r.accepted_by === w.id).length,
+  cl:   cases.filter(c =&gt; c.assigned_to === w.id).length,
+}));</code></pre>
+    <div class="callout info" style="margin-top:14px">
+      <p class="hd">Scope of use</p>
+      <p>Seven filters listed, two built (County, Worker). Division, Office, Unit, Language and CF Type were out of
+        scope — the synthetic caseload carries no org hierarchy to filter on.</p>
+    </div>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>
+    Stated plainly so the trace is complete. This guide also covers report <em>security rights</em> (who may view
+    which report) and the <strong>Resource Databank</strong> and <strong>Special Units</strong> report categories.
+    Neither is built: the demo scopes report access by county and role rather than by CalSAWS security groups, and
+    it carries no resource-databank or special-unit data to report on. Nothing in this document was contradicted —
+    these parts were simply out of scope for the demo.
+  </p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2025/01/CIT-0006-25-Reports-Navigation.pdf
+pdftotext -layout CIT-0006-25-Reports-Navigation.pdf - | grep -niE "On Request|Scheduled|Business Intelligence|DPSSTATS|Curated|Dynamic View"</code></pre>
+  <p class="src">Then open the demo’s Reports screen beside it and compare — the vocabulary matches line for line.</p>
+
+</section>
+
+<section id="p-ACIN I-46-25" class="doc hide">
+
+  <h2 style="margin-top:12px">ACIN I-46-25 — CalFresh FFY2026 Cost-of-Living Adjustments <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      An 8-page CDSS notice publishing every CalFresh dollar figure that takes effect 1 October 2025 — maximum
+      allotments, deductions, income standards, and the standard utility allowance. It supplied the FFY2026
+      numbers the demo’s rules table runs on, and the automated test suite pins one household to
+      <strong>$686/month</strong> because of them. It is a <em>numbers</em> source: it set the values, not the
+      arithmetic, and its rules on resources, reporting thresholds and recipient noticing were not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> Admin → Rules — every figure below is a live, editable row.
+      Then run any CalFresh determination: the EDBC trace names each figure as it is applied.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS All County Information Notice</span>
+    <span><strong>Effective:</strong> 10.01.2025 (FFY 2026)</span>
+    <span><strong>Pages:</strong> 8</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACINs/2025/I-46_25.pdf" target="_blank" rel="noopener">cdss.ca.gov/…/ACINs/2025/I-46_25.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    CDSS publishes it once a year to tell all 58 counties what the CalFresh numbers become on 1 October. It changes
+    no procedure and no calculation — it republishes the figures the calculation already uses, with Attachment I
+    carrying the full tables. Treat it as a <strong>rate source, not a rules source</strong>. Its practical value to
+    the build was exactness: every CalFresh dollar amount in the demo has a page and a table behind it.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“FFY 2026 Maximum Allotment by Household Size:<br>
+    1 · 2 · 3 · 4 · 5 · 6 · 7 · 8 · +Each Additional Person<br>
+    $298 · $546 · $785 · $994 · $1,183 · $1,421 · $1,571 · $1,789 · $218”<cite>Page 3</cite></blockquote>
+
+  <blockquote>“FFY 2026 Standard Deduction by Household Size: 1 to 3 persons $209 · 4 persons $223 ·
+    5 persons $261 · 6 or more persons $299”<cite>Page 4</cite></blockquote>
+
+  <blockquote>“The maximum shelter deduction for households without an elderly or disabled member increased from
+    $712 to $744.”<cite>Page 3</cite></blockquote>
+
+  <blockquote>“The SUA amount increased from $645 to $663. A household that has heating and cooling costs separate
+    from their rent or mortgage is eligible for the SUA.”<cite>Page 4</cite></blockquote>
+
+  <blockquote>“The minimum benefit allotment amount increased from $23 to $24.”<cite>Page 3</cite></blockquote>
+
+  <blockquote>“Net Monthly Income Eligibility Standards (100% of Poverty Level): 1 $1,305 · 2 $1,763 · 3 $2,221 ·
+    4 $2,680 · 5 $3,138 · 6 $3,596 · 7 $4,055 · 8 $4,513 · Each Additional Member +459”<cite>Page 7 (Attachment I)</cite></blockquote>
+
+  <h2>How it was used — five traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The maximum allotment table is the notice’s table, value for value</h3>
+    <p><strong>The business point.</strong> The maximum allotment is the ceiling on a household’s monthly CalFresh
+      benefit. Every CalFresh dollar the demo produces starts from this row and works down. It is transcribed from
+      page 3, including the $218 add-on for each person beyond eight.</p>
+    <p><strong>Example you can click.</strong> A household of three shows a $785 ceiling in the EDBC trace. The
+      demo shipped on FFY2025 figures and was moved to these: max allotment $768 → $785, standard deduction
+      $204 → $209, shelter cap $712 → $744, SUA added at $663. That delta is stated on the public Reference tab.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:45–46</p>
+<pre><code>allotments: { 1: 298, 2: 546, 3: 785, 4: 994, 5: 1183, 6: 1421, 7: 1571, 8: 1789 },
+allotExtra: 218, benefitReductionPct: 30, esIncomeMax: 150, esResourceMax: 100,</code></pre>
+    <p class="src">platform/src/lib/params.ts:3 — the file names its source in the header</p>
+<pre><code>// Verified values from the v1 deep-research pass (CDSS ACIN I-46-25 FFY2026
+// CalFresh; MBSAC eff. 2025-07-01; MAP Region 1 non-exempt eff. 2024-10-01; …)</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> The four standard-deduction bands</h3>
+    <p><strong>The business point.</strong> Every CalFresh household gets a flat deduction before any other test.
+      The notice sets it in four bands — one figure for households of 1 to 3, then a step at 4, 5, and 6-or-more.
+      The demo stores exactly those four numbers.</p>
+    <p><strong>Example you can click.</strong> Admin → Rules → CalFresh. Change the band and re-run a
+      determination; the trace line “Standard deduction” moves with it.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:42</p>
+<pre><code>stdDed: { 1: 209, 2: 209, 3: 209, 4: 223, 5: 261, 6: 299 },</code></pre>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> The net income eligibility standards — Attachment I, verbatim</h3>
+    <p><strong>The business point.</strong> This is the income line a household must fall under to qualify. The
+      demo stores Attachment I’s eight published sizes plus the notice’s $459 per additional member, and derives
+      every income threshold in the system from that one table.</p>
+    <p><strong>Example you can click.</strong> A household of three sees “Net income test — limit $2,221” in the
+      EDBC trace. That is page 7, row 3.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:38–39</p>
+<pre><code>fpl: { 1: 1305, 2: 1763, 3: 2221, 4: 2680, 5: 3138, 6: 3596, 7: 4055, 8: 4513 },
+fplExtra: 459,</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> Shelter cap, standard utility allowance, and homeless deduction</h3>
+    <p><strong>The business point.</strong> Housing is the single largest deduction in a CalFresh budget, and all
+      three of its published figures come from this notice: the $744 cap on the excess shelter deduction, the $663
+      standard utility allowance, and the standard deduction for households with no shelter cost.</p>
+    <p><strong>Example you can click.</strong> Enter rent of $1,400 on a household of three and the trace shows the
+      excess shelter deduction hitting the $744 ceiling.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:43 — all three FFY2026 housing figures on one line</p>
+<pre><code>sua: 663, shelterCap: 744, homelessShelterDed: 199,</code></pre>
+    <div class="callout info" style="margin-top:14px">
+      <p class="hd">One deliberate rounding</p>
+      <p>Attachment I states the homeless shelter deduction to the cent — $198.99, up from $190.30. The demo stores
+        it as a whole dollar, $199. Every other figure on this page is exact to the source.</p>
+    </div>
+  </div>
+
+  <!-- USE 5 -->
+  <div class="use">
+    <h3><span class="n">05</span> The $24 minimum allotment</h3>
+    <p><strong>The business point.</strong> A one- or two-person household that qualifies but calculates to a tiny
+      benefit is paid a floor amount instead of nothing. The notice raised that floor from $23 to $24, and $24 is
+      what the demo pays.</p>
+    <p><strong>Example you can click.</strong> Push a single applicant’s income to the top of the eligible range —
+      the result lands on $24/month rather than $0.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:44</p>
+<pre><code>medThreshold: 35, minAllotment: 24,</code></pre>
+  </div>
+
+  <div class="callout ok">
+    <p class="hd">The whole chain, in one number</p>
+    <p>The end-to-end test suite asserts a fixed benefit for a golden household — <strong>$686/mo</strong> — and
+      that number is only reachable with this notice’s figures. Household of three, $1,600 earned, $1,400 rent:</p>
+<pre><code>1,600 − 320 (20% earned) − 209 (standard deduction)      = 1,071
+1,400 rent − 535.50 (half of 1,071) = 864.50 → capped at    744   ← $744 shelter cap
+1,071 − 744                                              =   327   net income
+785 (max allotment) − 99 (30% of 327, rounded up)        =   686</code></pre>
+    <p class="src">platform/e2e/scenarios.spec.ts:88</p>
+<pre><code>await expect(w.getByTestId('amount-CF')).toHaveText('$686/mo');   // FFY2026 golden math</code></pre>
+    <p>Change $785, $209 or $744 and the test goes red. That is the FFY2026 tables holding the build in place.</p>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>Stated plainly so the trace is complete. Substantial parts of the notice are not in the software:</p>
+  <ul>
+    <li><strong>Thrifty Food Plan re-evaluation (page 3).</strong> The notice’s rule for very large households —
+      an additional 22 percent per member for households of 9 or more, capped at 18 — is not built. The demo
+      extrapolates at a flat $218 per additional person with no cap.</li>
+    <li><strong>The limited and telephone utility allowances</strong> — $170 and $20 (page 4). Only the full SUA
+      exists; there is no tiered utility allowance.</li>
+    <li><strong>Resource limits</strong> — $3,000, and $4,500 for elderly or disabled households, which also serve
+      as the substantial-winnings threshold (page 4). The CalFresh calculation runs no resource test.</li>
+    <li><strong>The Income Reporting Threshold at 130% of poverty and the 10-day mid-period reporting duty</strong>
+      (pages 5 and 8). Neither the value nor the reporting obligation exists in the demo.</li>
+    <li><strong>The 130% gross standard and the 165% elderly/disabled separate-household standard</strong> (page 7).
+      The demo’s only gross test is California’s 200% broad-based categorical eligibility test.</li>
+    <li><strong>The CF 11 recipient notice</strong> — the obligation to notify every CalFresh household on or before
+      1 October 2025. The demo’s correspondence module has no COLA mass notice.</li>
+    <li><strong>The 90-day state hearing window, bracketed issuance tables, and translation requirements.</strong></li>
+  </ul>
+  <p>Nothing in the notice was contradicted. These parts were out of scope for the demo.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce every quote above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACINs/2025/I-46_25.pdf
+pdftotext -layout I-46_25.pdf - | grep -niE "Maximum Allotment|Standard Deduction|minimum benefit|shelter deduction|SUA amount|Net Monthly Income"</code></pre>
+  <p class="src">Then open Admin → Rules beside it — the CalFresh rows are the same numbers.</p>
+
+</section>
+
+<section id="p-CIT-0355-22" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0355-22 — CalSAWS Configuration Guide <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 146-page reference for county administrators, covering how a county sets up its staff, its task rules, its
+      approval levels, and its security roles inside CalSAWS. Two things in the demo come from it: every staff
+      account carries a real CalSAWS-shaped <strong>Worker ID</strong>, and the public guide quotes the platform’s
+      exact security scale — <strong>29 roles, 1,498 security groups</strong>. It is an administration source, and
+      the demo took the surface of it: the org hierarchy the Worker ID encodes was never built as data, and none of
+      the county-configurable settings the guide exists to explain are in the software.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> Admin → Users (the Worker ID column), Reports →
+      Productivity, and Guide → Reference → the CalSAWS cornerstone panel.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal</span>
+    <span><strong>Dated:</strong> Nov 2022</span>
+    <span><strong>Pages:</strong> 146</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2022/12/CIT-0355-22-CalSAWS-Configuration-Guide-Nov2022.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0355-22-CalSAWS-Configuration-Guide-Nov2022.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    The county administrator’s manual. Chapter One covers core and task configuration — offices, sections, units,
+    positions, staff assignment, and the task engine. Chapter Two covers everything else a county can tune, from
+    authorization levels to benefit-issuance thresholds. Chapter Three covers security roles. It sets no policy and
+    defines no benefit calculation; it explains the knobs. Treat it as an <strong>operations source</strong> — it
+    tells you what a real county deployment looks like from the inside.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“Staff Assignment is where we put all the pieces together. Once Staff Assignment is complete, a
+    unique Worker ID will be issued. This ID is comprised of the County ID, Department ID, Office ID, Unit ID and
+    Position ID. As an example; County ID(45), Eligibility Services (LS), Breslauer Office(01), Unit (22),
+    Position (0A) for a resulting Worker ID of <strong>45LS01220A</strong>.”<cite>Pages 29–30</cite></blockquote>
+
+  <blockquote>“Sections are a level of organization between an Office and a Unit. Sections are also used for 2nd
+    Level Authorization, as CalSAWS looks for the 2nd Level in the same Office and Section, as a
+    worker.”<cite>Page 20</cite></blockquote>
+
+  <blockquote>“County Authorization Configuration allows each County to configure the level(s) of authorizations as
+    appropriate… the County may indicate which of the following is necessary: No (this option leaves Authorization
+    at Worker level) / 1st Level Authorization (Worker and 1st Level approver) / 2nd Level Authorization (Worker,
+    1st Level Authorization and 2nd Level Authorization)”<cite>Page 86</cite></blockquote>
+
+  <blockquote>“Benefit Issuance Thresholds are configured by the County to establish the dollar amount of a Benefit
+    or Service Payment that can be approved by a Worker without requiring Supervisor intervention… CalSAWS will
+    prevent Workers from authorizing EDBC results when the Benefit or Service Payment exceeds the established
+    Threshold.”<cite>Page 90</cite></blockquote>
+
+  <blockquote>“Project Maintained Security Roles: There are currently <strong>29</strong> Security Roles created
+    and maintained by the CalSAWS Project. … Security Groups: There are currently <strong>1498</strong> individual
+    Security Groups in CalSAWS… Note: of the 1498 Security Groups available, 332 Groups are not assigned to any
+    Project Maintained Role”<cite>Page 117</cite></blockquote>
+
+  <h2>How it was used — two traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> Every demo staff account carries a real CalSAWS Worker ID</h3>
+    <p><strong>The business point.</strong> A CalSAWS Worker ID is not an arbitrary staff number — it is five
+      fields concatenated: county, department, office, unit, position. The guide’s worked example is
+      <code>45LS01220A</code>. The demo generates its IDs in exactly that shape, county code first, with the same
+      <code>LS</code> department token for Eligibility Services. A county worker recognises the format on sight.</p>
+    <p><strong>Example you can click.</strong> Sign in as Admin → Users. Los Angeles is county 19, so its
+      eligibility worker is <code>19LS01220A</code> and its supervisor <code>19LS01200S</code>. The other 11
+      counties are generated from their own two-digit county code, not typed by hand.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/seed-core.ts:41–42 — the named Los Angeles accounts</p>
+<pre><code>{ email: 'worker.dana@demo.calsaws.test',     role: 'worker',     full_name: 'Dana Whitfield', county: 'Los Angeles', title: 'Eligibility Worker II',  worker_id: '19LS01220A' },
+{ email: 'supervisor.angela@demo.calsaws.test', role: 'supervisor', full_name: 'Angela Ruiz',    county: 'Los Angeles', title: 'Eligibility Supervisor', worker_id: '19LS01200S' },</code></pre>
+    <p class="src">…:65–66 — the same format generated for all 11 remaining counties</p>
+<pre><code>out.push({ …, county: c.name, title: wTitle, worker_id: `${c.code}LS01100A` });
+out.push({ …, county: c.name, title: 'Eligibility Supervisor', worker_id: `${c.code}LS01000S` });</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> The public guide quotes the platform’s exact security scale</h3>
+    <p><strong>The business point.</strong> When the guide describes what CalSAWS is, it uses this document’s own
+      counted figures rather than an adjective. 29 project-maintained roles and 1,498 security groups is the size
+      of the access-control problem a rebuild inherits — and it is a measured number from page 117, not an
+      estimate.</p>
+    <p><strong>Example you can click.</strong> Guide → Reference → the CalSAWS cornerstone panel, alongside the
+      Worker ID example <code>19LS01200S</code>.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/guide/reference/page.tsx:329–330</p>
+<pre><code>&lt;dt&gt;Security model&lt;/dt&gt;
+&lt;dd&gt;29 roles · 1,498 security groups&lt;/dd&gt;</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>
+    This is a 146-page configuration manual and the demo built two things from it. Everything below is described in
+    the guide and is absent from the software:
+  </p>
+  <ul>
+    <li><strong>The org hierarchy as data.</strong> There is no Office, Section, Unit, Position or Bank table
+      anywhere in the schema — a staff profile carries role, county, worker ID and title, nothing more. The
+      hierarchy the Worker ID encodes survives only as characters inside that string.</li>
+    <li><strong>County-configurable authorization levels.</strong> The guide’s whole point on page 86 is that a
+      county chooses No / 1st Level / 2nd Level per action. The demo has one hardcoded supervisor step and no
+      configuration surface, so the Section-based 2nd-level lookup on page 20 has nothing to run against.</li>
+    <li><strong>Benefit Issuance Thresholds.</strong> No dollar threshold exists anywhere; the rules table has no
+      issuance-threshold field, so nothing blocks a worker on payment size.</li>
+    <li><strong>The entire task-configuration chapter</strong> — Task Types, Sub-Types, Categories, Task Banks, the
+      Automated Action inventory, Get Next and Get Next Limit, Bundle Case Tasks, Document Routing Rules, Task
+      Reassignment.</li>
+    <li><strong>Global / Local / Task navigation.</strong> Named on the guide’s Reference page as a description of
+      CalSAWS; not implemented as navigation.</li>
+    <li><strong>The rest of Chapter Two</strong> — Schedule, Correspondence configuration, IEVS Batch Assignment,
+      Valuables, Mileage Rate, EBT Printers, Workload Assignment, MAGI Referral Assignments, Non-County Staff,
+      Flags, Error Prone / High Risk — <strong>and Chapter Three’s role-creation tooling</strong> (Conflicting
+      Security Roles, the Copy feature, security-group assignment). There is no security-group model behind the two
+      quoted numbers.</li>
+  </ul>
+  <p>Nothing in the guide was contradicted. It was read for shape, and two pieces of that shape were carried over.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2022/12/CIT-0355-22-CalSAWS-Configuration-Guide-Nov2022.pdf
+pdftotext -layout CIT-0355-22-CalSAWS-Configuration-Guide-Nov2022.pdf - | grep -niE "45LS01220A|1498|29 Security Roles|Benefit Issuance Threshold|2nd Level Authorization"</code></pre>
+  <p class="src">Then open Admin → Users beside it and compare the ID format character for character.</p>
+
+</section>
+
+<section id="p-CIT-0074-23" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0074-23 — Wave 3 Yellow Banner Case Review <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 5-page CalSAWS transmittal telling counties what to do when a case comes out of the CalWIN-to-CalSAWS
+      conversion with a benefit mismatch: CalSAWS marks it with a yellow banner and refuses to save the result until
+      a worker reviews it. The demo took the banner itself — its exact on-screen wording, and its blocking behaviour
+      — and made <code>yellow_banner</code> a first-class case status. The honest boundary: the demo points that
+      banner at a different trigger (an unresolved income data match, not a conversion mismatch), and the
+      document’s ten-reason mismatch taxonomy and priority-clearing workflow were not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> open a flagged case from the worker queue — the yellow
+      banner sits at the top of the Case Summary, and the EDBC tab will not produce a saved result until it is
+      resolved.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — conversion go-live guidance</span>
+    <span><strong>Distributed:</strong> 03.02.2023</span>
+    <span><strong>Pages:</strong> 5</span>
+    <span><strong>Format:</strong> scanned images, no text layer — quotes read from rendered pages</span>
+    <span><strong>Verified:</strong> downloaded &amp; page-rendered 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0074-23-Wave-3-Yellow-Banner-Case-Review-Guide-and-Scenarios-Revised_Redacted.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0074-23-Wave-3-Yellow-Banner-Case-Review-Guide-and-Scenarios-Revised_Redacted.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    Go-live instructions for the third wave of counties migrating off CalWIN. At cutover CalSAWS re-ran every active
+    case and compared its own answer against the last answer CalWIN gave. Matches saved silently; disagreements got
+    a yellow banner and a manual review. Treat it as a <strong>process source</strong> — it defines a specific
+    quality gate: when the system is not confident, it stops and puts a human in front of the case.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“During the conversion cutover from CalWIN to CalSAWS, CalSAWS will run Batch EDBC for all active
+    CalWIN cases. If the CalSAWS Batch EDBC results match the last saved CalWIN EDBC result, the system considers
+    the benefits a match and saves EDBC. If the EDBC’s do not match, the case will be flagged with a yellow banner
+    and the Batch EDBC is not saved.”<cite>Page 1</cite></blockquote>
+
+  <blockquote>“Full Case Review is required, before EDBC is run and authorized. Please refer to the Manual Case
+    Review Job Aid for instructions on how to proceed. <strong>Programs Affected: CalFresh.</strong>”<cite>Page 2 — the banner itself</cite></blockquote>
+
+  <blockquote>“Batch EDBC will not be run on these cases until the User performs the case review, takes appropriate
+    action, accepts, and saves EDBC. These cases will be identified via exception reports after each batch
+    job.”<cite>Page 2</cite></blockquote>
+
+  <blockquote>“Each Mismatch Reason is assigned a priority of 1, 2, or 3… The Yellow Banner cases should be cleared
+    based on priority with the highest priority being cases that resulted in discontinuance or failure, recoupment
+    mismatch and person status mismatch.”<cite>Page 3</cite></blockquote>
+
+  <blockquote>“Throughout the year, CalSAWS will run various Cost of Living Adjustment (COLA) batch jobs. A review
+    of cases with Yellow Banners should be performed before the next COLA run. If the review is not complete prior
+    to the COLA run, CalSAWS will not automatically apply the COLA increase.”<cite>Page 2</cite></blockquote>
+
+  <h2>How it was used — two traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The banner on screen is the CalSAWS banner, close to word for word</h3>
+    <p><strong>The business point.</strong> The strongest trace in this document. Page 2 is a screenshot of the
+      real banner on a real Case Summary page, and the demo reproduces its sentence and its “Programs Affected:”
+      clause, filled with the case’s own programs. A county worker who has cleared a yellow banner in production
+      reads the demo’s banner as the same object.</p>
+    <p><strong>Example you can click.</strong> Open a flagged case. The banner names the programs affected, then
+      states the discrepancy in plain money — what the data source reports per month against what the case records
+      — with a Resolve control underneath.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/app/(staff)/case/[id]/page.tsx:68–74</p>
+<pre><code>{unresolved.length &gt; 0 &amp;&amp; (
+  &lt;div className="banner yellow" role="alert" data-testid="yellow-banner"&gt;
+    &lt;span style={{ fontSize: 20 }}&gt;⚠️&lt;/span&gt;
+    &lt;div&gt;
+      &lt;strong&gt;Full Case Review is required before EDBC is run and authorized.&lt;/strong&gt;{' '}
+      Programs Affected: {(cse.programs as Program[]).map(p =&gt; PROG[p].name).join(', ')}.{' '}</code></pre>
+    <p class="src">The demo drops the document’s second sentence — “Please refer to the Manual Case Review Job Aid” —
+      and replaces it with the resolve control. There is no Job Aid to refer to.</p>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> A mismatch flags the case and the result is not saved</h3>
+    <p><strong>The business point.</strong> The document’s gate, not just its wording. Page 1: on a mismatch the
+      case is flagged and the EDBC is <em>not saved</em>. The demo does both — the determination is computed and
+      shown so the worker can see it, but nothing is written to the results table and the case flips to
+      <code>yellow_banner</code> status.</p>
+    <p><strong>Example you can click.</strong> Run EDBC on a flagged case. You get the full trace and no saved
+      result. Resolve the discrepancy, re-run, and the result saves.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:318–322 — the banner is checked before any program calculation runs</p>
+<pre><code>export function runEDBC(P: Params, snap: CaseSnapshot, programs: Program[]): EdbcOutput {
+  const banner = yellowBanner(P, snap);
+  if (banner) {
+    return { blocked: true, …</code></pre>
+    <p class="src">platform/src/app/actions/case-actions.ts:66–76 — blocked means nothing is written</p>
+<pre><code>if (!output.blocked) {
+  const { error: rErr } = await admin.from('edbc_results').insert(output.results.map(res =&gt; ({ … })));
+  if (rErr) throw new Error(rErr.message);
+} else {
+  // an unresolved discrepancy also flips the case to yellow_banner if still pending
+  await admin.from('cases').update({ status: 'yellow_banner' }).eq('id', caseId).eq('status', 'pending');
+}</code></pre>
+    <p class="src">platform/supabase/migrations/0001_schema.sql:9 — the document’s term is a value in the schema</p>
+<pre><code>create type case_status as enum ('pending','yellow_banner','pending_authorization','approved','denied','renewal_due');</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <div class="callout warn">
+    <p class="hd">The trigger is different</p>
+    <p>In CIT-0074-23 the banner fires on one condition only: a CalWIN-to-CalSAWS conversion mismatch — the CalSAWS
+      batch result against the last saved CalWIN result. The demo has no legacy system to compare against, so the
+      banner was re-pointed at an unresolved third-party income discrepancy above a $100 threshold, seeded as
+      <em>IEVS (EDD wages)</em>, <em>SSA SSN validation</em> and <em>SAVE (immigration)</em>. The wording and the
+      blocking gate came from this document; the conversion capability it describes is not built.</p>
+  </div>
+  <p>Also not built:</p>
+  <ul>
+    <li><strong>The ten-reason mismatch taxonomy on pages 3–4</strong> and its priority ordering — Program
+      Discontinued, Recoupment Mismatch, Program Person Status Mismatch, Cash Program not Authorized (priority 1);
+      Program Person Role Mismatch (2); Benefit Amount Mismatch, Aid-Code Mismatch, Prior or Current EDBC Not Found,
+      MAGI Determination Pending, Full Case Review (3). The demo records the discrepancy itself, not a reason code,
+      and clears banners in no particular order.</li>
+    <li><strong>The COLA interaction</strong> — unreviewed banners blocking automatic COLA application and forcing
+      the worker to apply the increase by hand. The demo runs no COLA batch.</li>
+    <li><strong>The Converted Case Review Reporting Dashboard</strong> (CIT 0316-22), the Negative Action batch
+      carve-outs, and the exception reports produced after each batch job.</li>
+    <li><strong>Go-live logistics</strong> — the Wave 3 IPOC/TOSS meeting, Web Portal retrieval steps, and the
+      Foster Care / Kin-GAP / AAP appendix. Nothing to build.</li>
+  </ul>
+
+  <h2>Verify it yourself</h2>
+  <p>This PDF is five scanned images with no text layer, so <code>pdftotext</code> returns nothing. Render the
+    pages instead — the banner is on page 2:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0074-23-Wave-3-Yellow-Banner-Case-Review-Guide-and-Scenarios-Revised_Redacted.pdf
+pdftoppm -r 150 -png CIT-0074-23-Wave-3-Yellow-Banner-Case-Review-Guide-and-Scenarios-Revised_Redacted.pdf pg   # then open pg-2.png</code></pre>
+  <p class="src">Put pg-2.png beside a flagged case in the demo and compare the banner sentence.</p>
+
+</section>
+
+<section id="p-ACL 25-36" class="doc hide">
+
+  <h2 style="margin-top:12px">ACL 25-36 — CalWORKs MBSAC &amp; Income In-Kind COLA <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 4-page CDSS letter raising two CalWORKs standards by 3.42 percent from 1 July 2025: the Minimum Basic
+      Standard of Adequate Care — the income line an applicant family must fall under — and the Income In-Kind
+      levels. It supplied the six Region 1 MBSAC figures the demo’s CalWORKs applicant test runs on, transcribed
+      from Attachment A and dated to this letter in the rules file. It reached one table and stopped: Income
+      In-Kind is absent from the demo entirely, Region 2 is not modelled, and the letter’s notice and remediation
+      duties were not built.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> run a CalWORKs determination — the EDBC trace step
+      “Applicant income test (vs MBSAC)” names the figure for the assistance-unit size. Admin → Rules shows the
+      table.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CDSS All County Letter — annual COLA transmittal</span>
+    <span><strong>Effective:</strong> 07.01.2025</span>
+    <span><strong>Pages:</strong> 4</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-36.pdf" target="_blank" rel="noopener">cdss.ca.gov/…/ACLs/2025/25-36.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    CDSS raises the CalWORKs need standards once a year against the California Needs Index. This letter carries the
+    3.42 percent increase for fiscal 2025-26 and publishes the resulting tables in Attachment A, region by region
+    and assistance-unit size by size. The same standards govern Refugee Cash Assistance, Entrant Cash Assistance
+    and the Trafficking and Crime Victims Assistance Program. Treat it as a <strong>rate source</strong>: it
+    changes numbers, not rules.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers:</p>
+
+  <blockquote>“The purpose of this All County Letter (ACL) is to inform County Health and Human Service Agencies
+    (HHSAs) of a <strong>3.42 percent</strong> Cost of Living Adjustment (COLA) to the Minimum Basic Standard of
+    Adequate Care (MBSAC) and Income In-Kind (IIK) levels effective July 1, 2025…”<cite>Page 2</cite></blockquote>
+
+  <blockquote>“The new MBSAC levels provided via this letter are to be used in determining applicant financial
+    eligibility for families that apply for CalWORKs on or after July 1, 2025.”<cite>Page 2</cite></blockquote>
+
+  <blockquote>“Region 1 Fiscal Year (FY) 2025-26 California Needs Index (CNI) 3.42%<br>
+    Assistance Unit Size 1 — <strong>$930</strong> · 2 — <strong>$1,526</strong> · 3 — <strong>$1,892</strong> ·
+    4 — <strong>$2,244</strong> · 5 — <strong>$2,561</strong> · 6 — <strong>$2,880</strong><br>
+    More than 10 — Add $36 for each extra person”<cite>Page 4 (Attachment A)</cite></blockquote>
+
+  <blockquote>“The California Statewide Automated Welfare System (CalSAWS) will be updated to reflect the new MBSAC
+    and IIK levels. If the CalSAWS is unable to implement the new MBSAC level by July 1, 2025, the County HHSA must
+    review and correct any applications denied on or after July 1, 2025, if the sole reason for denial was failure
+    to pass the applicant financial eligibility income test…”<cite>Page 3</cite></blockquote>
+
+  <blockquote>“For existing recipients, the MBSAC COLA change is a county-initiated mid-period action; therefore,
+    the new IIK amounts must be used prospectively as soon as timely and adequate notice can be
+    provided.”<cite>Page 3</cite></blockquote>
+
+  <h2>How it was used — one traceable decision</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The Region 1 MBSAC table, sizes 1 through 6, is Attachment A verbatim</h3>
+    <p><strong>The business point.</strong> MBSAC is the gate on a new CalWORKs application: countable applicant
+      income must fall below it or the family is denied. Six of the demo’s figures are Attachment A’s Region 1 row
+      values, and the rules file records this letter’s effective date against them.</p>
+    <p><strong>Example you can click.</strong> Apply as a family of three and run EDBC. The trace reads
+      “Applicant income test (vs MBSAC) … vs MBSAC $1,892 (AU 3)” — page 4, row 3 of this letter. Push income above
+      it and the case is denied with reason code CW-A01.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:49–50</p>
+<pre><code>mbsac: { 1: 930, 2: 1526, 3: 1892, 4: 2244, 5: 2561, 6: 2880, 7: 3199, 8: 3518 },
+mbsacExtra: 319,</code></pre>
+    <p class="src">platform/src/lib/params.ts:3–4 — the header dates the table to this letter</p>
+<pre><code>// Verified values from the v1 deep-research pass (CDSS ACIN I-46-25 FFY2026
+// CalFresh; MBSAC eff. 2025-07-01; MAP Region 1 non-exempt eff. 2024-10-01; …)</code></pre>
+    <div class="callout warn" style="margin-top:14px">
+      <p class="hd">Sizes 7 and up are the demo’s own extrapolation, not this letter’s</p>
+      <p>Attachment A publishes 7 = $3,166, 8 = $3,445, 9 = $3,738, 10 = $4,056, and “add $36 for each extra
+        person” beyond ten. The demo carries 3,199 and 3,518 with a $319 increment — a straight-line extension of
+        the size-6 figure. Sizes 1 to 6 are this letter; sizes 7 and above are not.</p>
+    </div>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <ul>
+    <li><strong>Income In-Kind.</strong> The co-equal subject of the letter’s own title. There is no IIK concept
+      anywhere in the demo, and none of Attachment A’s Housing / Utilities / Food / Clothing columns are stored.</li>
+    <li><strong>Region 2.</strong> The demo carries a single, unregionalised MBSAC table.</li>
+    <li><strong>The mid-period action rule for existing recipients</strong> — applying the new levels prospectively
+      as soon as timely and adequate notice can be given. The demo has no mid-period action and no timely-notice
+      machinery.</li>
+    <li><strong>The county remediation duty</strong> — reviewing and correcting applications denied on or after
+      1 July 2025 if the system missed the deadline.</li>
+    <li><strong>The extension to ECA and TCVAP.</strong> Neither program exists in the demo; its programs are
+      CalFresh, CalWORKs, Medi-Cal, General Assistance, CAPI and RCA.</li>
+    <li><strong>The 3.42 percent figure itself.</strong> The demo stores the post-COLA dollar values; it does not
+      compute a COLA, so there is nothing to re-run next July.</li>
+  </ul>
+  <p>Nothing in the letter was contradicted for sizes 1 to 6. The rest was out of scope for the demo.</p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.cdss.ca.gov/Portals/9/Additional-Resources/Letters-and-Notices/ACLs/2025/25-36.pdf
+pdftotext -layout 25-36.pdf - | grep -niE "3.42|MBSAC|Income In-Kind|Region 1|930|1,526|1,892"</code></pre>
+  <p class="src">Then run a CalWORKs determination in the demo and read the MBSAC line in the trace.</p>
+
+</section>
+
+<section id="p-CIT-0076-23" class="doc hide">
+
+  <h2 style="margin-top:12px">CIT-0076-23 — Wave 2 Instructor-Led Training FAQs <span class="chip crit">Not used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      A 4-page training handout answering the questions county workers asked during Wave 2 CalSAWS training —
+      which page to open, which button does what, what changes when a case converts from CalWIN. Nothing in the
+      demo traces to it. It is a screen-level guide to the legacy interface, and the rebuild did not carry that
+      interface over.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> nowhere. This document is in the source inventory and is
+      cited as evidence for nothing.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> CalSAWS County Information Transmittal — training FAQ handout</span>
+    <span><strong>Dated:</strong> 03.01.2023</span>
+    <span><strong>Pages:</strong> 4</span>
+    <span><strong>Verified:</strong> downloaded &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf" target="_blank" rel="noopener">calsaws.org/…/CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    Four poster-size pages of questions and answers from instructor-led training, in four sections: General
+    Eligibility, Clerical, CalFresh/CalWORKs/Medi-Cal, and Employment Services. It is a
+    <strong>how-to for operating the legacy screens</strong> — Case Flags versus Alerts, where the Re-evaluate
+    button lives, how long an issuance-method change takes to appear. It sets no policy and defines no calculation.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, with page numbers — representative of the whole:</p>
+
+  <blockquote>“No, Case Flags do not replace Alerts. Case Flags are County-specific and added to indicate some key
+    information, or that an action should be taken… known as Special Indicators. CalSAWS mainly communicates about
+    changes by task assignment, either automated or manual. The only ‘alerts’ in CalSAWS are from
+    MEDS.”<cite>Page 1</cite></blockquote>
+
+  <blockquote>“The Person Number is a two-digit code, so no more than 99 individual person records can be added to a
+    single CalSAWS case.”<cite>Page 1</cite></blockquote>
+
+  <blockquote>“Use the Application Registration Summary page to register an application and generate the SAWS 1. Or
+    on the Case Summary page, in the context of a case, select the Application Questions link, answer the questions,
+    then save and generate the SAWS 1 on the following page.”<cite>Page 2</cite></blockquote>
+
+  <blockquote>“The Re-evaluate button only clears the Root Questions; it has no other functionality. Both CalFresh
+    and CalWORKs can be processed for any RE at the same time, depending on the Customer Reporting List
+    page.”<cite>Page 3</cite></blockquote>
+
+  <blockquote>“The 90-day Universal Engagement begins the date the CalWORKs program became
+    active.”<cite>Page 4</cite></blockquote>
+
+  <h2>How it was used — nothing traces to this document</h2>
+  <p>
+    Every distinctive, checkable item in the FAQ was searched for across the application, the database schema and
+    the seed scripts. All of them return nothing: Case Flags, Special Indicators (teen parent, convicted drug felon,
+    outstanding overpayment), the two-digit Person Number and its 99-record cap, hidden case members and the Hide
+    Person page, inter-county transfer disposition timing, the Reception Log and its Yellow Message escalation,
+    Distributed Document retention, the Inter-Agency Transfer Summary page and linked CalHEERS ID, Medicare and
+    medical-expense premiums, the Re-evaluate button and Root Questions, PR/RE cycle alignment, and the wait time
+    when switching a household from EBT to direct deposit.
+  </p>
+  <p>
+    The document’s entire fourth section is Employment Services — the 90-day Universal Engagement clock, the
+    180-hour Job Readiness rule, WTW 2 activity agreements, In Conciliation and Non-Compliance status. The demo has
+    no Welfare-to-Work module; it is on the roadmap, not in the build. There is nothing for that section to
+    have shaped.
+  </p>
+  <p>
+    Two terms overlap and neither is a link. <strong>SAWS 1</strong> appears in the demo, but as an application form
+    name already in the build glossary — the FAQ’s actual content here is a navigation instruction, and the demo
+    implements no such navigation. <strong>Journal entries</strong> appear, but the FAQ says only that CalWIN case
+    comments become CalSAWS journal entries, a conversion note; the demo’s journal has its own dedicated source
+    document.
+  </p>
+
+  <h2>Where this document did not reach</h2>
+  <p>
+    All of it. That is a defensible result, not a gap: this is a county-worker manual for a user interface the
+    rebuild deliberately did not reproduce. Nothing in it was contradicted — the screens it explains simply do not
+    exist in the demo, and the policy and calculation sources that shaped the build are elsewhere in the inventory.
+  </p>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce the quotes above from the official PDF:</p>
+<pre><code>curl -sSLO https://www.calsaws.org/wp-content/uploads/2023/03/CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf
+pdftotext -layout CIT-0076-23-CalSAWS-Infographic-Wave-2-Instructor-Led-Training-FAQs.pdf - | grep -niE "Case Flags|Person Number|SAWS 1|Re-evaluate|Universal Engagement"</code></pre>
+  <p class="src">Then search the codebase for the same terms — <code>rg -ni "case flag|special indicator|person number|universal engagement|WTW" platform/src platform/supabase</code> returns nothing.</p>
+
+</section>
+
+<section id="p-7 CFR 273.9" class="doc hide">
+
+  <h2 style="margin-top:12px">7 CFR 273.9 — Income and deductions (SNAP) <span class="chip info">Partially used</span></h2>
+
+  <div class="headline">
+    <span class="tag">The 30-second version</span>
+    <p>
+      The federal regulation that defines how a SNAP household’s income is counted and which deductions come off it
+      — the source law behind every CalFresh budget in the country. It supplied the <em>arithmetic</em> of the
+      demo’s CalFresh calculation: the 20 percent earned-income deduction, the $35 medical threshold for elderly and
+      disabled households, the waiver of the gross-income test for those households, the half-of-remaining-income
+      shelter formula and its cap, and the net income limit at 100 percent of poverty. It supplied none of the
+      dollar figures — those come from the annual state COLA notice — and roughly half the section, the long list of
+      income exclusions, is not built at all.
+    </p>
+    <p class="action"><strong>Where to see it:</strong> run any CalFresh determination and open the EDBC trace. Steps
+      G1 through N1 are this regulation, in order, each showing its own arithmetic.</p>
+  </div>
+
+  <div class="meta">
+    <span><strong>Type:</strong> Federal regulation — 7 CFR Part 273, SNAP certification</span>
+    <span><strong>Source:</strong> eCFR, current edition</span>
+    <span><strong>Pages:</strong> n/a — web regulation, no single PDF</span>
+    <span><strong>Verified:</strong> fetched &amp; text-extracted 2026-07-31</span>
+  </div>
+  <p class="src"><a href="https://www.ecfr.gov/current/title-7/subtitle-B/chapter-II/subchapter-C/part-273/section-273.9" target="_blank" rel="noopener">ecfr.gov/current/title-7/…/part-273/section-273.9</a></p>
+
+  <h2>What this document is</h2>
+  <p>
+    Federal law, not state guidance. It fixes what counts as income, what may be excluded, and the five deductions
+    that turn gross income into net income — in the order they must be taken. States set the dollar amounts each
+    October; this section sets the method. Treat it as the <strong>rules source</strong> for CalFresh: the shape of
+    the calculation is here, and the annual notice fills in the values.
+  </p>
+
+  <h2>What the document actually says</h2>
+  <p>Verbatim, by paragraph:</p>
+
+  <blockquote>“Households which contain an elderly or disabled member shall meet the net income eligibility
+    standards for SNAP. Households which do not contain an elderly or disabled member shall meet both the net income
+    eligibility standards and the gross income eligibility standards for SNAP.”<cite>§ 273.9(a)</cite></blockquote>
+
+  <blockquote>“The net income eligibility standards for SNAP shall be as follows: … The income eligibility
+    standards for the 48 contiguous States and the District of Columbia, Guam and the Virgin Islands shall be the
+    Federal income poverty levels for the 48 contiguous States and the District of
+    Columbia.”<cite>§ 273.9(a)(2) and (a)(2)(i)</cite></blockquote>
+
+  <blockquote>“Earned income deduction. Twenty percent of gross earned income as defined in paragraph (b)(1) of this
+    section.”<cite>§ 273.9(d)(2)</cite></blockquote>
+
+  <blockquote>“Excess medical deduction. That portion of medical expenses in excess of $35 per month, excluding
+    special diets, incurred by any household member who is elderly or disabled as defined in
+    § 271.2.”<cite>§ 273.9(d)(3)</cite></blockquote>
+
+  <blockquote>“Excess shelter deduction. Monthly shelter expenses in excess of 50 percent of the household’s income
+    after all other deductions in paragraphs (d)(1) through (d)(5) of this section have been allowed. If the
+    household does not contain an elderly or disabled member, as defined in § 271.2 of this chapter, the shelter
+    deduction cannot exceed the maximum shelter deduction limit established for the
+    area.”<cite>§ 273.9(d)(6)(ii)</cite></blockquote>
+
+  <h2>How it was used — five traceable decisions</h2>
+
+  <!-- USE 1 -->
+  <div class="use">
+    <h3><span class="n">01</span> The 20 percent earned income deduction</h3>
+    <p><strong>The business point.</strong> Working households have a fifth of their earnings set aside before any
+      test — the regulation’s recognition that wages carry costs. It is the first deduction taken, and it is a rate,
+      not a dollar amount, so it comes from here rather than from any state notice.</p>
+    <p><strong>Example you can click.</strong> EDBC trace, step D1: “Earned income deduction (20%) — $1,600 earned
+      × 20% = −$320.”</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:124</p>
+<pre><code>const earnedDed = r2(T.earned * C.earnedDedPct / 100);
+net -= earnedDed;
+trace.push({ step: 'D1', label: `Earned income deduction (${C.earnedDedPct}%)`,
+  detail: `$${T.earned} earned × ${C.earnedDedPct}%`, value: `−$${earnedDed}`, pass: null });</code></pre>
+  </div>
+
+  <!-- USE 2 -->
+  <div class="use">
+    <h3><span class="n">02</span> Elderly and disabled households skip the gross income test</h3>
+    <p><strong>The business point.</strong> Two tests exist, and § 273.9(a) says who takes which. A household with a
+      member aged 60 or over, or a disabled member, is judged on net income only. Everyone else must clear both.
+      That branch is the regulation’s, and the demo takes it explicitly — including a trace line saying the test was
+      waived and why, rather than silently skipping it.</p>
+    <p><strong>Example you can click.</strong> Add a 67-year-old to a household and re-run. Step G1 changes from a
+      pass/fail to “Waived — elderly (60+)/disabled household; net test only.”</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:111–120</p>
+<pre><code>if (!ed) {
+  const pass = T.gross &lt;= grossLimit;
+  trace.push({ step: 'G1', label: `Gross income test (≤ ${C.grossPct}% FPL)`, … , pass });
+  if (!pass) {
+    reasons.push({ code: 'CF-G01', text: `Gross income $${T.gross} exceeds …` });
+    return result('CF', 'Ineligible', 0, reasons, trace, { expedited });
+  }
+} else {
+  trace.push({ step: 'G1', label: 'Gross income test',
+    detail: 'Waived — elderly (60+)/disabled household; net test only.', value: 'waived', pass: null });
+}</code></pre>
+    <p class="src">The <em>threshold</em> for that test is not from this section. § 273.9(a)(1)(i) sets the gross
+      standard at 130 percent of poverty; the demo uses 200 percent, which is California’s broad-based categorical
+      eligibility level. Only the branch — who takes which test — traces here.</p>
+  </div>
+
+  <!-- USE 3 -->
+  <div class="use">
+    <h3><span class="n">03</span> Medical costs are deducted only above $35, and only for elderly or disabled members</h3>
+    <p><strong>The business point.</strong> Two conditions in one sentence of the regulation, and both are in the
+      code: the household must contain an elderly or disabled member, and only the portion above $35 a month counts.
+      A $30 pharmacy bill produces no deduction; a $300 one produces $265.</p>
+    <p><strong>Example you can click.</strong> EDBC trace, step D4: “Medical deduction (elderly/disabled) — $300 −
+      $35 threshold = −$265.” Remove the elderly member and the step disappears entirely.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:131–135</p>
+<pre><code>if (ed &amp;&amp; T.medical &gt; C.medThreshold) {
+  const med = r2(T.medical - C.medThreshold);
+  net -= med;
+  trace.push({ step: 'D4', label: 'Medical deduction (elderly/disabled)',
+    detail: `$${T.medical} − $${C.medThreshold} threshold`, value: `−$${med}`, pass: null });
+}</code></pre>
+  </div>
+
+  <!-- USE 4 -->
+  <div class="use">
+    <h3><span class="n">04</span> The excess shelter deduction — half of remaining income, capped only for households with no elderly or disabled member</h3>
+    <p><strong>The business point.</strong> The most intricate rule in the section, and the one that most often
+      decides a CalFresh amount. Shelter counts only to the extent it exceeds half of what is left after every other
+      deduction, and the cap is lifted entirely for elderly and disabled households. Both halves of that rule are in
+      four lines of code.</p>
+    <p><strong>Example you can click.</strong> Household of three, $1,400 rent: trace step D5 shows the half-income
+      subtraction and then the cap biting. Add an elderly member and the cap comes off — the deduction goes through
+      uncapped and the benefit rises.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/engine.ts:140–145</p>
+<pre><code>const shelter = T.rent + (T.utilities &gt; 0 ? C.sua : 0);
+const half    = r2(Math.max(0, net) / 2);
+let excess    = r2(Math.max(0, shelter - half));
+const capped  = !ed &amp;&amp; excess &gt; C.shelterCap;    // cap applies only without an elderly/disabled member
+if (capped) excess = C.shelterCap;
+net -= excess;</code></pre>
+    <p class="src">The cap’s value ($744) and the utility allowance ($663) are the state’s annual figures, not this
+      section’s. The formula and the exemption are this section’s.</p>
+  </div>
+
+  <!-- USE 5 -->
+  <div class="use">
+    <h3><span class="n">05</span> The net income limit is 100 percent of the Federal Poverty Level</h3>
+    <p><strong>The business point.</strong> After every deduction, the household must land at or under the poverty
+      line for its size. § 273.9(a)(2) sets that standard at the federal poverty levels themselves — the one place
+      in the calculation where the threshold is 100 percent and nothing else.</p>
+    <p><strong>Example you can click.</strong> EDBC trace, step N1: “Net income test (≤ 100% FPL) — Net $327 vs
+      limit $2,221.” Both numbers are derived from one stored table.</p>
+    <p class="lbl">The code</p>
+    <p class="src">platform/src/lib/params.ts:41 — the percentage</p>
+<pre><code>grossPct: 200, netPct: 100, earnedDedPct: 20,</code></pre>
+    <p class="src">platform/src/lib/engine.ts:99 — applied to the poverty table for the household size</p>
+<pre><code>const netLimit = r2(fpl(P, n) * C.netPct / 100);</code></pre>
+  </div>
+
+  <h2>Where this document did not reach</h2>
+  <p>A large majority of § 273.9 is not built, and two built pieces depart from it. Stated plainly:</p>
+  <ul>
+    <li><strong>The whole of paragraph (c) — income exclusions.</strong> Roughly half the section, around twenty
+      enumerated exclusions: educational assistance, reimbursements, vendor payments, non-recurring lump sums, child
+      support received, employment-and-training payments, foster care payments, trust withdrawals, student earnings.
+      The demo sums every income row without filtering.</li>
+    <li><strong>The income taxonomy in paragraph (b)</strong> beyond a simple earned/unearned split, including
+      sponsored-alien deeming and pro-rata attribution for disqualified members.</li>
+    <li><strong>The optional child support deduction, § 273.9(d)(5)</strong> — even though child support exists as
+      an expense type in the demo’s data model, it is never deducted.</li>
+    <li><strong>The utility allowance machinery in § 273.9(d)(6)(iii)</strong> — the individual, limited and
+      telephone standards, HEAP-based entitlement, proration, and mandatory-versus-optional use. The demo has one
+      standard allowance and applies it whenever any utility cost is present.</li>
+    <li><strong>The shelter sub-categories in (d)(6)(ii)(A)–(E)</strong> — property taxes, a vacated home, disaster
+      repair — the allowable-medical-cost list in (d)(3)(i)–(x), and the minimum standard deduction levels in
+      (d)(1)(iii).</li>
+    <li><strong>Regional variants</strong> for Alaska, Hawaii, Guam and the Virgin Islands, and the annual
+      1 October reindexing process in (a)(3) and (d)(1)(iii).</li>
+  </ul>
+  <p>Two deliberate departures, so nothing here is read as conformance:</p>
+  <ul>
+    <li>The <strong>gross income standard is 200 percent</strong> of poverty, per California’s broad-based
+      categorical eligibility, where § 273.9(a)(1)(i) sets 130 percent.</li>
+    <li>The <strong>homeless shelter deduction</strong> uses California’s $199 and applies only when the household
+      has no shelter cost at all; § 273.9(d)(6)(i) sets $143 and directs it at homeless households
+      <em>not receiving free shelter</em> throughout the month.</li>
+  </ul>
+
+  <h2>Verify it yourself</h2>
+  <p>Two commands reproduce every quote above from the live regulation:</p>
+<pre><code>curl -sS "https://www.ecfr.gov/api/versioner/v1/full/2025-01-01/title-7.xml?part=273&amp;section=273.9" -o cfr2739.xml
+sed -e 's/&lt;[^&gt;]*&gt;//g' cfr2739.xml | grep -niE "Twenty percent of gross earned income|excess of .35 per month|50 percent of the household|elderly or disabled member shall meet"</code></pre>
+  <p class="src">Then open a CalFresh EDBC trace beside it — steps D1, D4, D5 and N1 are these paragraphs in order.</p>
+
+</section>
+
+<!-- ============================= placeholder ============================= -->
+<section id="p-none" class="hide">
+  <div class="placeholder">
+    <p class="big" id="ph-title">Not yet analyzed</p>
+    <p>This document is in the source inventory but has not been traced yet.<br>
+       <code>CIT-0006-25</code> is the reviewed sample — approve it and the same treatment gets applied to all 63.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p><strong>Method.</strong> Each PDF is re-downloaded from its official calsaws.org / cdss.ca.gov URL, converted
+  to text, and searched for the specific claims the demo makes. Claims are then traced to a file and line number in
+  the repository. Nothing here is asserted from memory — where a source could not be confirmed, the report says so
+  rather than filling the gap.</p>
+  <p>Generated 2026-07-31 · CalSAWS Reimagined · 7 of 63 inventory documents analyzed.</p>
+</footer>
+
+<script>
+  var CIT = ['CIT-0008-26','CIT-0010-25','CIT-0017-22','CIT-0019-21','CIT-0030-22','CIT-0038-23','CIT-0039-23',
+    'CIT-0071-20','CIT-0089-20','CIT-0099-24','CIT-0103-22','CIT-0135-21','CIT-0136-21',
+    'CIT-0148-20','CIT-0148-24','CIT-0150-22','CIT-0169-23','CIT-0173-22','CIT-0179-23','CIT-0198-23','CIT-0206-23',
+    'CIT-0229-21','CIT-0239-22','CIT-0240-21','CIT-0248-23','CIT-0287-22','CIT-0290-23','CIT-0294-22','CIT-0313-23',
+    'CIT-0340-23','CIT-0354-22'];
+  var ACIN = ['ACIN I-15-26','ACIN I-19-16','ACIN I-33-21','ACIN I-45-24','ACIN I-48-23','ACIN I-61-24'];
+  var ACL = ['ACL 08-30','ACL 16-39E','ACL 17-98','ACL 18-117','ACL 21-130','ACL 21-130E','ACL 23-83','ACL 24-55',
+    'ACL 24-63','ACL 25-50','ACL 25-65','ACL 25-68','ACL 25-78'];
+  var OTHER = ['ACWDL 23-14E','ACWDL 25-18','7 CFR 275.16','MPP 42','MPP 44','MPP 63'];
+
+  function fill(id, arr){
+    var g = document.getElementById(id);
+    arr.forEach(function(v){
+      var o = document.createElement('option'); o.value = v; o.textContent = v; g.appendChild(o);
+    });
+  }
+  fill('g-cit', CIT); fill('g-acin', ACIN); fill('g-acl', ACL); fill('g-other', OTHER);
+
+  var sel = document.getElementById('pick');
+  var none = document.getElementById('p-none');
+  var phTitle = document.getElementById('ph-title');
+  var DONE = {};
+  document.querySelectorAll('section.doc').forEach(function (el) { DONE[el.id.slice(2)] = el; });
+
+  document.getElementById('count').textContent = Object.keys(DONE).length + ' of ' + (Object.keys(DONE).length + CIT.length + ACIN.length + ACL.length + OTHER.length) + ' analyzed';
+
+
+  function show(v){
+    Object.keys(DONE).forEach(function (k) { DONE[k].classList.toggle('hide', k !== v); });
+    var known = !!DONE[v];
+    none.classList.toggle('hide', known);
+    if (!known) phTitle.textContent = v + ' — not yet analyzed';
+    if (decodeURIComponent(location.hash.slice(1)) !== v) history.replaceState(null, '', '#' + encodeURIComponent(v));
+    window.scrollTo(0, 0);
+  }
+  sel.addEventListener('change', function(){ show(sel.value); });
+
+  var h = decodeURIComponent(location.hash.slice(1));
+  if (h) { sel.value = h; if (sel.value === h) show(h); }
+</script>
+</body>
+</html>
