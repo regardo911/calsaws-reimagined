@@ -272,9 +272,9 @@ const Chips = ({ ids }: { ids: string[] }) => (
           rel="noopener noreferrer"
           title={`How ${id} was used in the build`}
           aria-label={`How ${id} was used in the build`}
-          style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: 11, lineHeight: 1, padding: '0 2px' }}
+          style={{ color: 'var(--primary)', textDecoration: 'none', fontSize: 12, lineHeight: 1, padding: '0 3px', opacity: 0.75 }}
         >
-          &#9656;
+          &#8599;
         </a>
       </span>
     ))}
@@ -398,7 +398,7 @@ export default function Page() {
             <div className="g-callout info">
               Every ID below links to the <strong>actual document</strong>. Page counts were measured by
               downloading each PDF and counting — the 57 paginated documents total <strong>1,156 pages</strong>;
-              the 2 federal CFR sections and 3 MPP divisions are web regulations without a single page count. Each &#9656; opens the traceability report for that document — what it changed in the software, with the code.
+              the 2 federal CFR sections and 3 MPP divisions are web regulations without a single page count. Each &#8599; opens the traceability report for that document — what it changed in the software, with the code.
             </div>
             <div>
               <div className="g-eyebrow" style={{ marginBottom: 8 }}>CalSAWS County Information Transmittals — 34 · 953 pp</div>
