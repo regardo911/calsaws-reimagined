@@ -190,37 +190,6 @@ const CITATION_GROUPS: { domain: string; rows: Row[] }[] = [
   },
 ];
 
-// ---- Corrections the research team made when the build drifted from current policy ----
-const CORRECTIONS: { what: ReactNode; source: ReactNode; impact: ReactNode }[] = [
-  {
-    what: (
-      <>
-        CalFresh parameters shipped on <strong>FFY2025</strong> values; research pulled the current federal
-        COLA and updated them to <strong>FFY2026</strong> (max allotment $768 → $785, standard deduction
-        $204 → $209, shelter cap $712 → $744, SUA added at $663).
-      </>
-    ),
-    source: <>{CODE('ACIN I-46-25')} (eff. 10/2025)</>,
-    impact: (
-      <>
-        Maria&rsquo;s family-of-3 determination moved <strong>$658 → $686/mo</strong>. Every CalFresh
-        determination would otherwise have shipped stale — caught the same session, with the citation, and
-        re-pinned by a unit test.
-      </>
-    ),
-  },
-  {
-    what: (
-      <>
-        Report names used pre-2016 legacy labels; research aligned them to the current CalSAWS catalog
-        (DFA 296 → <strong>CF 296</strong>; CA 237 CW = caseload movement, not applications; CA 800 = fiscal
-        claiming, not error rates).
-      </>
-    ),
-    source: <>Reports Overview ({CODE('CIT-0038-23')}) · {CODE('ACL 16-39E')}</>,
-    impact: <>The Reports tab now carries the statutory names counties recognize — <strong>CF 296 · CA 237 CW · CA 255</strong>.</>,
-  },
-];
 
 // ---- Full source inventory (each chip links to the official document) ----
 const SOURCE_IDS = ['CIT-0006-25', 'CIT-0008-26', 'CIT-0038-23', 'CIT-0074-23', 'CIT-0103-22', 'CIT-0169-23', 
@@ -391,42 +360,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ---------- Corrections table ---------- */}
-      <section className="g-card">
-        <div className="g-card-hd">
-          <h3 className="g-card-title">Corrections the research team made</h3>
-          <span className="g-card-meta">when a source contradicted the build, the source won</span>
-        </div>
-        <div className="g-card-bd">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div className="g-callout info">
-              Research verified the engineering output against these same sources; where the code had drifted
-              from current policy, it was corrected in the same session and pinned by a test. (The worked Maria
-              example lives on the Introduction tab.)
-            </div>
-            <div className="g-tblwrap">
-              <table className="g-table">
-                <thead>
-                  <tr>
-                    <th style={{ minWidth: 300 }}>What was corrected</th>
-                    <th style={{ minWidth: 180 }}>Source</th>
-                    <th style={{ minWidth: 300 }}>Impact</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {CORRECTIONS.map((c, i) => (
-                    <tr key={i}>
-                      <td>{c.what}</td>
-                      <td>{c.source}</td>
-                      <td>{c.impact}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
