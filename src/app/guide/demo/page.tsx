@@ -199,24 +199,7 @@ const STEPS: Step[] = [
   },
   {
     n: 13,
-    title: 'Yellow Banner — an integrity block',
-    win: 'staff',
-    path: '/case/C-100005?tab=matches',
-    note: <>switch case → <strong>Tanya Brooks · C-100005</strong> · case top</>,
-    do: (
-      <>
-        Person Search <strong>&ldquo;Brooks&rdquo;</strong> → <code className="g-code">C-100005</code> → the
-        <strong> Yellow Banner</strong>: &ldquo;Full Case Review is required before EDBC is run and authorized.&rdquo;
-        IEVS <strong>$2,400</strong> vs case <strong>$1,600</strong> → Run EDBC → <strong>blocked server-side</strong>{' '}
-        → Review &amp; resolve → re-run on the corrected income.
-      </>
-    ),
-    say: <>&ldquo;The same integrity control you run today — minus the sticky notes and the phone tag.&rdquo;</>,
-    alt: 'Screenshot: a case blocked by the Yellow Banner alert over an unresolved IEVS wage discrepancy.',
-    cap: 'Yellow Banner (Tanya Brooks, C-100005) — EDBC blocked in Postgres until the discrepancy is resolved.',
-  },
-  {
-    n: 14,
+    shot: 14,
     title: 'Supervisor authorizes the grant',
     win: 'staff',
     path: '/supervisor',
@@ -231,7 +214,43 @@ const STEPS: Step[] = [
     cap: 'Supervisor authorizations — one atomic transaction writes notices, issuance, tasks, and journal.',
   },
   {
+    n: 14,
+    shot: 17,
+    title: 'What the applicant sees',
+    win: 'applicant',
+    path: '/portal',
+    note: <>back to the applicant window · refresh</>,
+    do: (
+      <>
+        Status <strong>Active</strong>; a plain-language approval NOA per program; EBT issuance rows. Open a notice
+        via <code className="g-code">/portal/noa/&lt;id&gt;</code>.
+      </>
+    ),
+    alt: 'Screenshot: the applicant portal after approval — Active status, notices, and EBT issuance rows.',
+    cap: 'Applicant portal — Active status, per-program approval notices, and EBT issuances.',
+  },
+  {
     n: 15,
+    shot: 13,
+    title: 'Yellow Banner — an integrity block',
+    win: 'staff',
+    path: '/case/C-100005?tab=matches',
+    note: <>back to the staff window · switch case → <strong>Tanya Brooks · C-100005</strong></>,
+    do: (
+      <>
+        Person Search <strong>&ldquo;Brooks&rdquo;</strong> → <code className="g-code">C-100005</code> → the
+        <strong> Yellow Banner</strong>: &ldquo;Full Case Review is required before EDBC is run and authorized.&rdquo;
+        IEVS <strong>$2,400</strong> vs case <strong>$1,600</strong> → Run EDBC → <strong>blocked server-side</strong>{' '}
+        → Review &amp; resolve → re-run on the corrected income.
+      </>
+    ),
+    say: <>&ldquo;The same integrity control you run today — minus the sticky notes and the phone tag.&rdquo;</>,
+    alt: 'Screenshot: a case blocked by the Yellow Banner alert over an unresolved IEVS wage discrepancy.',
+    cap: 'Yellow Banner (Tanya Brooks, C-100005) — EDBC blocked in Postgres until the discrepancy is resolved.',
+  },
+  {
+    n: 16,
+    shot: 15,
     title: 'Change a rule in Admin',
     win: 'staff',
     path: '/admin',
@@ -246,7 +265,8 @@ const STEPS: Step[] = [
     cap: 'Admin Rules & Config — edit a live rule parameter and save.',
   },
   {
-    n: 16,
+    n: 17,
+    shot: 16,
     title: 'Re-run with the new rule',
     win: 'staff',
     path: '/case/C-100002?tab=edbc',
@@ -260,21 +280,6 @@ const STEPS: Step[] = [
     say: <>&ldquo;In the legacy world, that&rsquo;s a change request and a release train.&rdquo;</>,
     alt: 'Screenshot: James Carter General Relief determination recomputed to the new grant amount.',
     cap: 'Re-run (James Carter, C-100002) — General Relief recomputes to $400 immediately.',
-  },
-  {
-    n: 17,
-    title: 'What the applicant sees',
-    win: 'applicant',
-    path: '/portal',
-    note: 'refresh',
-    do: (
-      <>
-        Status <strong>Active</strong>; a plain-language approval NOA per program; EBT issuance rows. Open a notice
-        via <code className="g-code">/portal/noa/&lt;id&gt;</code>.
-      </>
-    ),
-    alt: 'Screenshot: the applicant portal after approval — Active status, notices, and EBT issuance rows.',
-    cap: 'Applicant portal — Active status, per-program approval notices, and EBT issuances.',
   },
   {
     n: 18,
