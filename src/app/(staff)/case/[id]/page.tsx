@@ -25,18 +25,35 @@ export default async function CasePage({ params, searchParams }: {
   const { supabase } = await getStaffContext();
   const P = await loadParams();
 
+  // Accept either the uuid primary key (how the queue links) or the human-readable case number
+  // (how the demo script and deep links refer to cases). Every case number the system emits is
+  // 'C-' + exactly six digits: live applications C-2xxxxx (case_number_seq), golden C-10000x,
+  // LA generated C-119xxx, county templates C-1<code><seq>. The shape gate keeps stray paths off
+  // the database; the uppercase normalisation is required because Postgres text equality is
+  // case-sensitive. RLS applies to this lookup exactly as it does to the case itself, so an
+  // out-of-county case number is indistinguishable from one that does not exist.
+  const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  let caseId = id;
+  if (!UUID_RE.test(id)) {
+    if (!/^C-\d{6,}$/i.test(id)) return <p className="err">Case not found.</p>;
+    const { data: byNumber } = await supabase
+      .from('cases').select('id').eq('case_number', id.toUpperCase()).maybeSingle();
+    if (!byNumber) return <p className="err">Case not found.</p>;
+    caseId = byNumber.id;
+  }
+
   const [{ data: c }, { data: persons }, { data: income }, { data: resources }, { data: expenses },
     { data: matches }, { data: runs }, { data: notices }, { data: journal }, { data: issuances }] = await Promise.all([
-    supabase.from('cases').select('*, profiles:assigned_to(full_name)').eq('id', id).single(),
-    supabase.from('persons').select('*').eq('case_id', id).order('person_key'),
-    supabase.from('income_records').select('*').eq('case_id', id),
-    supabase.from('resource_records').select('*').eq('case_id', id),
-    supabase.from('expense_records').select('*').eq('case_id', id),
-    supabase.from('data_matches').select('*').eq('case_id', id),
-    supabase.from('edbc_runs').select('*, edbc_results(*)').eq('case_id', id).order('created_at', { ascending: false }),
-    supabase.from('notices').select('*').eq('case_id', id).order('date', { ascending: false }),
-    supabase.from('journal_entries').select('*').eq('case_id', id).order('created_at', { ascending: false }),
-    supabase.from('issuances').select('*').eq('case_id', id).order('date', { ascending: false }),
+    supabase.from('cases').select('*, profiles:assigned_to(full_name)').eq('id', caseId).single(),
+    supabase.from('persons').select('*').eq('case_id', caseId).order('person_key'),
+    supabase.from('income_records').select('*').eq('case_id', caseId),
+    supabase.from('resource_records').select('*').eq('case_id', caseId),
+    supabase.from('expense_records').select('*').eq('case_id', caseId),
+    supabase.from('data_matches').select('*').eq('case_id', caseId),
+    supabase.from('edbc_runs').select('*, edbc_results(*)').eq('case_id', caseId).order('created_at', { ascending: false }),
+    supabase.from('notices').select('*').eq('case_id', caseId).order('date', { ascending: false }),
+    supabase.from('journal_entries').select('*').eq('case_id', caseId).order('created_at', { ascending: false }),
+    supabase.from('issuances').select('*').eq('case_id', caseId).order('date', { ascending: false }),
   ]);
 
   if (!c) return <p className="err">Case not found.</p>;

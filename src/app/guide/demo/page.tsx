@@ -116,7 +116,7 @@ const STEPS: Step[] = [
     ),
     say: <>&ldquo;It&rsquo;s a real row in the auth table, with row-level security around everything it owns.&rdquo;</>,
     alt: 'Screenshot: the application-received screen showing a new case number and an expedited callout.',
-    cap: 'Application received — a new case row with an expedited callout.',
+    cap: 'Application received — a new case row with its own case number.',
   },
   {
     n: 8,
@@ -150,20 +150,20 @@ const STEPS: Step[] = [
     n: 10,
     title: 'Open the case — Household to Data Matches',
     win: 'staff',
-    path: '/case/C-100001?tab=household',
+    note: <>open <strong>your</strong> case from the queue</>,
     do: (
       <>
         Walk Household → Income → <strong>Data Matches</strong> (the &ldquo;IEVS wage cross-check&rdquo;).
       </>
     ),
-    alt: 'Screenshot: Maria Reyes case view, Household tab, with Income and Data Matches tabs alongside.',
-    cap: 'Case view (Maria Reyes, C-100001) — Household, Income, and the IEVS Data Matches.',
+    alt: 'Screenshot: the case view, Household tab, with Income and Data Matches tabs alongside.',
+    cap: 'Case view — Household, Income, and the IEVS Data Matches, on the case just submitted.',
   },
   {
     n: 11,
     title: 'Run EDBC',
     win: 'staff',
-    path: '/case/C-100001?tab=edbc',
+    note: <>same screen — do not navigate away</>,
     do: (
       <>
         <strong>Run EDBC</strong> (~1s): <strong>CF $686</strong> · aid 09 / <strong>CW $675</strong> · aid 30 /
@@ -180,8 +180,7 @@ const STEPS: Step[] = [
     n: 12,
     title: 'See the math — “How we got here”',
     win: 'staff',
-    path: '/case/C-100001?tab=edbc',
-    note: '“How we got here” expanded',
+    note: <>same screen — expand &ldquo;How we got here&rdquo;, do not navigate away</>,
     do: (
       <>
         Expand the trace: gross vs <strong>$4,442</strong> (200% FPL), 20% earned-income deduction,
@@ -203,7 +202,7 @@ const STEPS: Step[] = [
     title: 'Yellow Banner — an integrity block',
     win: 'staff',
     path: '/case/C-100005?tab=matches',
-    note: '→ case top',
+    note: <>switch case → <strong>Tanya Brooks · C-100005</strong> · case top</>,
     do: (
       <>
         Person Search <strong>&ldquo;Brooks&rdquo;</strong> → <code className="g-code">C-100005</code> → the
@@ -224,7 +223,7 @@ const STEPS: Step[] = [
     note: <>sign in <code className="g-code">supervisor.angela@</code></>,
     do: (
       <>
-        Authorizations → the case from step 12 → <strong>Authorize</strong> — one SQL transaction writes the NOAs,
+        Authorizations → your applicant's case (the one you accepted in step 12) → <strong>Authorize</strong> — one SQL transaction writes the NOAs,
         issues EBT, closes the tasks, and journals it all.
       </>
     ),
@@ -251,7 +250,7 @@ const STEPS: Step[] = [
     title: 'Re-run with the new rule',
     win: 'staff',
     path: '/case/C-100002?tab=edbc',
-    note: 'back as Dana',
+    note: <>back as Dana · switch case → <strong>James Carter · C-100002</strong>, the only case with General Relief</>,
     do: (
       <>
         Open James Carter → deselect all but General Relief → Run → <strong>$400</strong>, with the new standard
@@ -360,7 +359,7 @@ export default function Page() {
               </div>
               <div className="g-card-bd g-stack">
                 <dl className="g-kv" style={{ margin: 0 }}>
-                  <dt>URL</dt>
+                  <dt>{s.path ? 'URL' : 'Where'}</dt>
                   <dd>
                     {s.path ? (
                       <a

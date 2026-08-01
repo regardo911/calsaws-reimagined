@@ -41,7 +41,11 @@ export default function ApplyPage() {
   async function submit() {
     setBusy(true); setError('');
     const payload: ApplicationPayload = {
-      persons: d.people.filter(p => p.name).map(p => ({ name: p.name, age: +p.age || 0, employed: d.income > 0 })),
+      // Earnings are attributed to the primary applicant — the wizard asks for one household income
+      // figure, not per-person earnings. Flagging everyone employed made children count as workers in
+      // the CalWORKs applicant test ($450 disregard per employed person) and surfaced an "Employed"
+      // flag beside a 3-year-old on the case Household tab.
+      persons: d.people.filter(p => p.name).map((p, i) => ({ name: p.name, age: +p.age || 0, employed: i === 0 && d.income > 0 })),
       monthlyIncome: d.income, resources: d.resources, rent: d.rent, utilities: d.utilities,
       homeless: d.homeless, programs: d.programs, county: d.county,
     };
